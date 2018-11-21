@@ -1,0 +1,171 @@
+<?php
+
+	class HttpClient{
+		
+		private $dir;
+		private $methodName;
+		private $className;
+		private $notFound;
+		private $badRequest;
+	
+		public function execute($method, $uri, $header, $body){
+			
+			$this->notFound = true;
+			$this->badRequest = true;
+			
+			$this->dir = dir(AppConstants::PATH_CONTROLLER);
+			
+			HttpRequest::setHeader($header);
+			HttpRequest::setBody($body);
+			HttpRequest::setUri($uri);
+			HttpRequest::setMethod($method);
+	
+			while (($file = $this->dir->read()) !== false){ 
+			
+				$file_ = pathinfo($file);
+				
+				if($file_['extension'] === 'php') {
+				
+					$reflectionClass = new ReflectionAnnotatedClass($file_['filename']);
+					if($reflectionClass->hasAnnotation('Controller')) {
+					
+						$uriClass = HttpRequest::getUri(0);
+						$uriMethod = HttpRequest::getUri(1);
+						
+						if("/".$uriClass == $reflectionClass->getAnnotation('Controller')->value) {
+							$methods = $reflectionClass->getMethods(ReflectionMethod::IS_PUBLIC);
+							foreach($methods as $method) {
+								$method = new ReflectionAnnotatedMethod($reflectionClass->getName(), $method->getName());
+								if(isset($uriMethod)) {
+									$this->callMethod($reflectionClass, $method);
+								}
+							}
+						}
+					}
+				}
+			} 
+			
+			if($this->notFound) {
+				echo HttpResponse::response('404', 'NOT FOUND', NULL, AppConstants::RESPONSE_JSON);
+			}
+			
+			if($this->badRequest) {
+				//echo HttpResponse::response('400', 'BAD REQUEST', NULL, NULL);
+			}
+			
+			$this->dir->close(); 
+		}
+		
+		private function callMethod($reflectionClass, $method){
+
+			$action =  $method->getName();
+			$controller = $reflectionClass->getName();
+			
+			$reflectionMethod = new ReflectionMethod($controller, $action);
+			$class = $controller;
+			
+			switch(HttpRequest::getMethod()) {
+				
+				case AppConstants::GET_METHOD : {
+					
+					//Verifica se a função contém a anotação 'GetMapping'
+					if($method->hasAnnotation('GetMapping')) {
+						$paramNames = explode("/", $method->getAnnotation('GetMapping')->value);
+						
+						if(HttpRequest::getUri(1) === $paramNames[1]) {
+							HttpRequest::setParams($paramNames);
+						
+							if(HttpRequest::isValidNumberParams()) {
+								
+								$this->callFunction($class, HttpRequest::getUri(1), $method, $reflectionMethod);
+							} 
+						}
+					}
+
+					break;
+				}
+				
+				case AppConstants::POST_METHOD : {
+					
+					if($method->hasAnnotation('PostMapping')) {
+						$actionName = explode("/", $method->getAnnotation('PostMapping')->value);
+							
+						if(HttpRequest::getUri(1) === $ctionName[1]) {	
+							$this->callFunction($class, HttpRequest::getUri(1), $method, $reflectionMethod);
+						}
+					} 
+					
+					break;
+				}
+				
+				case AppConstants::PUT_METHOD : {
+					
+					if($method->hasAnnotation('PutMapping')) {
+						$paramNames = explode("/", $method->getAnnotation('PutMapping')->value);
+						
+						if(HttpRequest::getUri(1) === $paramNames[1]) {
+							HttpRequest::setParams($paramNames);
+						
+							if(HttpRequest::isValidNumberParams()) {
+								
+								$this->callFunction($class, HttpRequest::getUri(1), $method, $reflectionMethod);
+							} else {
+								$this->badRequest = true;
+							}
+						}
+					} 
+					
+					break;
+				}
+				
+				case AppConstants::DELETE_METHOD : {
+					
+					if($method->hasAnnotation('DeleteMapping')) {
+						$paramNames = explode("/", $method->getAnnotation('DeleteMapping')->value);
+						
+						if(HttpRequest::getUri(1) === $paramNames[1]) {
+							HttpRequest::setParams($paramNames);
+						
+							if(HttpRequest::isValidNumberParams()) {
+								$this->callFunction($class, HttpRequest::getUri(1), $method, $reflectionMethod);
+							} else {
+								$this->badRequest = true;
+							}
+						} 
+					} 
+				
+					break;
+				}
+				
+				default : {
+					//echo HttpResponse::response('404', 'NOT FOUND', NULL, AppConstants::RESPONSE_JSON);
+					break;
+				}
+			}
+			
+		}
+		
+		private function callFunction($class__, $uri__, $method__, $reflectionMethod__) {
+			
+			if(HttpRequest::getAction() === $uri__) {
+				
+				$this->notFound = false;
+				
+				if($method__->hasAnnotation('Authorize')) {
+					if(JwtProvider::validateToken(HttpRequest::getHeader('token')) && JwtProvider::canAccess($role, HttpRequest::getHeader('token'))) {
+						HttpRequest::setToken(JwtProvider::renewToken(HttpRequest::getHeader('token')));
+						$reflectionMethod__->invoke(new $class(), '');
+					} else {
+						// RETURN ERRO.
+						//echo HttpResponse::response('401', 'UNAUTHORIZED', NULL, HttpRequest::getHeader('Content-Type'));
+					}
+					
+				} else {
+					
+					$reflectionMethod__->invoke(new $class__(), '');
+				}
+			}
+		}
+	
+	}	
+?>
