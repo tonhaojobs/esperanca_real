@@ -13,27 +13,31 @@ export class MeditacaoComponent implements OnInit {
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
 
-  displayedColumns: string[] = ['descricao', 'ano', 'permanente', 'ativo'];
+  displayedColumns: string[] = ['descricao', 'ano', 'permanente', 'ativo', 'star'];
   dataSource = new MatTableDataSource<Devocional>(DEVOCINAIS);
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  
+
   constructor(private _formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.firstFormGroup = this._formBuilder.group({
-  //    firstCtrl: ['', Validators.required]
+      //    firstCtrl: ['', Validators.required]
     });
     this.secondFormGroup = this._formBuilder.group({
-    //  secondCtrl: ['', Validators.required]
+      //  secondCtrl: ['', Validators.required]
     });
 
     this.dataSource.paginator = this.paginator;
   }
 
+  edit(id: number) {
+    console.log(id);
+  }
 }
 
 export interface Devocional {
+  id: number,
   descricao: string;
   ano: number;
   permanente: boolean;
@@ -41,12 +45,12 @@ export interface Devocional {
 }
 
 const DEVOCINAIS: Devocional[] = [
-  {descricao: 'Devocional Esperança Real', ano: 2018, permanente: true, ativo: false},
-  {descricao: 'Meditação Matinal', ano: 2018, permanente: false, ativo: true},
-  {descricao: 'Meditação Mulher', ano: 2018, permanente: false, ativo: true},
-  {descricao: 'Inspitação Juvenil', ano: 2018, permanente: false, ativo: true},
-  {descricao: 'Janelas para Vida', ano: 2018, permanente: true, ativo: true},
-  {descricao: 'Meditação Por do Sol', ano: 2018, permanente: true, ativo: true},
-  {descricao: 'Devocional Infantil', ano: 2018, permanente: true, ativo: true},
-  {descricao: 'Adoração Infantil', ano: 2018, permanente: true, ativo: true}
+  { id: 1, descricao: 'Devocional Esperança Real', ano: 2018, permanente: true, ativo: false },
+  { id: 2, descricao: 'Meditação Matinal', ano: 2018, permanente: false, ativo: true },
+  { id: 3, descricao: 'Meditação Mulher', ano: 2018, permanente: false, ativo: true },
+  { id: 4, descricao: 'Inspitação Juvenil', ano: 2018, permanente: false, ativo: true },
+  { id: 5, descricao: 'Janelas para Vida', ano: 2018, permanente: true, ativo: true },
+  { id: 6, descricao: 'Meditação Por do Sol', ano: 2018, permanente: true, ativo: true },
+  { id: 7, descricao: 'Devocional Infantil', ano: 2018, permanente: true, ativo: true },
+  { id: 8, descricao: 'Adoração Infantil', ano: 2018, permanente: true, ativo: true }
 ];
