@@ -1,15 +1,12 @@
 import { Injectable } from '@angular/core';
 
 import {HttpInterceptor, HttpRequest, 
-    HttpHandler, HttpEvent, HttpErrorResponse} from '@angular/common/http';
+    HttpHandler, HttpEvent} from '@angular/common/http';
 
-import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import { Router } from '@angular/router';
-import { ToasterService } from 'angular2-toaster';
-import { catchError } from 'rxjs/operators';
-import { AuthenticationService } from '../_services';
-import { map } from 'rxjs/internal/operators/map';
+import { Observable } from 'rxjs';
+import { AuthenticationService } from '../_services/authentication.service';
 
 
 const TOKEN_HEADER_KEY = 'Authorization';

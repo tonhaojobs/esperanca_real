@@ -17,14 +17,12 @@ import { IdentityStorage } from '../_models/identity.storage';
   ],
 
   providers: [
-
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true
     },
     IdentityStorage
-
   ]
 })
 export class AuthModule { }
