@@ -1,0 +1,52 @@
+<div class="container-fluid">
+
+  <div class="main-content">
+    <div class="modal fade show" id="default-modal" style="padding-right: 17px;">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4>{{livro.nome}}</h4>
+          </div>
+          <div class="modal-body">
+            <h5>Capítulos:</h5>
+            <span *ngFor="let capitulo of livro.capitulos" >
+              <a routerLinkActive="active"
+                [routerLink]="['/leitura', livro.id, capitulo]" 
+                class="btn btn-primary btn-icon-alt btn-rounded" data-dismiss="modal" >
+                {{capitulo}}
+              </a>
+            </span>
+          </div>
+          <div class="modal-footer no-border">
+            <div class="text-right">
+              <button class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
+              <button class="btn btn-primary btn-sm" data-dismiss="modal">OK</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page-title">
+      <h4>Sumário</h4>
+    </div>
+    <div class="row">
+      <div class="col-md-6" *ngFor="let testamento of listTestamentos">
+        <div class="card">
+          <div class="card-heading">
+            <h4 class="card-title">{{testamento.abreviacao}} - {{testamento.nome}}</h4>
+          </div>
+          <div class="card-body">
+            <ul>
+              <li style="margin: 10px 0 10px 0;" *ngFor="let livro of listLivros[testamento.id]">
+                {{livro.id}} . {{livro.nome}}
+                <a href="" (click)="openModal(livro)" data-toggle="modal" style="float: right;" class="btn btn-primary btn-icon-alt btn-rounded" data-target="#default-modal" >
+                  + Info
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

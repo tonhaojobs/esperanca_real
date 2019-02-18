@@ -1,0 +1,32 @@
+<div class="container-fluid">
+  <div class="main-content">
+
+    <div class="page-title">
+      <h4>{{livroDTO.nome}} {{capitulo}}</h4>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-heading">
+            <h4 class="card-title"></h4>
+          </div>
+          <div class="card-body">
+            <p *ngFor="let cap of listVersos">
+              {{cap.versiculo}} - {{cap.texto}}
+            </p>
+          </div>
+          <div class="card-footer border top">
+            <ul class="list-unstyled list-inline text-right pdd-vertical-5">
+              <li class="list-inline-item">
+                <a href="" class="btn btn-flat">Action 1</a>
+              </li>
+              <li class="list-inline-item">
+                <a href="" class="btn btn-flat">Action 2</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
