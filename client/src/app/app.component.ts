@@ -13,7 +13,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
 
-    window.sessionStorage.setItem('VERSION_DEFAULT', '2');
+    window.sessionStorage.setItem('CURRENT_VERSION', '2');
 
     $(document).ready(function () {
       $(".side-nav .side-nav-menu li a").on("click", function (e) {

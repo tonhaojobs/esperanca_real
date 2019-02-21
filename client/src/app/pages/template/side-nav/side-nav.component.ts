@@ -11,10 +11,17 @@ import { Router } from '@angular/router';
 export class SideNavComponent implements OnInit {
 
   listVersoes: Array<VersaoDTO>;
+  showSideBar: boolean;
 
   constructor(private bibliaService: BibliaService, public router: Router) { }
 
   ngOnInit() {
+    if(window.sessionStorage.getItem('SHOW_ITENS_SIDEBAR') === 'S') {
+      this.showSideBar = true;
+    } else {
+      this.showSideBar = false;
+    }
+
     this.getVersoes();
   }
   
@@ -25,18 +32,18 @@ export class SideNavComponent implements OnInit {
         this.listVersoes.push(versao);
       });
     });
-  }
-
-  selecionarVersao(id: string) {
-
-    if(window.sessionStorage.getItem('CURRENT_BOOK') && window.sessionStorage.getItem('CURRENT_CHAPTER')) {
-        
-    }
-
-    window.sessionStorage.removeItem('VERSION_DEFAULT');
-    window.sessionStorage.setItem('VERSION_DEFAULT', id);
-    console.log(window.sessionStorage.getItem('VERSION_DEFAULT'));
+    console.log(this.listVersoes);
     
   }
 
+  selecionarVersao(id: string) {
+    window.sessionStorage.removeItem('CURRENT_VERSION');
+    window.sessionStorage.setItem('CURRENT_VERSION', id);
+
+    if(window.sessionStorage.getItem('CURRENT_BOOK') && window.sessionStorage.getItem('CURRENT_CHAPTER')) {
+      window.location.reload();
+      this.router.navigate(['/leitura/', window.sessionStorage.getItem('CURRENT_BOOK'), window.sessionStorage.getItem('CURRENT_CHAPTER'), window.sessionStorage.getItem('CURRENT_VERSION')]);
+    }
+    
+  }
 }

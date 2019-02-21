@@ -11,7 +11,7 @@
             <h5>Capítulos:</h5>
             <span *ngFor="let capitulo of livro.capitulos" >
               <a routerLinkActive="active"
-                [routerLink]="['/leitura', livro.id, capitulo]" 
+                [routerLink]="['/leitura', livro.id, capitulo, versao]" 
                 class="btn btn-primary btn-icon-alt btn-rounded" data-dismiss="modal" >
                 {{capitulo}}
               </a>

@@ -5,7 +5,8 @@ import { LeituraComponent } from './pages/leitura/leitura.component';
 
 const routes: Routes = [
   { path: 'sumario', component: SumarioComponent },
-  { path: 'leitura/:livro/:capitulo', component: LeituraComponent }
+  { path: 'leitura/:livro/:capitulo/:versao', component: LeituraComponent },
+  { path: 'leitura/:versao', component: LeituraComponent }
 ];
 
 @NgModule({
