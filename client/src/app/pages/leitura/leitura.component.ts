@@ -13,8 +13,7 @@ import { LivroDTO } from 'src/app/model/livro-dto';
 export class LeituraComponent implements OnInit {
   @BlockUI() blockUI: NgBlockUI;
 
-  teste: string = 'teste';
-
+  versao: number;
   livro: number;
   livroDTO: LivroDTO;
   capitulo: number;
@@ -24,25 +23,29 @@ export class LeituraComponent implements OnInit {
 
   ngOnInit() {
 
+    window.sessionStorage.removeItem('SHOW_ITENS_SIDEBAR');
+    window.sessionStorage.setItem('SHOW_ITENS_SIDEBAR', 'S');
     this.livroDTO = new LivroDTO()
     this.listVersos = new Array();
+
     this.route.params.subscribe(
       (params: any) => {
         this.livro = params['livro'];
         this.capitulo = params['capitulo'];
+        this.versao = params['versao'];
       }
     )
     
-    this.openBook(this.livro, this.capitulo);   
+    this.openBook(this.livro, this.capitulo, this.versao);   
   }
 
-  public openBook(livro: number, capitulo: number) {
+  private openBook(livro: number, capitulo: number, versao: number) {
 
     this.blockUI.start();
-    let versao: number = Number(window.sessionStorage.getItem('VERSION_DEFAULT'));
-
+  
     window.sessionStorage.setItem('CURRENT_BOOK', livro.toString());
     window.sessionStorage.setItem('CURRENT_CHAPTER', capitulo.toString());
+    window.sessionStorage.setItem('CURRENT_VERSION', versao.toString());
     
     this.bibliaService.openBook(livro, capitulo, versao).subscribe(retorno => {
       retorno.forEach((capitulo: VersoDTO) => {

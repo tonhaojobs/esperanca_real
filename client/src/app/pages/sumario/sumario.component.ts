@@ -14,11 +14,18 @@ export class SumarioComponent implements OnInit {
   listLivros: any[][];
   listTestamentos: Array<TestamentoDTO>;
   livro: LivroDTO;
+  versao: number;
   
   constructor(private bibliaService: BibliaService, public router: Router) { }
 
   ngOnInit() {
     this.livro = new LivroDTO();
+    window.sessionStorage.removeItem('CURRENT_BOOK');
+    window.sessionStorage.removeItem('CURRENT_CHAPTER');
+    this.versao = Number(window.sessionStorage.getItem('CURRENT_VERSION'));
+    window.sessionStorage.removeItem('SHOW_ITENS_SIDEBAR');
+    window.sessionStorage.setItem('SHOW_ITENS_SIDEBAR', 'N');
+    
     this.findAllTestamentos();
   }
 

@@ -8,7 +8,7 @@ import { VersaoDTO } from '../model/versao-dto';
 @Injectable()
 export class BibliaService {
 
-  url: string = 'http://localhost/esperanca-real/api/';
+  url: string = 'http://localhost/esperanca_real/api/';
 
   public http: HttpClient;
 
