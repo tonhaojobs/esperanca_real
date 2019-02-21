@@ -2,11 +2,11 @@
 <block-ui>
   <div class="app header-dark side-nav-dark">
     <div class="layout">
-      <app-side-nav></app-side-nav>
+      <app-side-nav [sideNav]="sideNav"></app-side-nav>
       <div class="page-container">
         <app-header></app-header>
         <toaster-container></toaster-container>
-        <router-outlet></router-outlet>
+        <router-outlet #sideNav></router-outlet>
       </div>
     </div>
   </div>

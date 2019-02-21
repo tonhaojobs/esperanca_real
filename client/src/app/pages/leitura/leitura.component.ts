@@ -13,6 +13,8 @@ import { LivroDTO } from 'src/app/model/livro-dto';
 export class LeituraComponent implements OnInit {
   @BlockUI() blockUI: NgBlockUI;
 
+  teste: string = 'teste';
+
   livro: number;
   livroDTO: LivroDTO;
   capitulo: number;
@@ -34,7 +36,7 @@ export class LeituraComponent implements OnInit {
     this.openBook(this.livro, this.capitulo);   
   }
 
-  private openBook(livro: number, capitulo: number) {
+  public openBook(livro: number, capitulo: number) {
 
     this.blockUI.start();
     let versao: number = Number(window.sessionStorage.getItem('VERSION_DEFAULT'));
