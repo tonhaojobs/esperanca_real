@@ -1,0 +1,37 @@
+<section class="header-nav">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="logo-brand">
+          <h1><a id="logo" href="#"><img src="assets/img/logo.svg" alt="logo"></a></h1>
+        </div>
+      </div>
+      <div class="col-sm-6 text-right">
+        <div class="top-nav">
+          <nav>
+            <div class="menu-bar">
+              <span class="menu-text" data-text='Close'>Menu</span>
+
+              <div class="menu-toggle"></div>
+            </div>
+            <div class="menu-container js-full-height">
+              <div class="menu-inner">
+                <ul class="menu">
+                  <li *ngFor="let item of itensMenu">
+                    <a pageScroll 
+                      [pageScrollOffset]="0" 
+                      [pageScrollDuration]="1000" 
+                      [pageScrollEasing]="myEasing" 
+                      [pageScrollInterruptible]="false" 
+                      (pageScrollFinish)="doSmth($event)" 
+                      href="{{item.id}}"><span>{{item.texto}}</span></a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
