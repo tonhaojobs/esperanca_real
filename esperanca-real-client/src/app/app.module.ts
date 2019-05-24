@@ -18,13 +18,25 @@ import { NgxPageScrollModule } from 'ngx-page-scroll';
 import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
 import { OwlModule  } from 'ngx-owl-carousel';
 import { LivroService } from './service/livro.service';
+import { FabricaService } from './service/fabrica.service';
+import { LeituraComponent } from './page/leitura/leitura.component';
+import { MenuLeituraComponent } from './page/menu-leitura/menu-leitura.component';
+import { PesquisaComponent } from './page/pesquisa/pesquisa.component';
+import { MatButtonModule, MatFormFieldModule, MatInputModule } from '@angular/material';
+import { FormsModule } from '@angular/forms';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     IndiceComponent,
-    MenuComponent
+    MenuComponent,
+    MenuLeituraComponent,
+    PesquisaComponent,
+    LeituraComponent
   ],
   imports: [
     MatTabsModule,
@@ -36,9 +48,18 @@ import { LivroService } from './service/livro.service';
     OwlModule,
     NgxPageScrollModule,
     TabModule,
-    NgxPageScrollCoreModule
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    FormsModule,
+    NgxPageScrollCoreModule,
+    NgxPaginationModule,
+    InfiniteScrollModule
   ],
-  providers: [ LivroService ],
-  bootstrap: [AppComponent]
+  providers: [ LivroService, FabricaService ],
+  bootstrap: [ AppComponent ],
+  entryComponents: [ LeituraComponent ]
 })
 export class AppModule { }
+
+platformBrowserDynamic().bootstrapModule(AppModule);

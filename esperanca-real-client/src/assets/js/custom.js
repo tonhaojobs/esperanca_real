@@ -116,26 +116,6 @@ jQuery(document).ready(function () {
 });
 
 
-//Features Timeline
-jQuery(document).ready(function ($) {
-    var $timeline_block = $('.cHouse-timeline-block');
-
-    //hide timeline blocks which are outside the viewport
-    $timeline_block.each(function () {
-        if ($(this).offset().top > $(window).scrollTop() + $(window).height() * 0.75) {
-            $(this).find('.cHouse-timeline-img, .cHouse-timeline-content').addClass('is-hidden');
-        }
-    });
-
-    //on scolling, show/animate timeline blocks when enter the viewport
-    $(window).on('scroll', function () {
-        $timeline_block.each(function () {
-            if ($(this).offset().top <= $(window).scrollTop() + $(window).height() * 0.75 && $(this).find('.cHouse-timeline-img').hasClass('is-hidden')) {
-                $(this).find('.cHouse-timeline-img, .cHouse-timeline-content').removeClass('is-hidden').addClass('bounce-in');
-            }
-        });
-    });
-});
 
 
 //Testimonial box carousel
@@ -148,59 +128,12 @@ $(document).ready(function () {
         $(this).addClass('current');
     });
     //scrollup js
-    jQuery('.stats-bg').parallax("50%", 0.1);
 
-    jQuery(window).scroll(function () {
-        if (jQuery(this).scrollTop() > 200) {
-            jQuery('.scrollup').fadeIn();
-        } else {
-            jQuery('.scrollup').fadeOut();
-        }
-    });
-
-    jQuery('.scrollup').click(function () {
-        jQuery("html, body").animate({
-            scrollTop: 0
-        }, 600);
-        return false;
-    });
 });
 
 
-jQuery(document).ready(function (t) {
-    t(window).scroll(function () {
-        var e = 600;
-        t(".magical.iphone").each(function () {
-            if (t(this).offset().top < t(window).scrollTop() + e) {
-                t(window).scrollTop() + e - t(this).offset().top;
-                var i = 200,
-                    n = t(this).attr("data-expand-from");
-                t(this).find("#screen-2").css(n, i / 3), t(this).find("#screen-3").css(n, i / 1.5), t(this).find("#screen-4").css(n, i);
-                var s = this;
-                setTimeout(function () {
-                    t(s).addClass("open")
-                }, 1200)
-            }
-        })
-    })
-});
 
 
-jQuery(document).ready(function (u) {
-    u(window).scroll(function () {
-        var e = 600;
-        u(".magical.iphone").each(function () {
-            if (u(this).offset().top < u(window).scrollTop() + e) {
-                u(window).scrollTop() + e - u(this).offset().top;
-                var i = 200,
-                    n = u(this).attr("data-expand-from");
-                u(this).find("#screen-6").css(n, i / 3), u(this).find("#screen-7").css(n, i / 1.5), u(this).find("#screen-8").css(n, i);
-                var s = this;
-                setTimeout(function () {
-                    u(s).addClass("open")
-                }, 1200)
-            }
-        })
-    })
-});
+
+
 

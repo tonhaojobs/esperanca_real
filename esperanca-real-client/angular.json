@@ -40,7 +40,6 @@
               "src/assets/js/jquery.localScroll.min.js",
               "src/assets/js/custom.js",
               "src/assets/js/jquery.parallax.js",
-              "src/assets/js/jquery.scrollTo.min.js",
               "src/assets/js/wow.js",
               "node_modules/owl.carousel/dist/owl.carousel.js"
             ]

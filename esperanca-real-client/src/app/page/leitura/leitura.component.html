@@ -1,0 +1,26 @@
+<app-menu-leitura></app-menu-leitura>
+<div class="container" data-wow-delay="80ms">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="section-title text-center wow fadeInUp">
+        <h2 class="title wow fadeInUp" >{{livro.nome}} {{numCapitulo}}</h2>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="section-title text-left wow fadeInUp">
+        <p *ngFor="let cap of versos | paginate: { id:'paginator-leitura', itemsPerPage: 1, currentPage: numPage, totalItems: totalItems }">
+          {{cap.versiculo}} - {{cap.texto}}
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="section-title text-center wow fadeInUp padding-top30 " data-wow-delay="300ms" *ngIf="totalItems > 0"> 
+        <pagination-controls (pageChange)="nextPage($event)" id="paginator-leitura"></pagination-controls>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,37 @@
+<section id="pesquisa" class="features-love-wrapper padding-top100 padding-bottom30">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-7 col-md-offset-2">
+        <mat-form-field class="example-full-width">
+          <input matInput type="text" placeholder="Palavra Chave" [(ngModel)]="palavraChave" >
+        </mat-form-field>
+      </div>
+      <div class="col-md-1">
+        <button mat-button color="primary" (click)="pesquisar()"><!--i class="sht sht-share-love-search-icon"></i-->teste</button>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="section-title text-center wow fadeInUp" data-wow-delay="300ms">
+          <h3 *ngIf="countResultadoBusca > 0" class="title wow fadeInUp" data-wow-delay="300ms">{{palavraChave}}: {{countResultadoBusca}} resultado(s) encontrado(s)</h3>
+          <h3 *ngIf="countResultadoBusca == 0" class="title wow fadeInUp" data-wow-delay="300ms">{{palavraChave}}: A Pesquisa não retornou resultados</h3>
+        </div>
+      </div>
+    </div>
+    <div class="row padding-top30" *ngFor="let pesquisa of resultadoPesquisa | paginate: { id:'paginator-pesquisa', itemsPerPage: 7, currentPage: p, totalItems: resultadoPesquisa.length}">
+      <div class="section-title text-left wow fadeInUp" data-wow-delay="300ms">
+        <div class="col-md-2" ><a pageScroll [pageScrollOffset]="0" [pageScrollDuration]="700" [pageScrollInterruptible]="false" href="#leitura" (pageScrollFinish)="abrirLivro(pesquisa.capitulo, pesquisa.versiculo);">{{pesquisa.nome}} {{pesquisa.capitulo}}:{{pesquisa.versiculo}}</a></div>
+        <div class="col-md-10">{{pesquisa.texto}}</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="section-title text-center wow fadeInUp padding-top30 " data-wow-delay="300ms" *ngIf="resultadoPesquisa.length > 0"> 
+          <pagination-controls (pageChange)="p = $event" id="paginator-pesquisa"></pagination-controls>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

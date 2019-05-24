@@ -1,0 +1,13 @@
+#sticky {
+    position: sticky;
+    position: -webkit-sticky;
+    background: #f83d23;
+    width: 100px;
+    height: 100px;
+    top: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 6px #000;
+    color: #fff;
+}
