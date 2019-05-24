@@ -1,7 +1,7 @@
 @import '~bootstrap/dist/css/bootstrap.min.css';
-@import '~ngx-owl-carousel-o/lib/styles/prebuilt-themes/owl.carousel.min.css';
-@import '~ngx-owl-carousel-o/lib/styles/prebuilt-themes/owl.theme.default.min.css';
-
+/*@import '~owl.carousel/dist/assets/owl.carousel.css';
+@import '~owl.carousel/dist/assets/owl.theme.default.css';
+*/
 /* Author:SUPERHEROESTHEMES Author
  URI:http://www.superheroesthemes.com
  License:GNU General Public License version 3.0
@@ -3858,9 +3858,9 @@ ul.footer-nav-inner li a {
 }
 
 @font-face {
-  src: url("/assets/fonts/Roboto/Roboto-Regular.ttf");
+/*  src: url("/assets/fonts/Roboto/Roboto-Regular.ttf");
   font-family: "Roboto";
-  font-weight: 400;
+  font-weight: 400;*/
 }
 
 .no-enter {

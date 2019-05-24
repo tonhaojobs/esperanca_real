@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
@@ -15,13 +16,12 @@ import { MatStepperModule } from '@angular/material/stepper';
 
 import { NgxPageScrollModule } from 'ngx-page-scroll';
 import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
-import { CarouselModule } from 'ngx-owl-carousel-o';
-import { CarouselHolderComponent } from './page/template/utils/carousel-holder/carousel-holder.component';
+import { OwlModule  } from 'ngx-owl-carousel';
+import { LivroService } from './service/livro.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CarouselHolderComponent,
     HeaderComponent,
     IndiceComponent,
     MenuComponent
@@ -31,13 +31,14 @@ import { CarouselHolderComponent } from './page/template/utils/carousel-holder/c
     MatStepperModule,
     AppRoutingModule,
     BrowserModule,
+    HttpClientModule,
     BrowserAnimationsModule,
-    CarouselModule,
+    OwlModule,
     NgxPageScrollModule,
     TabModule,
     NgxPageScrollCoreModule
   ],
-  providers: [ CarouselHolderComponent ],
+  providers: [ LivroService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { CarouselHolderComponent } from '../template/utils/carousel-holder/carousel-holder.component';
+import { Livro } from 'src/app/model/livro';
+import { LivroService } from 'src/app/service/livro.service';
 
 @Component({
   selector: 'app-indice',
@@ -7,18 +8,30 @@ import { CarouselHolderComponent } from '../template/utils/carousel-holder/carou
   styleUrls: ['./indice.component.css']
 })
 export class IndiceComponent implements OnInit {
-  
-  slidesStore: Array<any> = [
-    { id: '1', src: 'assets/img/screeenshot-1.jpg', alt: 'teste' },
-    { id: '2', src: 'assets/img/screeenshot-1.jpg', alt: 'teste' },
-    { id: '3', src: 'assets/img/screeenshot-1.jpg', alt: 'teste' },
-    { id: '4', src: 'assets/img/screeenshot-1.jpg', alt: 'teste' },
-    { id: '5', src: 'assets/img/screeenshot-1.jpg', alt: 'teste' }
+
+  livros: Array<Livro[]>;
+
+  testamentos: Array<any> = [
+    { id: 1, descricao: 'Velho Testamento' },
+    { id: 2, descricao: 'Novo Testamento' }
   ];
-  
-  constructor(private carouselHolderComponent_: CarouselHolderComponent) { }
+
+  constructor(private livroService: LivroService) { }
 
   ngOnInit() {
+    this.livros = new Array<Livro[]>();
+    this.getLivros();
+  }
+
+  getLivros(): void {
+
+    this.testamentos.forEach(testamento => {
+      let id = testamento.id;
+      this.livros[id] = new Array<Livro>();
+      this.livroService.findLivrosByTestamento(id).subscribe( livros => {
+        this.livros[id].push(...livros);
+      });
+    });
   }
 
 }

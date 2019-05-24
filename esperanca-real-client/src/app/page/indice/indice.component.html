@@ -9,26 +9,17 @@
     </div>
     <div class="row">
       <div class="col-md-12 text-center">
-
-        <mat-horizontal-stepper [linear]="isLinear" #stepper>
-            <mat-step [stepControl]="firstFormGroup">
-              <ng-template matStepLabel>Fill out your name</ng-template>
-        
-              <owl-carousel-o [options]="carouselHolderComponent_.customOptions" (translated)="carouselHolderComponent_.getPassedData($event)">
-                <ng-container *ngFor="let slide of slidesStore">
-                  <ng-template carouselSlide [id]="slide.id">
-                    <img [src]="slide.src" [alt]="slide.alt" [title]="slide.title">
-                  </ng-template>
-                </ng-container>
-              </owl-carousel-o>
-            </mat-step>
-            <mat-step [stepControl]="secondFormGroup">
-              <ng-template matStepLabel>Fill out your address</ng-template>
-                
-            </mat-step>
-          </mat-horizontal-stepper>
-
-
+        <mat-tab-group mat-align-tabs="center">
+          <mat-tab label="{{testamento.descricao}}" *ngFor="let testamento of testamentos">
+            <div class="testimonials">
+              <owl-carousel [options]="{items: 4, dots: true, navigation: true}" [items]="livros[testamento.id]" [carouselClasses]="['owl-theme', 'sliding']">
+                <div class="item" *ngFor="let livro of livros[testamento.id]">
+                  <div class="thumbnail-image">{{livro.nome}}</div>
+                </div>
+              </owl-carousel>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
       </div>
     </div>
   </div>
