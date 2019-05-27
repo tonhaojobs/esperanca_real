@@ -19,4 +19,12 @@ export class MenuLeituraComponent implements OnInit {
   ngOnInit() {
   }
 
+  modoDia() {
+    localStorage.setItem('bg-color', 'day');
+  }
+
+  modoNoite() {
+    localStorage.setItem('bg-color', 'night');
+  }
+
 }

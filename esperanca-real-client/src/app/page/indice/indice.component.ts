@@ -3,6 +3,7 @@ import { Livro } from 'src/app/model/livro';
 import { LivroService } from 'src/app/service/livro.service';
 import { FabricaService } from 'src/app/service/fabrica.service';
 import { Pesquisa } from 'src/app/model/pesquisa';
+import { LeituraComponent } from '../leitura/leitura.component';
 
 @Component({
   selector: 'app-indice',
@@ -19,6 +20,8 @@ export class IndiceComponent implements OnInit {
   countResultadoBusca: number;
   menorIndex = 0;
   maiorIndex = 10;
+  
+  bgClass: string = 'white';
 
   @ViewChild('dynamic', { read: ViewContainerRef }) viewContainerRef: ViewContainerRef;
 
@@ -79,6 +82,22 @@ export class IndiceComponent implements OnInit {
   abrirLivroPesquisa(livro: number, capitulo: number, versiculo: number) {
     localStorage.setItem('numeroVersiculo', versiculo.toString());
     this.abrirLivro(livro, capitulo);
+  }
+
+  modoDia() {
+    this.bgClass = 'white';
+  }
+
+  modoNoite() {
+    this.bgClass = 'dark';
+  }
+
+  aumentarTamanhoFonte() {
+    
+  }
+
+  diminuirTamanhoFonte() {
+
   }
 
 }

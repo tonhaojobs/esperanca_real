@@ -27,6 +27,7 @@ import { FormsModule } from '@angular/forms';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     FormsModule,
     NgxPageScrollCoreModule,
     NgxPaginationModule,
-    InfiniteScrollModule
+    InfiniteScrollModule,
+    MatDialogModule
   ],
   providers: [ LivroService, FabricaService ],
   bootstrap: [ AppComponent ],

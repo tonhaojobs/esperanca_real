@@ -44,7 +44,7 @@
         </mat-form-field>
       </div>
       <div class="col-md-1">
-        <button mat-stroked-button color="primary" (click)="pesquisar()"><i class="fas fa-search"></i></button>
+        <button mat-flat-button color="primary" (click)="pesquisar()"><i class="fas fa-search"></i></button>
       </div>
     </div>
   </div>
@@ -74,6 +74,28 @@
     </div>
   </div>
 </section>
-<section id="leitura" class="padding-top100 padding-bottom80 testimonial-wrapper">
+<section id="leitura" class="padding-bottom80 testimonial-wrapper" [ngClass]="(bgClass === 'white') ? 'white' : 'dark'">
+  <div id="sticky">
+    <ul>
+      <li>
+        <a mat-button (click)="modoDia()" data-toggle="tooltip" title="Modo Dia"><i class="fas fa-sun"></i></a>
+      </li>
+      <li>
+        <a mat-button (click)="modoNoite()" data-toggle="tooltip" title="Modo Noite"><i class="fas fa-moon"></i></a>
+      </li>
+      <li>
+        <a mat-button (click)="aumentarTamanhoFonte()" data-toggle="tooltip" title="Aumentar Fonte"><i class="fas fa-search-plus"></i></a>
+      </li>
+      <li>
+        <a mat-button routerLink="." data-toggle="tooltip" title="Diminuir Fonte"><i class="fas fa-search-minus"></i></a>
+      </li>
+      <li>
+        <a mat-button routerLink="." data-toggle="tooltip" title="Alterar Versão"><i class="fas fa-exchange-alt"></i></a>
+      </li>
+      <li>
+        <a mat-button routerLink="." data-toggle="tooltip" title="Marcar capítulo como lido"><i class="fas fa-check-square"></i></a>
+      </li>
+    </ul>
+  </div>
   <ng-template #dynamic></ng-template>
 </section>
