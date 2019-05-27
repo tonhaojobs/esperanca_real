@@ -9,8 +9,9 @@ export class MenuLeituraComponent implements OnInit {
 
   itensMenu: Array<any> = [
     { id: '#home', texto : 'Home' },
-    { id: '#apresentacao', texto : 'Apresentação' },
     { id: '#indice', texto : 'Índice' },
+    { id: '#pesquisa', texto : 'Pesquisa' },
+    { id: '#leitura', texto : 'Leitura' },
     { id: '#login', texto : 'Entrar' }
   ];
   constructor() { }

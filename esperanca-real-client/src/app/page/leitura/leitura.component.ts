@@ -16,17 +16,19 @@ export class LeituraComponent implements OnInit {
   livro: Livro;
   livroSelecionado: boolean;
   bgClass: string = 'white';
-  numeroCapitulo: number = 1;
+  numeroCapitulo: number;
   totalItems: number;
   numPage: number;
   numCapitulo: number;
+  numeroVersiculo: number;
   
   constructor(private livroService: LivroService) { }
   
   ngOnInit() {
     this.livro = new Livro();
     this.idLivro = Number(localStorage.getItem('idLivro'));
-    this.numCapitulo = Number(localStorage.getItem('capitulo'));
+    this.numCapitulo = Number(localStorage.getItem('numeroCapitulo'));
+    this.numeroVersiculo = Number(localStorage.getItem('numeroVersiculo'));
     
     if(localStorage.getItem('numeroCapitulo')) {
       this.numeroCapitulo = Number(localStorage.getItem('numeroCapitulo'));
@@ -44,6 +46,7 @@ export class LeituraComponent implements OnInit {
     this.versao = versao;
     this.versos = new Array();
     this.numCapitulo = capitulo;
+    this.numPage = capitulo;
 
     this.livroService.abrirLivro($event, capitulo, versao).subscribe(result => {
       this.versos.push(...result);
@@ -54,6 +57,14 @@ export class LeituraComponent implements OnInit {
       this.livro = this.setLivro(retorno[0]);
       this.totalItems = this.livro.numeroCapitulos;
      });
+
+     this.limparStorage();
+  }
+
+  limparStorage() {
+    localStorage.removeItem('idLivro');
+    localStorage.removeItem('numeroCapitulo');
+    localStorage.removeItem('numeroVersiculo');
   }
 
   nextPage($event: any) {

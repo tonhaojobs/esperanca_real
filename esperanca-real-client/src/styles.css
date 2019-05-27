@@ -2303,7 +2303,7 @@ video {
     background-position: center;
     background-size: cover;
     overflow: hidden;
-    background: url("assets/img/image-bg-ironman.jpg");
+    background: url("assets/img/bg/bg_01.jpg");
 }
 
 /*-------------------------------------------------------------------------*/
@@ -2495,7 +2495,7 @@ video {
 /* 15. Share Love Section
 /*-------------------------------------------------------------------------*/
 .share-love {
-    background: #ff5d60;
+  background: #517FA4;
     overflow: hidden;
 }
 

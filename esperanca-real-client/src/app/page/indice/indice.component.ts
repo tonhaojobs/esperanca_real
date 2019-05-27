@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewContainerRef, Inject } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewContainerRef, Inject, Directive, Input } from '@angular/core';
 import { Livro } from 'src/app/model/livro';
 import { LivroService } from 'src/app/service/livro.service';
 import { FabricaService } from 'src/app/service/fabrica.service';
@@ -70,12 +70,14 @@ export class IndiceComponent implements OnInit {
     
     localStorage.setItem('idLivro', livro.toString());
     localStorage.setItem('numeroCapitulo', capitulo.toString());
+    
     this.viewContainerRef.remove();
     this.fabricaService.setRootViewContainerRef(this.viewContainerRef);
     this.fabricaService.addComponent();
   }
 
-  abrirLivroPesquisa(livro, capitulo, versiculo) {
+  abrirLivroPesquisa(livro: number, capitulo: number, versiculo: number) {
+    localStorage.setItem('numeroVersiculo', versiculo.toString());
     this.abrirLivro(livro, capitulo);
   }
 

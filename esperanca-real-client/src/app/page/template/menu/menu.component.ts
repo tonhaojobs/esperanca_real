@@ -9,10 +9,9 @@ export class MenuComponent implements OnInit {
 
   itensMenu: Array<any> = [
     { id: '#home', texto : 'Home' },
-    { id: '#pesquisa', texto : 'Pesquisar' },
-    { id: '#apresentacao', texto : 'Apresentação' },
     { id: '#indice', texto : 'Índice' },
-    { id: '#leitura', texto : 'Capitulo' },
+    { id: '#pesquisa', texto : 'Pesquisa' },
+    { id: '#leitura', texto : 'Leitura' },
     { id: '#login', texto : 'Entrar' }
   ];
 
