@@ -2,6 +2,7 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Livro } from 'src/app/model/livro';
 import { LivroService } from 'src/app/service/livro.service';
 import { Verso } from 'src/app/model/verso';
+import { Pesquisa } from 'src/app/model/pesquisa';
 
 @Component({
   selector: 'app-leitura',
@@ -9,67 +10,80 @@ import { Verso } from 'src/app/model/verso';
   styleUrls: ['./leitura.component.css']
 })
 export class LeituraComponent implements OnInit {
-  
-  public idLivro: number;
-  versos: Array<Verso>;
-  versao: number;
-  livro: Livro;
-  livroSelecionado: boolean;
-  numeroCapitulo: number;
-  totalItems: number;
-  numPage: number;
-  numCapitulo: number;
-  numeroVersiculo: number;
-  
-  constructor(private livroService: LivroService) { }
-  
-  ngOnInit() {
 
-    this.livro = new Livro();
-    this.idLivro = Number(localStorage.getItem('idLivro'));
-    this.numCapitulo = Number(localStorage.getItem('numeroCapitulo'));
-    this.numeroVersiculo = Number(localStorage.getItem('numeroVersiculo'));
-    
-    if(localStorage.getItem('numeroCapitulo')) {
-      this.numeroCapitulo = Number(localStorage.getItem('numeroCapitulo'));
-      localStorage.removeItem('numeroCapitulo');
-    }
-    
-    this.abrirLivro(this.idLivro, this.numeroCapitulo, 1);
+  /* INDICE */
+  private livros: Array<Livro[]>;
+  private testamentos: Array<any> = [
+    { id: 1, descricao: 'Velho Testamento' },
+    { id: 2, descricao: 'Novo Testamento' }
+  ];
+
+  /* PESQUISA */
+  private palavraChave: string;
+  private palavraChavePesquisa: string;
+  private exibirResultado: boolean;
+  private resultadoPesquisa: Array<Pesquisa>;
+  private countResultadoBusca: number;
+
+  /* LEITURA */
+  private livroDTO: Livro;
+  private livro: number;
+  private capitulo: number;
+  private versao: number;
+  private versos: Array<Verso>;
+  private totalItems: number;
+
+  /* SIDEMENU */
+  private backgroundClass: string; 
+  private fontSize: number;
+
+  constructor(private livroService: LivroService) { }
+
+  ngOnInit(): void {
+    this.iniciarVariaveis();
+    this.getLivros();
   }
 
-  abrirLivro($event: any, capitulo: number, versao: number) {
+  private getLivros(): void {
 
-    this.livroSelecionado = true;
-    
-    this.idLivro = $event;
-    this.versao = versao;
+    this.testamentos.forEach(testamento => {
+      let id = testamento.id;
+      this.livros[id] = new Array<Livro>();
+      this.livroService.findLivrosByTestamento(id).subscribe( livros => {
+        this.livros[id].push(...livros);
+      });
+    });
+  }
+
+  public pesquisar(): void {
+
+    this.exibirResultado = false;
+    this.palavraChavePesquisa = this.palavraChave;
+
+    this.livroService.search(this.palavraChave, 1).subscribe(result => {
+      this.resultadoPesquisa = new Array<Pesquisa>();
+      this.resultadoPesquisa.push(...result);
+
+      this.countResultadoBusca = this.resultadoPesquisa.length;
+    });
+  }
+
+  private abrirLivro(livro: number, capitulo: number, versao: number) {
+  
     this.versos = new Array();
-    this.numCapitulo = capitulo;
-    this.numPage = capitulo;
+    this.livro = livro;
+    this.capitulo = capitulo;
+    this.versao = versao;
 
-    this.livroService.abrirLivro($event, capitulo, versao).subscribe(result => {
+    this.livroService.abrirLivro(livro, capitulo, versao).subscribe(result => {
       this.versos.push(...result);
     });
 
-    this.livroService.findLivroById(this.idLivro).subscribe(retorno => {
+    this.livroService.findLivroById(livro).subscribe(retorno => {
       
-      this.livro = this.setLivro(retorno[0]);
-      this.totalItems = this.livro.numeroCapitulos;
+      this.livroDTO = this.setLivro(retorno[0]);
+      this.totalItems = this.livroDTO.numeroCapitulos;
      });
-
-     this.limparStorage();
-  }
-
-  limparStorage() {
-    localStorage.removeItem('idLivro');
-    localStorage.removeItem('numeroCapitulo');
-    localStorage.removeItem('numeroVersiculo');
-  }
-
-  nextPage($event: any) {
-    this.numPage = $event;
-    this.abrirLivro(this.idLivro, this.numPage, this.versao);
   }
 
   private setLivro(livro: Livro): Livro {
@@ -86,4 +100,28 @@ export class LeituraComponent implements OnInit {
 
     return livroRetorno;
   }
+
+  private iniciarVariaveis(): void {
+    this.livroDTO = new Livro();
+    this.livros = new Array<Livro[]>();
+    this.resultadoPesquisa = new Array<Pesquisa>();
+  }
+
+  alternarModoDiaENoite() {
+    this.backgroundClass = ('white') ? 'dark' : 'white';
+  }
+
+  private aumentarTamanhoFonte() {
+    this.fontSize += 1;
+  }
+
+  private diminuirTamanhoFonte() {
+    this.fontSize -= 1;
+  }
+
+  nextPage($event: any) {
+    this.capitulo = $event;
+    this.abrirLivro(this.livro, this.capitulo, this.versao);
+  }
+
 }

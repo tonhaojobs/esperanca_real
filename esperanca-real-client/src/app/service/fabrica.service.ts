@@ -23,7 +23,4 @@ export class FabricaService {
     this.rootViewContainer.insert(this.component.hostView);
   }
 
-  public getComponent(): LeituraComponent {
-    return this.component;
-  }
 }

@@ -36,7 +36,7 @@ export class IndiceComponent implements OnInit {
   constructor(
     private livroService: LivroService, 
     @Inject(ViewContainerRef) viewContainerRef: ViewContainerRef, 
-    @Inject(FabricaService) fabricaService: FabricaService, ) { 
+    @Inject(FabricaService) fabricaService: FabricaService ) { 
       this.fabricaService = fabricaService;
       this.viewContainerRef = viewContainerRef;
       this.resultadoPesquisa = new Array<Pesquisa>();
