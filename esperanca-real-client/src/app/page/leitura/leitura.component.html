@@ -9,7 +9,7 @@
   <div class="row">
     <div class="col-md-12">
       <div class="section-title text-left wow fadeInUp">
-        <p [ngStyle]="{'font-size.px': fontSize}" [ngClass]="(idLivro === livro.id && numCapitulo === numPage && numeroVersiculo === cap.versiculo) ? 'red' : ''" *ngFor="let cap of versos | paginate: { id:'paginator-leitura', itemsPerPage: 1, currentPage: numCapitulo, totalItems: totalItems }">
+        <p [ngClass]="(idLivro === livro.id && numCapitulo === numPage && numeroVersiculo === cap.versiculo) ? 'red' : ''" *ngFor="let cap of versos | paginate: { id:'paginator-leitura', itemsPerPage: 1, currentPage: numCapitulo, totalItems: totalItems }">
           {{cap.versiculo}} - {{cap.texto}}
         </p>
       </div>

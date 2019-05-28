@@ -20,17 +20,15 @@ export class LeituraComponent implements OnInit {
   numPage: number;
   numCapitulo: number;
   numeroVersiculo: number;
-  fontSize: number;
   
-  constructor(private livroService: LivroService) { 
-  }
+  constructor(private livroService: LivroService) { }
   
   ngOnInit() {
+
     this.livro = new Livro();
     this.idLivro = Number(localStorage.getItem('idLivro'));
     this.numCapitulo = Number(localStorage.getItem('numeroCapitulo'));
     this.numeroVersiculo = Number(localStorage.getItem('numeroVersiculo'));
-    this.fontSize =  Number(localStorage.getItem('fontSize')) ? Number(localStorage.getItem('fontSize')) : 12;
     
     if(localStorage.getItem('numeroCapitulo')) {
       this.numeroCapitulo = Number(localStorage.getItem('numeroCapitulo'));

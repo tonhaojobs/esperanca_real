@@ -6,6 +6,7 @@ export class FabricaService {
 
   private rootViewContainer: any;
   private factoryResolver: ComponentFactoryResolver;
+  component: any;
 
   constructor(@Inject(ComponentFactoryResolver) factoryResolver: ComponentFactoryResolver) {
     this.factoryResolver = factoryResolver;
@@ -18,7 +19,11 @@ export class FabricaService {
   public addComponent() {
 
     const factory = this.factoryResolver.resolveComponentFactory(LeituraComponent);
-    const component = factory.create(this.rootViewContainer.parentInjector);
-    this.rootViewContainer.insert(component.hostView);
+    this.component = factory.create(this.rootViewContainer.parentInjector);
+    this.rootViewContainer.insert(this.component.hostView);
+  }
+
+  public getComponent(): LeituraComponent {
+    return this.component;
   }
 }

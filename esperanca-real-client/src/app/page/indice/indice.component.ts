@@ -4,6 +4,7 @@ import { LivroService } from 'src/app/service/livro.service';
 import { FabricaService } from 'src/app/service/fabrica.service';
 import { Pesquisa } from 'src/app/model/pesquisa';
 import { LeituraComponent } from '../leitura/leitura.component';
+import { componentFactoryName } from '@angular/compiler';
 
 @Component({
   selector: 'app-indice',
@@ -20,7 +21,7 @@ export class IndiceComponent implements OnInit {
   countResultadoBusca: number;
   menorIndex = 0;
   maiorIndex = 10;
-  
+  fontSize: number;
   bgClass: string = 'white';
 
   @ViewChild('dynamic', { read: ViewContainerRef }) viewContainerRef: ViewContainerRef;
@@ -43,6 +44,7 @@ export class IndiceComponent implements OnInit {
 
   ngOnInit() {
     this.livros = new Array<Livro[]>();
+    this.fontSize = 11;
     this.getLivros();
   }
 
@@ -93,11 +95,10 @@ export class IndiceComponent implements OnInit {
   }
 
   aumentarTamanhoFonte() {
-    
+    this.fontSize = this.fontSize + 1;
   }
 
   diminuirTamanhoFonte() {
-
   }
 
 }
