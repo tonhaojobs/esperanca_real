@@ -16,7 +16,7 @@
                 <div class="item" *ngFor="let livro of livros[testamento.id]">
                   <div class="thumbnail-image">
                     <div class="livro-wrapper">
-                      <a pageScroll [pageScrollOffset]="0" [pageScrollDuration]="700" [pageScrollInterruptible]="false" href="#leitura" (pageScrollFinish)="abrirLivro(livro.id, 1, 1);">{{livro.nome}}</a>
+                      <a pageScroll [pageScrollOffset]="0" [pageScrollDuration]="700" [pageScrollInterruptible]="false" href="#leitura" (pageScrollFinish)="abrirLivroIndice(livro.id, 1, 1);">{{livro.nome}}</a>
                     </div>
                   </div>
                 </div>
@@ -60,21 +60,22 @@
     <div class="row padding-top30" *ngFor="let pesquisa of resultadoPesquisa | paginate: { id:'paginator-pesquisa', itemsPerPage: 7, currentPage: p, totalItems: countResultadoPesquisa}">
       <div class="section-title text-left wow fadeInUp" data-wow-delay="300ms">
         <div class="col-md-2">
-          <a pageScroll [pageScrollOffset]="0" [pageScrollDuration]="700" [pageScrollInterruptible]="false" href="#leitura" (pageScrollFinish)="abrirLivroPesquisa(pesquisa.livro, pesquisa.capitulo, pesquisa.versiculo);">{{pesquisa.nome}} {{pesquisa.capitulo}}:{{pesquisa.versiculo}}</a>
+          <a pageScroll [pageScrollOffset]="0" [pageScrollDuration]="700" [pageScrollInterruptible]="false" href="#leitura" (pageScrollFinish)="abrirLivroPesquisa(pesquisa.livro, pesquisa.capitulo, pesquisa.versiculo)">{{pesquisa.nome}} {{pesquisa.capitulo}}:{{pesquisa.versiculo}}</a>
         </div>
         <div class="col-md-10">{{pesquisa.texto}}</div>
       </div>
     </div>
     <div class="row">
       <div class="col-md-12">
-        <div class="section-title text-center wow fadeInUp padding-top30 " data-wow-delay="300ms" *ngIf="countResultadoPesquisa > 0"> 
+        <div class="section-title text-center wow fadeInUp padding-top30" data-wow-delay="300ms" *ngIf="countResultadoPesquisa > 0"> 
           <pagination-controls (pageChange)="p = $event" id="paginator-pesquisa"></pagination-controls>
         </div>
       </div>
     </div>
   </div>
 </section>
-<section id="leitura" class="testimonial-wrapper" [ngClass]="(backgroundClass === 'white') ? 'white' : 'dark'">
+
+<section id="leitura" class="testimonial-wrapper padding-top30" [ngClass]="(backgroundClass === 'white') ? 'white' : 'dark'">
   <div id="sticky">
     <ul>
       <li>
@@ -98,15 +99,18 @@
   <div class="container" data-wow-delay="80ms">
     <div class="row">
       <div class="col-md-12">
-        <div class="section-title text-center wow fadeInUp">
+        <div class="section-title text-center wow fadeIn">
           <h2 class="title wow fadeInUp" data-toggle="tooltip" title="Nova Versão Internacional">{{livroDTO.nome}} {{capitulo}} (NVI)</h2>
         </div>
       </div>
     </div>
     <div class="row">
       <div class="col-md-12">
-        <div class="section-title text-left wow fadeInUp">
-          <p [ngStyle]="{'font-size': fontSize + 'px'}" *ngFor="let cap of versos | paginate: { id:'paginator-leitura', itemsPerPage: 1, currentPage: numCapitulo, totalItems: totalItems }">
+        <div class="section-title text-left wow fadeIn">
+          <p id="leitura_{{cap.versiculo}}" 
+            [ngStyle]="{'font-size': fontSize + 'px'}" 
+            [ngClass]="(livroPesquisa === livro && capituloPesquisa === capitulo && versiculoPesquisa === cap.versiculo) ? 'red' : ''"
+            *ngFor="let cap of versos | paginate: { id:'paginator-leitura', itemsPerPage: 1, currentPage: capitulo, totalItems: totalItems }">
             {{cap.versiculo}} - {{cap.texto}}
           </p>
         </div>

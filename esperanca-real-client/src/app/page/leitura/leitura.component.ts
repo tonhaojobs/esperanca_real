@@ -23,7 +23,10 @@ export class LeituraComponent implements OnInit {
   private palavraChavePesquisa: string;
   private exibirResultado: boolean;
   private resultadoPesquisa: Array<Pesquisa>;
-  private countResultadoBusca: number;
+  private countResultadoPesquisa: number;
+  private livroPesquisa: number;
+  private capituloPesquisa: number;
+  private versiculoPesquisa: number;
 
   /* LEITURA */
   private livroDTO: Livro;
@@ -37,11 +40,14 @@ export class LeituraComponent implements OnInit {
   private backgroundClass: string; 
   private fontSize: number;
 
+  public loading = false;
+
   constructor(private livroService: LivroService) { }
 
   ngOnInit(): void {
     this.iniciarVariaveis();
     this.getLivros();
+    this.abrirLivro(1, 1, 1);
   }
 
   private getLivros(): void {
@@ -64,7 +70,7 @@ export class LeituraComponent implements OnInit {
       this.resultadoPesquisa = new Array<Pesquisa>();
       this.resultadoPesquisa.push(...result);
 
-      this.countResultadoBusca = this.resultadoPesquisa.length;
+      this.countResultadoPesquisa = this.resultadoPesquisa.length;
     });
   }
 
@@ -84,6 +90,24 @@ export class LeituraComponent implements OnInit {
       this.livroDTO = this.setLivro(retorno[0]);
       this.totalItems = this.livroDTO.numeroCapitulos;
      });
+  }
+
+  private abrirLivroIndice(livro: number, capitulo: number, versao: number) {
+    
+    this.livroPesquisa = 0;
+    this.capituloPesquisa = 0;
+    this.versiculoPesquisa = 0;
+
+    this.abrirLivro(livro, capitulo, versao);
+  }
+
+  private abrirLivroPesquisa(livro: number, capitulo: number, versiculo: number) {
+
+    this.livroPesquisa = livro;
+    this.capituloPesquisa = capitulo;
+    this.versiculoPesquisa = versiculo;
+
+    this.abrirLivro(livro, capitulo, 1);
   }
 
   private setLivro(livro: Livro): Livro {
