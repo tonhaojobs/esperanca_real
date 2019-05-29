@@ -104,19 +104,25 @@ export class LeituraComponent implements OnInit {
   private iniciarVariaveis(): void {
     this.livroDTO = new Livro();
     this.livros = new Array<Livro[]>();
+    this.backgroundClass = 'white';
+    this.fontSize = 14;
     this.resultadoPesquisa = new Array<Pesquisa>();
   }
 
   alternarModoDiaENoite() {
-    this.backgroundClass = ('white') ? 'dark' : 'white';
+    this.backgroundClass = (this.backgroundClass == 'white') ? 'dark' : 'white';
   }
 
   private aumentarTamanhoFonte() {
-    this.fontSize += 1;
+    if(this.fontSize <= 22) {
+      this.fontSize += 1;    
+    }
   }
 
   private diminuirTamanhoFonte() {
-    this.fontSize -= 1;
+    if(this.fontSize >= 10) {    
+      this.fontSize -= 1;
+    }
   }
 
   nextPage($event: any) {
