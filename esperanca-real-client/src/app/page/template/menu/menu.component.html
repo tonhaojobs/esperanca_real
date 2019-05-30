@@ -11,7 +11,6 @@
           <nav>
             <div class="menu-bar">
               <span class="menu-text" data-text='Close'>Menu</span>
-
               <div class="menu-toggle"></div>
             </div>
             <div class="menu-container js-full-height">
@@ -23,7 +22,9 @@
                       [pageScrollDuration]="1000" 
                       [pageScrollEasing]="myEasing" 
                       [pageScrollInterruptible]="false" 
-                      href="{{item.id}}"><span>{{item.texto}}</span></a>
+                      href="{{item.id}}">
+                      <span>{{item.texto}}</span>
+                    </a>
                   </li>
                 </ul>
               </div>

@@ -1,8 +1,9 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Livro } from 'src/app/model/livro';
 import { LivroService } from 'src/app/service/livro.service';
 import { Verso } from 'src/app/model/verso';
 import { Pesquisa } from 'src/app/model/pesquisa';
+import { TooltipPosition } from '@angular/material';
 
 @Component({
   selector: 'app-leitura',
@@ -17,6 +18,8 @@ export class LeituraComponent implements OnInit {
     { id: 1, descricao: 'Velho Testamento' },
     { id: 2, descricao: 'Novo Testamento' }
   ];
+
+  private versoes: Array<any>;
 
   /* PESQUISA */
   private palavraChave: string;
@@ -41,6 +44,8 @@ export class LeituraComponent implements OnInit {
   private fontSize: number;
 
   public loading = false;
+  public tooltipPosition: TooltipPosition = 'right';
+  public showMenuLeitura: boolean;
 
   constructor(private livroService: LivroService) { }
 
@@ -48,6 +53,7 @@ export class LeituraComponent implements OnInit {
     this.iniciarVariaveis();
     this.getLivros();
     this.abrirLivro(1, 1, 1);
+    this.getVersoes();
   }
 
   private getLivros(): void {
@@ -59,6 +65,15 @@ export class LeituraComponent implements OnInit {
         this.livros[id].push(...livros);
       });
     });
+  }
+
+  private getVersoes() {
+
+    this.livroService.findAllVersoes().subscribe( versoes => {
+      this.versoes.push(... versoes);
+      
+    });
+    console.log(this.versoes);
   }
 
   public pesquisar(): void {
@@ -131,6 +146,8 @@ export class LeituraComponent implements OnInit {
     this.backgroundClass = 'white';
     this.fontSize = 14;
     this.resultadoPesquisa = new Array<Pesquisa>();
+    this.versoes = new Array<any>();
+    this.showMenuLeitura = false;
   }
 
   alternarModoDiaENoite() {
@@ -152,6 +169,10 @@ export class LeituraComponent implements OnInit {
   nextPage($event: any) {
     this.capitulo = $event;
     this.abrirLivro(this.livro, this.capitulo, this.versao);
+  }
+
+  toggleMenuLeitura(): void {
+    this.showMenuLeitura = (this.showMenuLeitura) ? false : true;
   }
 
 }

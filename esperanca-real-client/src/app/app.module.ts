@@ -22,12 +22,15 @@ import { FabricaService } from './service/fabrica.service';
 import { LeituraComponent } from './page/leitura/leitura.component';
 import { MenuLeituraComponent } from './page/menu-leitura/menu-leitura.component';
 import { PesquisaComponent } from './page/pesquisa/pesquisa.component';
-import { MatButtonModule, MatFormFieldModule, MatInputModule } from '@angular/material';
+import { MatButtonModule, MatFormFieldModule, MatInputModule, MatSelectModule } from '@angular/material';
 import { FormsModule } from '@angular/forms';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { MatDialogModule } from '@angular/material/dialog';
+import { LoginComponent } from './page/login/login.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { ModalComponent } from './page/template/modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +40,9 @@ import { MatDialogModule } from '@angular/material/dialog';
     MenuComponent,
     MenuLeituraComponent,
     PesquisaComponent,
-    LeituraComponent
+    LeituraComponent,
+    LoginComponent,
+    ModalComponent
   ],
   imports: [
     MatTabsModule,
@@ -56,11 +61,13 @@ import { MatDialogModule } from '@angular/material/dialog';
     NgxPageScrollCoreModule,
     NgxPaginationModule,
     InfiniteScrollModule,
-    MatDialogModule
+    MatDialogModule,
+    MatTooltipModule,
+    MatSelectModule
   ],
   providers: [ LivroService, FabricaService ],
   bootstrap: [ AppComponent ],
-  entryComponents: [ LeituraComponent ]
+  entryComponents: [ LeituraComponent, ModalComponent ]
 })
 export class AppModule { }
 

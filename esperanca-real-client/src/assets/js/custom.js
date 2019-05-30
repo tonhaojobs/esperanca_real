@@ -23,10 +23,7 @@ jQuery(document).ready(function () {
         });
     });
 
-
-
     //Localscroll initialization
-
     $.localScroll({
 
         queue: true,
@@ -92,9 +89,7 @@ jQuery(document).ready(function () {
 
 
     $(window).resize(function () {
-
         js_height_init();
-
     });
 
     /*-------------------------------------------------*/
@@ -111,12 +106,8 @@ jQuery(document).ready(function () {
     wow.init();
 
     //Tooltip
-
     $('[data-toggle="tooltip"]').tooltip();
 });
-
-
-
 
 //Testimonial box carousel
 $(document).ready(function () {

@@ -38,3 +38,50 @@
     background-color: #333;
     color: #dedede;
 }
+
+
+
+.menu-leitura-container {
+    top: 0;
+    left: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(35, 32, 45, 0.9);
+    padding: 1em 2em;
+    position: fixed;
+    display: table;
+    z-index: 999997;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.visible {
+    visibility: visible;
+}
+
+.menu-leitura {
+    background-color: #51e28e;
+    list-style: none;
+    height: auto;
+    width: 660px;
+    min-height: 500px;
+    display: block;
+    margin: 0 auto;
+    padding: 40px 0;
+    z-index: 99998;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    transition: all 0.3s;
+}
+
+.menu-inner {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    position: relative;
+    vertical-align: middle;
+    margin: 0 auto;
+    padding: 0;
+}

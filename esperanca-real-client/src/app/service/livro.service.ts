@@ -25,6 +25,10 @@ export class LivroService {
     return this.getMethod(this.url + "capitulo/" + livro + "/" + capitulo + "/" + versao);
   }
 
+  findAllVersoes(): Observable<any> {
+    return this.getMethod(this.url + "versoes");
+  }
+
   search(palavraChave: string, versao: number): Observable<any> {   
     return this.getMethod(this.url + "search/" + palavraChave + "/" + versao);
   }

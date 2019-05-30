@@ -28,6 +28,23 @@
     </div>
   </div>
 </section>
+
+<section id="versao" class="padding-top80 padding-bottom80 testimonial-wrapper">
+  <div class="row justify-content-md-center">
+    <div class="col col-md-7">
+      <div class="wow padding-top80" data-wow-delay="300ms">
+          <mat-form-field class="example-full-width">
+          <mat-select>
+            <mat-option *ngFor="let versao of versoes" value="versao.id" placeholder="Versão">
+              {{versao.nome}} - {{versao.sigla}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section id="pesquisa" class="clearfix padding-top100 padding-bottom130">
   <div class="container">
     <div class="row">
@@ -79,20 +96,20 @@
   <div id="sticky">
     <ul>
       <li>
-        <a mat-button *ngIf="backgroundClass == 'dark'" (click)="alternarModoDiaENoite()" data-toggle="tooltip" title="Modo Dia"><i class="fas fa-sun"></i></a>
-        <a mat-button *ngIf="backgroundClass == 'white'" (click)="alternarModoDiaENoite()" data-toggle="tooltip" title="Modo Noite"><i class="fas fa-moon"></i></a>
+        <a mat-button *ngIf="backgroundClass == 'dark'" (click)="alternarModoDiaENoite()" matTooltip="Modo Noite" [matTooltipPosition]="tooltipPosition"><i class="fas fa-sun"></i></a>
+        <a mat-button *ngIf="backgroundClass == 'white'" (click)="alternarModoDiaENoite()" matTooltip="Modo Dia" [matTooltipPosition]="tooltipPosition"><i class="fas fa-moon"></i></a>
       </li>
       <li>
-        <a mat-button [disabled]="fontSize > 22" (click)="aumentarTamanhoFonte()" data-toggle="tooltip" title="Aumentar Fonte"><i class="fas fa-search-plus"></i></a>
+        <a mat-button [disabled]="fontSize > 22" (click)="aumentarTamanhoFonte()" matTooltip="Aumentar Fonte" [matTooltipPosition]="tooltipPosition"><i class="fas fa-search-plus"></i></a>
       </li>
       <li>
-        <a mat-button [disabled]="fontSize < 10" (click)="diminuirTamanhoFonte()" data-toggle="tooltip" title="Diminuir Fonte"><i class="fas fa-search-minus"></i></a>
+        <a mat-button [disabled]="fontSize < 10" (click)="diminuirTamanhoFonte()" matTooltip="Diminuir Fonte" [matTooltipPosition]="tooltipPosition"><i class="fas fa-search-minus"></i></a>
       </li>
       <li>
-        <a mat-button routerLink="." data-toggle="tooltip" title="Alterar Versão"><i class="fas fa-exchange-alt"></i></a>
+        <a mat-button pageScroll matTooltip="Alterar Versão" [matTooltipPosition]="tooltipPosition" href="#versao"><i class="fas fa-exchange-alt"></i></a>
       </li>
       <li>
-        <a mat-button routerLink="." data-toggle="tooltip" title="Marcar capítulo como lido"><i class="fas fa-check-square"></i></a>
+        <a mat-button pageScroll [pageScrollOffset]="0" [pageScrollDuration]="700" [pageScrollInterruptible]="false" href="#login"><i class="fas fa-check-square"></i></a>
       </li>
     </ul>
   </div>
@@ -125,3 +142,20 @@
     </div>
   </div>
 </section>
+
+
+    <div [ngClass]="(showMenuLeitura) ? 'visible' : 'hidden'" class="menu-leitura-container">
+      <a mat-button matTooltip="Alterar Versão" [matTooltipPosition]="tooltipPosition" (click)="toggleMenuLeitura()"><i class="fas fa-exchange-alt"></i></a>
+      <div class="menu-leitura">
+        <div class="menu-inner">
+          <mat-form-field>
+            <mat-select>
+              <mat-option *ngFor="let versao of versoes" value="versao.id">
+                {{versao.nome}} - {{versao.sigla}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+      
+        </div>
+      </div>
+    </div>
