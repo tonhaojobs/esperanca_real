@@ -31,6 +31,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { LoginComponent } from './page/login/login.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ModalComponent } from './page/template/modal/modal.component';
+import { CarouselModule } from 'ngx-owl-carousel-o';
+import { CarouselHolderComponent } from './page/template/carousel-holder/carousel-holder.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,8 @@ import { ModalComponent } from './page/template/modal/modal.component';
     PesquisaComponent,
     LeituraComponent,
     LoginComponent,
-    ModalComponent
+    ModalComponent,
+    CarouselHolderComponent
   ],
   imports: [
     MatTabsModule,
@@ -63,7 +66,8 @@ import { ModalComponent } from './page/template/modal/modal.component';
     InfiniteScrollModule,
     MatDialogModule,
     MatTooltipModule,
-    MatSelectModule
+    MatSelectModule,
+    CarouselModule 
   ],
   providers: [ LivroService, FabricaService ],
   bootstrap: [ AppComponent ],

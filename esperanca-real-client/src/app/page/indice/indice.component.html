@@ -1,138 +1,34 @@
-<section id="indice" class="padding-top100 padding-bottom80 testimonial-wrapper">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="section-title text-center wow fadeInUp" data-wow-delay="300ms">
-          <h2 class="title wow fadeInUp" data-wow-delay="300ms">Índice</h2>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12 text-center">
-        <mat-tab-group mat-align-tabs="center">
-          <mat-tab label="{{testamento.descricao}}" *ngFor="let testamento of testamentos">
-            <div class="testimonials">
-              <owl-carousel [options]="{items: 5, dots: true, navigation: true}" [items]="livros[testamento.id]" [carouselClasses]="['owl-theme', 'sliding']">
-                <div class="item" *ngFor="let livro of livros[testamento.id]">
-                  <div class="thumbnail-image">
-                    <div class="livro-wrapper">
-                      <a pageScroll [pageScrollOffset]="0" [pageScrollDuration]="700" [pageScrollInterruptible]="false" href="#leitura" (pageScrollFinish)="abrirLivro(livro.id, 1);">{{livro.nome}}</a>
-                    </div>
-                  </div>
-                </div>
-              </owl-carousel>
-            </div>
-          </mat-tab>
-        </mat-tab-group>
-      </div>
-    </div>
-  </div>
-</section>
-<section id="pesquisa" class="clearfix padding-top100 padding-bottom130">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="section-title text-center wow fadeInUp" data-wow-delay="300ms">
-          <h2 class="title wow fadeInUp" data-wow-delay="300ms">Pesquisa</h2>
-        </div>
-      </div>
-    </div>
-    <div class="row justify-content-md-center">
-      <div class="col col-md-7">
-        <mat-form-field class="example-full-width">
-          <input matInput type="text" placeholder="Buscar na Bíblia" [(ngModel)]="palavraChave" >
-        </mat-form-field>
-      </div>
-      <div class="col-md-1">
-        <button mat-flat-button color="primary" (click)="pesquisar()"><i class="fas fa-search"></i></button>
-      </div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <owl-carousel-o [options]="customOptions">
+        <ng-container *ngFor="let slide of slidesStore">
+          <ng-template carouselSlide [id]="slide.id">
+            <img [src]="slide.src" [alt]="slide.alt" [title]="slide.title">
+          </ng-template>
+        </ng-container>
+      </owl-carousel-o>
+
+
+      <owl-carousel-o [options]="customOptions" (translated)="getPassedData($event)" #owlCar>
+        
+          <ng-container *ngFor="let item of carouselData">
+            <ng-template carouselSlide [id]="item.id" [width]="item.width">
+              <div class="slider">
+                <p>{{item.text}}</p>
+                  
+              </div><!-- /.carousel-item team-member -->
+            </ng-template>
+          </ng-container>
+          
+        </owl-carousel-o>
+         
+        <p>
+          <a class="btn btn-success" (click)="owlCar.prev()">prev</a> <==>
+          <a class="btn btn-success" (click)="owlCar.next()">next</a>
+        </p>
+        <p><a class="btn btn-success" (click)="owlCar.to('slide-3')">move to 3th slide</a></p>
+        
     </div>
   </div>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="section-title text-center wow fadeInUp" data-wow-delay="300ms">
-          <h3 *ngIf="countResultadoBusca > 0" class="title wow fadeInUp" data-wow-delay="300ms">{{palavraChave}}: {{countResultadoBusca}} resultado(s) encontrado(s)</h3>
-          <h3 *ngIf="countResultadoBusca == 0" class="title wow fadeInUp" data-wow-delay="300ms">{{palavraChave}}: A Pesquisa não retornou resultados</h3>
-        </div>
-      </div>
-    </div>
-    <div class="row padding-top30" *ngFor="let pesquisa of resultadoPesquisa | paginate: { id:'paginator-pesquisa', itemsPerPage: 7, currentPage: p, totalItems: resultadoPesquisa.length}">
-      <div class="section-title text-left wow fadeInUp" data-wow-delay="300ms">
-        <div class="col-md-2">
-          <a pageScroll [pageScrollOffset]="0" [pageScrollDuration]="700" [pageScrollInterruptible]="false" href="#leitura" (pageScrollFinish)="abrirLivroPesquisa(pesquisa.livro, pesquisa.capitulo, pesquisa.versiculo);">{{pesquisa.nome}} {{pesquisa.capitulo}}:{{pesquisa.versiculo}}</a>
-        </div>
-        <div class="col-md-10">{{pesquisa.texto}}</div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12">
-        <div class="section-title text-center wow fadeInUp padding-top30 " data-wow-delay="300ms" *ngIf="resultadoPesquisa.length > 0"> 
-          <pagination-controls (pageChange)="p = $event" id="paginator-pesquisa"></pagination-controls>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<section id="leitura" class="padding-bottom80 testimonial-wrapper" [ngClass]="(bgClass === 'white') ? 'white' : 'dark'">
-  <div id="sticky">
-    <ul>
-      <li>
-        <a mat-button (click)="modoDia()" data-toggle="tooltip" title="Modo Dia"><i class="fas fa-sun"></i></a>
-      </li>
-      <li>
-        <a mat-button (click)="modoNoite()" data-toggle="tooltip" title="Modo Noite"><i class="fas fa-moon"></i></a>
-      </li>
-      <li>
-        <a mat-button (click)="aumentarTamanhoFonte()" data-toggle="tooltip" title="Aumentar Fonte"><i class="fas fa-search-plus"></i></a>
-      </li>
-      <li>
-        <a mat-button routerLink="." data-toggle="tooltip" title="Diminuir Fonte"><i class="fas fa-search-minus"></i></a>
-      </li>
-      <li>
-        <a mat-button routerLink="." data-toggle="tooltip" title="Alterar Versão"><i class="fas fa-exchange-alt"></i></a>
-      </li>
-      <li>
-        <a mat-button routerLink="." data-toggle="tooltip" title="Marcar capítulo como lido"><i class="fas fa-check-square"></i></a>
-      </li>
-    </ul>
-  </div>
-  
-  <div class="container" data-wow-delay="80ms">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="section-title text-center wow fadeInUp">
-          <h2 class="title wow fadeInUp" data-toggle="tooltip" title="Nova Versão Internacional">{{livro.nome}} {{numCapitulo}} (NVI)</h2>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12">
-        <div class="section-title text-left wow fadeInUp">
-          <p [ngClass]="(idLivro === livro.id && numCapitulo === numPage && numeroVersiculo === cap.versiculo) ? 'red' : ''" *ngFor="let cap of versos | paginate: { id:'paginator-leitura', itemsPerPage: 1, currentPage: numCapitulo, totalItems: totalItems }">
-            {{cap.versiculo}} - {{cap.texto}}
-          </p>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12">
-        <div class="section-title text-center wow fadeInUp padding-top30 " data-wow-delay="300ms" *ngIf="totalItems > 0"> 
-          <pagination-controls (pageChange)="nextPage($event)" id="paginator-leitura"></pagination-controls>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-
-
-
-
-
-
-
-
-
-
-
-</section>
+</div>

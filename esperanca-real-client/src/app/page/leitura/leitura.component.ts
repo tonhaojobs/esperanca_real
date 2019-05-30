@@ -143,6 +143,7 @@ export class LeituraComponent implements OnInit {
   private iniciarVariaveis(): void {
     this.livroDTO = new Livro();
     this.livros = new Array<Livro[]>();
+    this.versao = 1;
     this.backgroundClass = 'white';
     this.fontSize = 14;
     this.resultadoPesquisa = new Array<Pesquisa>();
@@ -173,6 +174,14 @@ export class LeituraComponent implements OnInit {
 
   toggleMenuLeitura(): void {
     this.showMenuLeitura = (this.showMenuLeitura) ? false : true;
+  }
+
+  onVersaoChanged(versao: number) {
+
+    let livro = (this.livroPesquisa && this.livroPesquisa !== 0) ? this.livroPesquisa : 1;
+    let capitulo = (this.capituloPesquisa && this.capituloPesquisa !== 0) ? this.capituloPesquisa : 1;
+
+    this.abrirLivro(livro, capitulo, versao);
   }
 
 }
