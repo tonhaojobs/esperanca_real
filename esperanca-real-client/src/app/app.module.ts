@@ -33,6 +33,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { ModalComponent } from './page/template/modal/modal.component';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { CarouselHolderComponent } from './page/template/carousel-holder/carousel-holder.component';
+import { AngularWebStorageModule } from 'angular-web-storage';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { CarouselHolderComponent } from './page/template/carousel-holder/carouse
     MatDialogModule,
     MatTooltipModule,
     MatSelectModule,
-    CarouselModule 
+    CarouselModule,
+    AngularWebStorageModule
   ],
   providers: [ LivroService, FabricaService ],
   bootstrap: [ AppComponent ],
