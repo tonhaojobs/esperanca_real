@@ -7,6 +7,7 @@ use Slim\App;
 use Tuupola\Middleware\HttpBasicAuthentication;
 
 return function (App $app) {
+	
 	$container = $app->getContainer();
 	$container['logger'] = function($c) {
 		$logger = new \Monolog\Logger('my_logger');
@@ -22,11 +23,11 @@ return function (App $app) {
 	$app->add(new \Slim\Middleware\JwtAuthentication([
 		"path" => "/",
 		"logger" => $container['logger'],
-		"secret" => "123456789helo_secret",
+		"secret" => "@33sp33r44nc44_R3344L",
 		"rules" => [
 			new \Slim\Middleware\JwtAuthentication\RequestPathRule([
 				"path" => "/",
-				"passthrough" => ["/token", "/not-secure", "/home"]
+				"passthrough" => ["/not-secure/*"]
 			]),
 			new \Slim\Middleware\JwtAuthentication\RequestMethodRule([
 				"passthrough" => ["OPTIONS"]
