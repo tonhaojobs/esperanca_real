@@ -41,7 +41,8 @@ class BibliaService {
 	}
 	
 	public function login($email, $senha) {
-		$senhaCriptografada = $this->getSenhaCriptografada($senha);
+	//	$senhaCriptografada = $this->getSenhaCriptografada($senha);
+		$senhaCriptografada = $senha;
 		return $this->bibliaDAO->login($email, $senhaCriptografada);
 	}
 	

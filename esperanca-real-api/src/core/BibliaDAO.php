@@ -137,7 +137,7 @@ class BibliaDAO {
 		$sql  = " SELECT ";
 		$sql .= " id_usuario, primeiro_nome, ultimo_nome, email ";
 		$sql .= " FROM biblia.usuario ";
-		$sql .= " WHERE biblia.email = :email AND senha = :senha ";
+		$sql .= " WHERE email = :email AND senha = :senha ";
 		
 		$this->resultSet = $this->PDO->prepare($sql);
 		

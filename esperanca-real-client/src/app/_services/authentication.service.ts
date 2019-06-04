@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { LocalStorageService } from 'angular-web-storage';
 
@@ -22,6 +23,12 @@ export class AuthenticationService {
 
         return this.http.post<AuthenticationResponse>('this.baseUrl' + 'api/login', credentials)
         .map(resp => {
+
+          if(resp.token) {
+            
+          } else {
+
+          }
         });
   }
 

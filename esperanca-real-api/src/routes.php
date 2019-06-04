@@ -11,22 +11,30 @@ return function (App $app) {
 	
 	$container = $app->getContainer();
 
-	$app->post("/not-secure/login/{usuario}/{senha}", function($request, $response, $args){
+	$app->post("/not-secure/login", function($request, $response, $args){
 		
-		//$retorno = $biblia->login($args['usuario'], $args['senha']);
-		$retorno = true; // login fake
-		if($retorno) {
+		$data_ = $request->getParsedBody();
+				
+		$biblia = new \Service\BibliaService();
+		
+		$usuario = $data_['usuario']; 
+		$senha = $data_['senha'];
+		$retorno = $biblia->login($usuario, $senha);
+						
+		if(!empty($retorno)) {
 			
 			$now = new DateTime();
 			$future = new DateTime("+30 minutes");
 			$server = $request->getServerParams();
 			$jti = (new Base62)->encode(random_bytes(16));
+			
 			$payload = [
 				"iat" => $now->getTimeStamp(),
 				"exp" => $future->getTimeStamp(),
 				"jti" => $jti,
-				"sub" => $args['usuario']
+				"sub" => $usuario
 			];
+			
 			$secret = "@33sp33r44nc44_R3344L";
 			$token = JWT::encode($payload, $secret, "HS256");
 			$data["token"] = $token;
@@ -37,6 +45,11 @@ return function (App $app) {
 				
 		} else {
 			
+			$data = ["status" => 403, 'msg' => 'Usuário e/ou Senha incorreto(s)'];
+			
+			return $response->withStatus(403)
+				->withHeader("Content-Type", "application/json")
+				->write(json_encode($data));
 		}
 	});
 
