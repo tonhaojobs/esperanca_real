@@ -52,15 +52,13 @@ return function (App $app) {
 		]
 	]));
 
-
-	$app->add(new \Tuupola\Middleware\Cors([
-		"logger" => $container["logger"],
+	$app->add(new \Tuupola\Middleware\CorsMiddleware([
 		"origin" => ["*"],
-		"methods" => ["GET", "POST", "PUT", "PATCH", "DELETE"],
-		"headers.allow" => ["Authorization", "If-Match", "If-Unmodified-Since"],
-		"headers.expose" => ["Authorization", "Etag"],
+		"methods" => ["GET", "POST", "PATCH", "DELETE", "OPTIONS"],    
+		"headers.allow" => ["Origin", "Content-Type", "Authorization", "Accept", "ignoreLoadingBar", "X-Requested-With", "Access-Control-Allow-Origin"],
+		"headers.expose" => [],
 		"credentials" => true,
-		"cache" => 60,
+		"cache" => 0,
 		"error" => function ($request, $response, $arguments) {
 			return new UnauthorizedResponse($arguments["message"], 401);
 		}

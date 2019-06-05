@@ -13,18 +13,20 @@
     </div>
     <div class="row padding-top100 padding-bottom130">
       <div class="col-md-6 wow fadeInUp">
-        <div class="section-title share-love-title text-center">
-          <h3 class="title wow fadeInUp" data-wow-delay="300ms">Já possui cadastro?</h3>
-        </div>
-
-        <mat-form-field class="example-full-width">
-          <input matInput type="text" placeholder="Buscar na Bíblia">
-        </mat-form-field>
-      </div>
-      <div class="col-md-6 wow fadeInUp">
-        <div class="section-title share-love-title text-center">
-          <h3 class="title wow fadeInUp" data-wow-delay="300ms">Já possui cadastro?</h3>
-        </div>
+      
+        <form class="example-form">
+          <div class="input-login">
+            <mat-form-field class="example-full-width">
+              <input name="email" [formControl]="email" type="text" matInput placeholder="email">
+            </mat-form-field>
+          </div>
+          <div class="input-login">
+            <mat-form-field class="example-full-width">
+              <input type="password" [formControl]="senha" matInput placeholder="Senha">
+            </mat-form-field>
+          </div>
+          <button class="bot-login" (click)="login()" mat-button>Login</button>
+        </form>
       </div>
     </div>
   </div>

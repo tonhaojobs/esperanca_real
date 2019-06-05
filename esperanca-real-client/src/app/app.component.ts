@@ -8,5 +8,12 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'ER';
 
- // localStorage.setItem('idLivro', livro.toString());
+  constructor() {
+    let headers: Headers = new Headers();
+    headers.set('Content-Type', 'application/json');
+    headers.append('Access-Control-Allow-Origin', '*');
+    headers.append('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    headers.append('Access-Control-Allow-Headers', 'X-Requested-With,content-type,Authorization');
+  }
+
 }

@@ -1,5 +1,4 @@
 <?php
-header("Access-Control-Allow-Origin: *");
 // Routes
 require_once 'core/BibliaService.php';
 
@@ -134,27 +133,4 @@ return function (App $app) {
 			->withHeader("Content-Type", "application/json")
 			->write(json_encode($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
 	});
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-	$app->post("/formData",  function ($request, $response, $args) {
-		$data = $request->getParsedBody();
-
-		$result = ["status" => 1, 'msg' => $data];
-
-		// Request with status response
-		return $this->response->withJson($result, 200);
-	});
-
 };

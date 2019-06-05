@@ -18,12 +18,11 @@ import { NgxPageScrollModule } from 'ngx-page-scroll';
 import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
 import { OwlModule  } from 'ngx-owl-carousel';
 import { LivroService } from './service/livro.service';
-import { FabricaService } from './service/fabrica.service';
 import { LeituraComponent } from './page/leitura/leitura.component';
 import { MenuLeituraComponent } from './page/menu-leitura/menu-leitura.component';
 import { PesquisaComponent } from './page/pesquisa/pesquisa.component';
 import { MatButtonModule, MatFormFieldModule, MatInputModule, MatSelectModule } from '@angular/material';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -34,6 +33,8 @@ import { ModalComponent } from './page/template/modal/modal.component';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { CarouselHolderComponent } from './page/template/carousel-holder/carousel-holder.component';
 import { AngularWebStorageModule } from 'angular-web-storage';
+import { AuthenticationService } from './_services/authentication.service';
+import { IdentityStorage } from './_models/identity-storage';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { AngularWebStorageModule } from 'angular-web-storage';
     CarouselHolderComponent
   ],
   imports: [
+    ReactiveFormsModule,
     MatTabsModule,
     MatStepperModule,
     AppRoutingModule,
@@ -71,7 +73,7 @@ import { AngularWebStorageModule } from 'angular-web-storage';
     CarouselModule,
     AngularWebStorageModule
   ],
-  providers: [ LivroService, FabricaService ],
+  providers: [ LivroService, AuthenticationService, IdentityStorage ],
   bootstrap: [ AppComponent ],
   entryComponents: [ LeituraComponent, ModalComponent ]
 })

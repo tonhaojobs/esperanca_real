@@ -15,7 +15,12 @@
               <owl-carousel [options]="{items: 5, dots: true, navigation: true, reponsive: true}" [items]="livros[testamento.id]" [carouselClasses]="['owl-theme', 'row', 'sliding']">
                 <div class="item" *ngFor="let livro of livros[testamento.id]">
                   <div class="thumbnail-image" >
-                    <a pageScroll [pageScrollOffset]="0" [pageScrollDuration]="700" [pageScrollInterruptible]="false" href="#leitura" (pageScrollFinish)="abrirLivroIndice(livro.id, 1, 1);"><img src="assets/img/books/yellow2.png"><span class="livro-info">teste</span></a>
+                    <a pageScroll [pageScrollOffset]="0" [pageScrollDuration]="700" [pageScrollInterruptible]="false" href="#leitura" (pageScrollFinish)="abrirLivroIndice(livro.id, 1, 1);">
+                    <!--
+                      <img src="assets/img/books/yellow2.png"><span class="livro-info">teste</span>
+                    -->
+                    {{livro.nome}}
+                    </a>
                     
                   </div>
                 </div>
