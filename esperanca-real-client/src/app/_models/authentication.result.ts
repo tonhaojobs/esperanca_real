@@ -1,4 +1,4 @@
-class AuthenticationResult {
+export class AuthenticationResult {
 
     ok: boolean;
     message: string;
@@ -7,4 +7,4 @@ class AuthenticationResult {
         this.ok = ok;
         this.message = message;
     }
-  }
+}

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +13,7 @@ export class LoginComponent implements OnInit {
   email = new FormControl('', Validators.required);
   senha = new FormControl('', Validators.required)
 
-  constructor(private authenticationService: AuthenticationService) { }
+  constructor(private authenticationService: AuthenticationService, public router: Router) { }
 
   ngOnInit() {
     this.authenticationService.clearAuthentication();
@@ -28,10 +29,9 @@ export class LoginComponent implements OnInit {
     
     this.authenticationService.authenticate(usuario, senha).subscribe(
       result => {
-        console.log(result);
-        
+        this.router.navigate(["private"]);
       }, error => {
-          
+        this.router.navigate(["public"]);
       }
     );
   }

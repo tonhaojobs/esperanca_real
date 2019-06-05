@@ -1,5 +1,5 @@
-import { BehaviorSubject, Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject, Observable, from, fromEventPattern } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { LocalStorageService } from 'angular-web-storage';
 import { Router } from '@angular/router';
@@ -7,6 +7,7 @@ import { IdentityStorage } from '../_models/identity-storage';
 import { Identity } from '../_models/identity';
 
 import 'rxjs/add/operator/map';
+import { AuthenticationResult } from '../_models/authentication.result';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
@@ -27,23 +28,25 @@ export class AuthenticationService {
 
   authenticate(login: string, password: string): Observable<AuthenticationResult> {
 
-    var credentials = JSON.stringify({login: login, password: password});
+    let formData: FormData = new FormData(); 
+    formData.append('login', login); 
+    formData.append('password', password); 
 
-    return this.http.post<AuthenticationResponse>(this.url + 'not-secure/login', credentials).map(resp => {
+    return this.http.post<AuthenticationResponse>(this.url + 'not-secure/login', formData).map(resp => {
 
       if(resp.token) {
                         
-        let id = resp.user.id;
+        let id = resp.user['0']['id'];
         let token = resp.token;
-        let userName = resp.user.nome;
-        let login = resp.login;
+        let email = resp.user['0']['email'];
+        let nome = resp.user['0']['nome'];
 
         if (token) {
           let userAuthData = {
-            token: token,
-            userName: userName,
             id: id,
-            login: login
+            token: token,
+            email: email,
+            nome: nome
           };
         
           this.identityStorage.saveAuthData(userAuthData);
@@ -69,22 +72,12 @@ export class AuthenticationService {
     this.identityStorage.clearAuthData();
   }
 
-  getPerfis(perfis: Array<UserPerfilResponse>){
-    var perfilArray = ""; 
-    perfis.forEach(element => {
-        perfilArray += element.nome + ",";
-    });
-    return perfilArray;
-  }
-
-  isAdminSistema(): boolean {
-    var retorno = false;
-    this.getIdentity().perfil.split(",").forEach(element => {
-        if(element == "ADMINISTRADOR"){
-            retorno = true;
-        }
-    });
-    return retorno;
+  protected getHeaders() {
+    const headers = new HttpHeaders();
+    headers.set('Content-Type', 'application/json');
+    headers.set('responseType', 'text');
+    headers.set('Access-Control-Allow-Origin', '*');
+    return headers;
   }
 
 }

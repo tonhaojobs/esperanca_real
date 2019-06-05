@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Livro } from '../model/livro';
 import { Observable } from 'rxjs';
 
@@ -39,11 +39,20 @@ export class LivroService {
 
     if (params != null) {
       return this.http.get<T>(relativePath, {
-        params: params
+        params: params,
+        headers: this.getHeaders()
       });
     } else {
-      return this.http.get<T>(relativePath);
+      return this.http.get<T>(relativePath, {headers: this.getHeaders()});
     }
   }
+
+  protected getHeaders() {
+    const headers = new HttpHeaders();
+    headers.set('Content-Type', 'application/json');
+    headers.set('responseType', 'text');
+    headers.set('Access-Control-Allow-Origin', '*');
+    return headers;
+}
 
 }

@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
@@ -21,7 +21,7 @@ import { LivroService } from './service/livro.service';
 import { LeituraComponent } from './page/leitura/leitura.component';
 import { MenuLeituraComponent } from './page/menu-leitura/menu-leitura.component';
 import { PesquisaComponent } from './page/pesquisa/pesquisa.component';
-import { MatButtonModule, MatFormFieldModule, MatInputModule, MatSelectModule } from '@angular/material';
+import { MatButtonModule, MatFormFieldModule, MatInputModule, MatSelectModule, MAT_DATE_LOCALE } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
@@ -35,6 +35,10 @@ import { CarouselHolderComponent } from './page/template/carousel-holder/carouse
 import { AngularWebStorageModule } from 'angular-web-storage';
 import { AuthenticationService } from './_services/authentication.service';
 import { IdentityStorage } from './_models/identity-storage';
+import { AuthInterceptor } from './_guards/auth.interceptor';
+import { PrivateComponent } from './page/private/private.component';
+import { PublicComponent } from './page/public/public.component';
+import { AuthGuard } from './_guards/auth.guard';
 
 @NgModule({
   declarations: [
@@ -47,7 +51,9 @@ import { IdentityStorage } from './_models/identity-storage';
     LeituraComponent,
     LoginComponent,
     ModalComponent,
-    CarouselHolderComponent
+    CarouselHolderComponent,
+    PrivateComponent,
+    PublicComponent
   ],
   imports: [
     ReactiveFormsModule,
@@ -73,7 +79,14 @@ import { IdentityStorage } from './_models/identity-storage';
     CarouselModule,
     AngularWebStorageModule
   ],
-  providers: [ LivroService, AuthenticationService, IdentityStorage ],
+  providers: [ 
+    LivroService, 
+    AuthenticationService, 
+    IdentityStorage, 
+    AuthGuard,
+    { provide: MAT_DATE_LOCALE, useValue: "pt-BR" },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }, 
+  ],
   bootstrap: [ AppComponent ],
   entryComponents: [ LeituraComponent, ModalComponent ]
 })

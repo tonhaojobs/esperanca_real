@@ -52,7 +52,7 @@ return function (App $app) {
 		]
 	]));
 
-	$app->add(new \Tuupola\Middleware\CorsMiddleware([
+	$app->add(new \Tuupola\Middleware\Cors([
 		"origin" => ["*"],
 		"methods" => ["GET", "POST", "PATCH", "DELETE", "OPTIONS"],    
 		"headers.allow" => ["Origin", "Content-Type", "Authorization", "Accept", "ignoreLoadingBar", "X-Requested-With", "Access-Control-Allow-Origin"],

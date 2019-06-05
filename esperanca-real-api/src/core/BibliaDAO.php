@@ -135,7 +135,7 @@ class BibliaDAO {
 	public function login($email, $senha) {
 		
 		$sql  = " SELECT ";
-		$sql .= " id_usuario, primeiro_nome, ultimo_nome, email ";
+		$sql .= " id_usuario AS id, CONCAT(primeiro_nome, ' ', ultimo_nome) AS nome, email ";
 		$sql .= " FROM biblia.usuario ";
 		$sql .= " WHERE email = :email AND senha = :senha ";
 		

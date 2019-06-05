@@ -16,14 +16,14 @@ return function (App $app) {
 				
 		$biblia = new \Service\BibliaService();
 		
-		$usuario = $data_['usuario']; 
-		$senha = $data_['senha'];
+		$usuario = $data_['login']; 
+		$senha = $data_['password'];
 		$retorno = $biblia->login($usuario, $senha);
 						
 		if(!empty($retorno)) {
 			
 			$now = new DateTime();
-			$future = new DateTime("+30 minutes");
+			$future = new DateTime("+2 minutes");
 			$server = $request->getServerParams();
 			$jti = (new Base62)->encode(random_bytes(16));
 			
@@ -36,10 +36,16 @@ return function (App $app) {
 			
 			$secret = "@33sp33r44nc44_R3344L";
 			$token = JWT::encode($payload, $secret, "HS256");
+			
+			$data["user"] = $retorno;
 			$data["token"] = $token;
-			$data["expires"] = $future->getTimeStamp();
+			//$data["expires"] = $future->getTimeStamp();
+			
 			return $response->withStatus(201)
 				->withHeader("Content-Type", "application/json")
+				->withHeader('Access-Control-Allow-Origin', '*')
+				->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
+				->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS')
 				->write(json_encode($data));
 				
 		} else {
@@ -48,6 +54,9 @@ return function (App $app) {
 			
 			return $response->withStatus(403)
 				->withHeader("Content-Type", "application/json")
+				->withHeader('Access-Control-Allow-Origin', '*')
+				->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
+				->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS')
 				->write(json_encode($data));
 		}
 	});
@@ -59,6 +68,9 @@ return function (App $app) {
 
 		return $response->withStatus(200)
 			->withHeader("Content-Type", "application/json")
+			->withHeader('Access-Control-Allow-Origin', '*')
+            ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
+            ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS')
 			->write(json_encode($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
 	});
 	
@@ -70,6 +82,9 @@ return function (App $app) {
 
 		return $response->withStatus(200)
 			->withHeader("Content-Type", "application/json")
+			->withHeader('Access-Control-Allow-Origin', '*')
+            ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
+            ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS')
 			->write(json_encode($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
 	});
 	
@@ -81,6 +96,9 @@ return function (App $app) {
 
 		return $response->withStatus(200)
 			->withHeader("Content-Type", "application/json")
+			->withHeader('Access-Control-Allow-Origin', '*')
+            ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
+            ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS')
 			->write(json_encode($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
 	});
 	
@@ -92,6 +110,9 @@ return function (App $app) {
 
 		return $response->withStatus(200)
 			->withHeader("Content-Type", "application/json")
+			->withHeader('Access-Control-Allow-Origin', '*')
+            ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
+            ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS')
 			->write(json_encode($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
 	});
 	
@@ -107,6 +128,9 @@ return function (App $app) {
 
 		return $response->withStatus(200)
 			->withHeader("Content-Type", "application/json")
+			->withHeader('Access-Control-Allow-Origin', '*')
+            ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
+            ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS')
 			->write(json_encode($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
 	});
 	
@@ -117,6 +141,9 @@ return function (App $app) {
 
 		return $response->withStatus(200)
 			->withHeader("Content-Type", "application/json")
+			->withHeader('Access-Control-Allow-Origin', '*')
+            ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
+            ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS')
 			->write(json_encode($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
 	});
 	
@@ -131,6 +158,14 @@ return function (App $app) {
 
 		return $response->withStatus(200)
 			->withHeader("Content-Type", "application/json")
+			->withHeader('Access-Control-Allow-Origin', '*')
+            ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
+            ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS')
 			->write(json_encode($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
+	});
+	
+	$app->map(['GET', 'POST', 'PUT', 'DELETE', 'PATCH'], '/{routes:.+}', function($req, $res) {
+		$handler = $this->notFoundHandler; // handle using the default Slim page not found handler
+		return $handler($req, $res);
 	});
 };

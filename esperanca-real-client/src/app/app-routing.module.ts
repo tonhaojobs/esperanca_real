@@ -1,18 +1,18 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { IndiceComponent } from './page/indice/indice.component';
-import { AppComponent } from './app.component';
+import { PublicComponent } from './page/public/public.component';
+import { PrivateComponent } from './page/private/private.component';
+import { AuthGuard } from './_guards/auth.guard';
 
 const routes: Routes = [
-  { path: 'indice', component: IndiceComponent },
-  { path: 'public', component: AppComponent },
-  { path: 'private', component: AppComponent }
+  
+  { path: 'public', component: PublicComponent },
+  { path: 'private', component: PrivateComponent, canActivate: [AuthGuard] },
+  { path: '**', redirectTo: 'public' }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { 
-
-}
+export class AppRoutingModule { }

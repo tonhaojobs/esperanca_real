@@ -1,6 +1,6 @@
 export class Identity {
     public id: any;
-    public userName: string;
-    public perfil: string;
+    public email: string;
+    public nome: string;
     public token: string;
 }
