@@ -7,8 +7,6 @@ import { Observable } from 'rxjs';
 export class LivroService {
 
   private url: string = 'http://localhost/biblia-esperanca-real/esperanca-real-api/';
-  private noSecureUrl: string = 'not-secure/';
-  private secureUrl: string = 'secure/';
   public http: HttpClient;
 
   constructor(http: HttpClient) {
@@ -16,23 +14,34 @@ export class LivroService {
   }
 
   findLivrosByTestamento(idTestamento: number): Observable<Livro[]> {    
-    return this.getMethod(this.url + this.noSecureUrl + "livros/"+ idTestamento);
+    return this.getMethod(this.url + "livros/"+ idTestamento);
   }
 
   findLivroById(id: number): Observable<Livro> {    
-    return this.getMethod(this.url + this.noSecureUrl + "livro/"+ id);
+    return this.getMethod(this.url + "livro/"+ id);
   }
 
   abrirLivro(livro: number, capitulo: number, versao: number): Observable<any> {   
-    return this.getMethod(this.url + this.noSecureUrl + "capitulo/" + livro + "/" + capitulo + "/" + versao);
+    return this.getMethod(this.url + "capitulo/" + livro + "/" + capitulo + "/" + versao);
   }
 
   findAllVersoes(): Observable<any> {
-    return this.getMethod(this.url + this.noSecureUrl + "versoes");
+    return this.getMethod(this.url + "versoes");
   }
 
   search(palavraChave: string, versao: number): Observable<any> {   
-    return this.getMethod(this.url + this.noSecureUrl + "search/" + palavraChave + "/" + versao);
+    return this.getMethod(this.url + "search/" + palavraChave + "/" + versao);
+  }
+
+  marcarCapitulo(usuario: any, livro: any, capitulo: any, versao: any): Observable<any> {   
+
+    let formData: FormData = new FormData(); 
+    formData.append('usuario', usuario); 
+    formData.append('livro', livro); 
+    formData.append('capitulo', capitulo); 
+    formData.append('versao', versao); 
+
+    return this.http.post<AuthenticationResponse>(this.url + 'marcarCapitulo', formData);
   }
   
   private getMethod<T>(relativePath: string = '', params: any = null) {
@@ -53,6 +62,6 @@ export class LivroService {
     headers.set('responseType', 'text');
     headers.set('Access-Control-Allow-Origin', '*');
     return headers;
-}
+  }
 
 }

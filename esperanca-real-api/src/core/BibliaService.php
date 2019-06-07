@@ -46,6 +46,13 @@ class BibliaService {
 		return $this->bibliaDAO->login($email, $senhaCriptografada);
 	}
 	
+	
+	public function createHistorico($usuario, $livro, $capitulo, $versao) {
+		
+		$data = date('d-m-Y H:i:s');
+		return $this->bibliaDAO->createHistorico($usuario, $livro, $capitulo, $versao, $data);
+	}
+	
 	private function getSenhaCriptografada($senha) {
 		
 		$salt = md5("@33sp33r44nc44_Ree44L");

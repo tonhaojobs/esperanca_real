@@ -45,7 +45,6 @@ export class LeituraComponent implements OnInit {
 
   public loading = false;
   public tooltipPosition: TooltipPosition = 'right';
-  public showMenuLeitura: boolean;
 
   constructor(private livroService: LivroService) { }
 
@@ -148,7 +147,6 @@ export class LeituraComponent implements OnInit {
     this.fontSize = 14;
     this.resultadoPesquisa = new Array<Pesquisa>();
     this.versoes = new Array<any>();
-    this.showMenuLeitura = false;
   }
 
   alternarModoDiaENoite() {
@@ -167,13 +165,18 @@ export class LeituraComponent implements OnInit {
     }
   }
 
+  marcarCapitulo() {
+
+
+    this.livroService.marcarCapitulo(usuario, this.livro, this.capitulo, this.versao).subscribe(result => {
+      console.log(result);
+      
+    });
+  }
+
   nextPage($event: any) {
     this.capitulo = $event;
     this.abrirLivro(this.livro, this.capitulo, this.versao);
-  }
-
-  toggleMenuLeitura(): void {
-    this.showMenuLeitura = (this.showMenuLeitura) ? false : true;
   }
 
   onVersaoChanged(versao: number) {

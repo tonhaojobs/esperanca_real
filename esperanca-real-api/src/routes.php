@@ -10,7 +10,7 @@ return function (App $app) {
 	
 	$container = $app->getContainer();
 
-	$app->post("/not-secure/login", function($request, $response, $args){
+	$app->post("/login", function($request, $response, $args){
 		
 		$data_ = $request->getParsedBody();
 				
@@ -23,7 +23,7 @@ return function (App $app) {
 		if(!empty($retorno)) {
 			
 			$now = new DateTime();
-			$future = new DateTime("+2 minutes");
+			$future = new DateTime("+2000 minutes");
 			$server = $request->getServerParams();
 			$jti = (new Base62)->encode(random_bytes(16));
 			
@@ -61,7 +61,7 @@ return function (App $app) {
 		}
 	});
 
-	$app->get("/not-secure/testamentos",  function ($request, $response, $args) {
+	$app->get("/testamentos",  function ($request, $response, $args) {
 
 		$biblia = new \Service\BibliaService();
 		$data = $biblia->findAllTestamentos();
@@ -74,7 +74,7 @@ return function (App $app) {
 			->write(json_encode($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
 	});
 	
-	$app->get("/not-secure/testamento/{id}",  function ($request, $response, $args) {
+	$app->get("/testamento/{id}",  function ($request, $response, $args) {
 
 		$biblia = new \Service\BibliaService();
 		$id = $args['id'];
@@ -88,7 +88,7 @@ return function (App $app) {
 			->write(json_encode($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
 	});
 	
-	$app->get("/not-secure/livro/{id}",  function ($request, $response, $args) {
+	$app->get("/livro/{id}",  function ($request, $response, $args) {
 
 		$biblia = new \Service\BibliaService();
 		$id = $args['id'];
@@ -102,7 +102,7 @@ return function (App $app) {
 			->write(json_encode($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
 	});
 	
-	$app->get("/not-secure/livros/{id}",  function ($request, $response, $args) {
+	$app->get("/livros/{id}",  function ($request, $response, $args) {
 
 		$biblia = new \Service\BibliaService();
 		$id = $args['id'];
@@ -116,7 +116,7 @@ return function (App $app) {
 			->write(json_encode($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
 	});
 	
-	$app->get("/not-secure/capitulo/{livro}/{capitulo}/{versao}",  function ($request, $response, $args) {
+	$app->get("/capitulo/{livro}/{capitulo}/{versao}",  function ($request, $response, $args) {
 
 		$biblia = new \Service\BibliaService();
 		
@@ -134,7 +134,7 @@ return function (App $app) {
 			->write(json_encode($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
 	});
 	
-	$app->get("/not-secure/versoes",  function ($request, $response, $args) {
+	$app->get("/versoes",  function ($request, $response, $args) {
 
 		$biblia = new \Service\BibliaService();
 		$data = $biblia->findAllVersoes();
@@ -147,11 +147,11 @@ return function (App $app) {
 			->write(json_encode($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
 	});
 	
-	$app->get("/not-secure/search/{palavraChave}/{versao}",  function ($request, $response, $args) {
+	$app->get("/search/{palavraChave}/{versao}",  function ($request, $response, $args) {
 
 		$biblia = new \Service\BibliaService();
 		
-		$paslavraChave = $args['palavraChave'];
+		$palavraChave = $args['palavraChave'];
 		$versao = $args['versao'];
 		
 		$data = $biblia->search($palavraChave, $versao);
@@ -162,6 +162,30 @@ return function (App $app) {
             ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
             ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS')
 			->write(json_encode($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
+	});
+	
+	$app->post("/marcarCapitulo",  function ($request, $response, $args) {
+
+		$data_ = $request->getParsedBody();
+				
+		$biblia = new \Service\BibliaService();
+		
+		$livro = $data_['livro']; 
+		$capitulo = $data_['capitulo']; 
+		$versao = $data_['versao']; 
+		$usuario = $data_['usuario'];;
+		
+		$data = $biblia->createHistorico($usuario, $livro, $capitulo, $versao);
+
+		if($data === 1) {
+		
+			return $response->withStatus(200)
+				->withHeader("Content-Type", "application/json")
+				->withHeader('Access-Control-Allow-Origin', '*')
+				->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
+				->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS')
+				->write(json_encode($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
+		}
 	});
 	
 	$app->map(['GET', 'POST', 'PUT', 'DELETE', 'PATCH'], '/{routes:.+}', function($req, $res) {

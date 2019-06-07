@@ -39,6 +39,7 @@ import { AuthInterceptor } from './_guards/auth.interceptor';
 import { PrivateComponent } from './page/private/private.component';
 import { PublicComponent } from './page/public/public.component';
 import { AuthGuard } from './_guards/auth.guard';
+import { DashboardComponent } from './page/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { AuthGuard } from './_guards/auth.guard';
     ModalComponent,
     CarouselHolderComponent,
     PrivateComponent,
-    PublicComponent
+    PublicComponent,
+    DashboardComponent
   ],
   imports: [
     ReactiveFormsModule,

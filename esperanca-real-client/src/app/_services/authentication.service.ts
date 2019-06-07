@@ -32,7 +32,7 @@ export class AuthenticationService {
     formData.append('login', login); 
     formData.append('password', password); 
 
-    return this.http.post<AuthenticationResponse>(this.url + 'not-secure/login', formData).map(resp => {
+    return this.http.post<AuthenticationResponse>(this.url + 'login', formData).map(resp => {
 
       if(resp.token) {
                         

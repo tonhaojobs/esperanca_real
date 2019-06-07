@@ -112,7 +112,7 @@
         <a mat-button pageScroll matTooltip="Alterar Versão" [matTooltipPosition]="tooltipPosition" href="#versao"><i class="fas fa-exchange-alt"></i></a>
       </li>
       <li>
-        <a mat-button pageScroll [pageScrollOffset]="0" [pageScrollDuration]="700" [pageScrollInterruptible]="false" href="#login"><i class="fas fa-check-square"></i></a>
+        <a mat-button pageScroll [pageScrollOffset]="0" [pageScrollDuration]="700" [pageScrollInterruptible]="false" href="#login"  (pageScrollFinish)="marcarCapitulo()"><i class="fas fa-check-square"></i></a>
       </li>
     </ul>
   </div>
@@ -145,20 +145,3 @@
     </div>
   </div>
 </section>
-
-
-    <div [ngClass]="(showMenuLeitura) ? 'visible' : 'hidden'" class="menu-leitura-container">
-      <a mat-button matTooltip="Alterar Versão" [matTooltipPosition]="tooltipPosition" (click)="toggleMenuLeitura()"><i class="fas fa-exchange-alt"></i></a>
-      <div class="menu-leitura">
-        <div class="menu-inner">
-          <mat-form-field>
-            <mat-select>
-              <mat-option *ngFor="let versao of versoes" value="versao.id">
-                {{versao.nome}} - {{versao.sigla}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-      
-        </div>
-      </div>
-    </div>

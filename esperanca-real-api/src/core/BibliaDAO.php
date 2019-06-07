@@ -149,4 +149,25 @@ class BibliaDAO {
 		
 		return $result;
 	}
+	
+	
+	public function createHistorico($usuario, $livro, $capitulo, $versao, $data) {
+		
+		$sql = " INSERT INTO biblia.usuario_historico (id_usuario, id_livro, id_versao, num_capitulo, dt_historico) ";
+		$sql = " VALUES (:usuario, :livro, :capitulo, :versao, :data) ";
+
+		$this->resultSet = $this->PDO->prepare($sql);
+		
+		$this->resultSet->bindValue(':usuario', $usuario);
+		$this->resultSet->bindValue(':livro', $livro);
+		$this->resultSet->bindValue(':capitulo', $capitulo);
+		$this->resultSet->bindValue(':versao', $versao);
+		$this->resultSet->bindValue(':data', $data);
+
+		$this->resultSet->execute();
+		$result = $this->resultSet->rowCount();
+		
+		return $result;
+	}
+	
 }
