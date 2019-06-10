@@ -4,6 +4,9 @@ import { LivroService } from 'src/app/service/livro.service';
 import { Verso } from 'src/app/model/verso';
 import { Pesquisa } from 'src/app/model/pesquisa';
 import { TooltipPosition } from '@angular/material';
+import { LocalStorageService } from 'angular-web-storage';
+import { IdentityStorage } from 'src/app/_models/identity-storage';
+import { Versao } from 'src/app/model/versao';
 
 @Component({
   selector: 'app-leitura',
@@ -45,8 +48,16 @@ export class LeituraComponent implements OnInit {
 
   public loading = false;
   public tooltipPosition: TooltipPosition = 'right';
+  private identityStorage: IdentityStorage;
 
-  constructor(private livroService: LivroService) { }
+  private versaoDTO: Versao; 
+
+  constructor(
+    private livroService: LivroService,
+    public local: LocalStorageService,
+    private idStorage: IdentityStorage) { 
+      this.identityStorage = this.idStorage;
+    }
 
   ngOnInit(): void {
     this.iniciarVariaveis();
@@ -70,9 +81,7 @@ export class LeituraComponent implements OnInit {
 
     this.livroService.findAllVersoes().subscribe( versoes => {
       this.versoes.push(... versoes);
-      
     });
-    console.log(this.versoes);
   }
 
   public pesquisar(): void {
@@ -139,10 +148,23 @@ export class LeituraComponent implements OnInit {
     return livroRetorno;
   }
 
+  private setVersao(versao: Versao): Versao {
+
+    let versaoRetorno = new Versao();
+    versaoRetorno.id = versao.id;
+    versaoRetorno.nome = versao.nome;
+    versaoRetorno.sigla = versao.sigla;
+    versaoRetorno.ativo = versao.ativo;
+
+    return versaoRetorno;
+  }
+
   private iniciarVariaveis(): void {
     this.livroDTO = new Livro();
     this.livros = new Array<Livro[]>();
     this.versao = 1;
+    this.getVersao(this.versao);
+
     this.backgroundClass = 'white';
     this.fontSize = 14;
     this.resultadoPesquisa = new Array<Pesquisa>();
@@ -167,10 +189,13 @@ export class LeituraComponent implements OnInit {
 
   marcarCapitulo() {
 
+    let usuario = this.identityStorage.getIdentity()['id'];
 
     this.livroService.marcarCapitulo(usuario, this.livro, this.capitulo, this.versao).subscribe(result => {
       console.log(result);
-      
+    },
+    error => {
+      console.log(error.error);
     });
   }
 
@@ -183,8 +208,16 @@ export class LeituraComponent implements OnInit {
 
     let livro = (this.livroPesquisa && this.livroPesquisa !== 0) ? this.livroPesquisa : 1;
     let capitulo = (this.capituloPesquisa && this.capituloPesquisa !== 0) ? this.capituloPesquisa : 1;
+    this.getVersao(versao);
 
     this.abrirLivro(livro, capitulo, versao);
+  }
+
+  getVersao(id: number) {
+    this.versaoDTO = new Versao();
+    this.livroService.findVersaoById(id).subscribe( result => {
+      this.versaoDTO = this.setVersao(result[0]);
+    });
   }
 
 }

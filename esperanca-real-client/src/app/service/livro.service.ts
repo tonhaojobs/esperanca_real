@@ -29,6 +29,10 @@ export class LivroService {
     return this.getMethod(this.url + "versoes");
   }
 
+  findVersaoById(id: number): Observable<any> {
+    return this.getMethod(this.url + "versao/" + id );
+  }
+
   search(palavraChave: string, versao: number): Observable<any> {   
     return this.getMethod(this.url + "search/" + palavraChave + "/" + versao);
   }
@@ -36,12 +40,12 @@ export class LivroService {
   marcarCapitulo(usuario: any, livro: any, capitulo: any, versao: any): Observable<any> {   
 
     let formData: FormData = new FormData(); 
-    formData.append('usuario', usuario); 
-    formData.append('livro', livro); 
     formData.append('capitulo', capitulo); 
+    formData.append('livro', livro); 
+    formData.append('usuario', usuario); 
     formData.append('versao', versao); 
 
-    return this.http.post<AuthenticationResponse>(this.url + 'marcarCapitulo', formData);
+    return this.http.post(this.url + 'marcarCapitulo', formData);
   }
   
   private getMethod<T>(relativePath: string = '', params: any = null) {

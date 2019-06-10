@@ -35,7 +35,6 @@ export class PesquisaComponent implements OnInit {
   }
 
   abrirLivro(capitulo, versiculo) {
-    console.log(capitulo + ":" + versiculo);
     
   }
 }

@@ -27,7 +27,7 @@ return function (App $app) {
 		"rules" => [
 			new \Slim\Middleware\JwtAuthentication\RequestPathRule([
 				"path" => "/",
-				"passthrough" => ["/login", "/versoes", "/livro", "/livros", "/testamento", "/testamentos", "/capitulo", "/search"]
+				"passthrough" => ["/login", "/versao", "/versoes", "/livro", "/livros", "/testamento", "/testamentos", "/capitulo", "/search"]
 			]),
 			new \Slim\Middleware\JwtAuthentication\RequestMethodRule([
 				"passthrough" => ["OPTIONS"]

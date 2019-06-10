@@ -48,7 +48,6 @@ export class IndiceComponent implements OnInit {
 
   getPassedData(data: SlidesOutputData) {
     this.activeSlides = data;
-    console.log(this.activeSlides);
   }
 
 }

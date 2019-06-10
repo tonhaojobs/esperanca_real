@@ -84,6 +84,21 @@ class BibliaDAO {
 		$result = $this->resultSet->fetchAll(\PDO::FETCH_ASSOC);
 		
 		return $result;
+	}	
+	
+	public function findVersaoById($id){
+		
+		$sql  = " SELECT ";
+		$sql .= " id_versao AS id, nome, sigla ";
+		$sql .= " FROM biblia.versao ";
+		$sql .= " WHERE id_versao = :id ";
+		
+		$this->resultSet = $this->PDO->prepare($sql);
+		$this->resultSet->bindValue(':id', $id);
+		$this->resultSet->execute();
+		$result = $this->resultSet->fetchAll(\PDO::FETCH_ASSOC);
+		
+		return $result;
 	}
 	
 	public function findCapitulo($livro, $capitulo, $versao) {
@@ -150,22 +165,42 @@ class BibliaDAO {
 		return $result;
 	}
 	
-	
-	public function createHistorico($usuario, $livro, $capitulo, $versao, $data) {
+	public function createHistorico($usuario, $livro, $capitulo, $versao) {
 		
-		$sql = " INSERT INTO biblia.usuario_historico (id_usuario, id_livro, id_versao, num_capitulo, dt_historico) ";
-		$sql = " VALUES (:usuario, :livro, :capitulo, :versao, :data) ";
+		try{
+			$sql  = " INSERT INTO biblia.usuario_historico (id_usuario, id_livro, id_versao, num_capitulo, dt_historico) ";
+			$sql .= " VALUES (:usuario, :livro, :versao, :capitulo, NOW()) ";
 
+			$this->resultSet = $this->PDO->prepare($sql);
+			
+			$this->resultSet->bindValue(':usuario', $usuario);
+			$this->resultSet->bindValue(':livro', $livro);
+			$this->resultSet->bindValue(':capitulo', $capitulo);
+			$this->resultSet->bindValue(':versao', $versao);
+
+			$result = $this->resultSet->execute();
+		
+			return $result;	
+			
+		} catch (PDOException $ex) {
+			return $ex->getCode();
+		}
+	}
+	
+	public function countHistorico($usuario, $livro, $versao, $capitulo) {
+		
+		$sql  = " SELECT COUNT(*) FROM biblia.usuario_historico ";
+		$sql .= " WHERE id_usuario = :usuario AND id_livro = :livro AND id_versao = :versao AND num_capitulo = :capitulo ";
+		
 		$this->resultSet = $this->PDO->prepare($sql);
 		
 		$this->resultSet->bindValue(':usuario', $usuario);
 		$this->resultSet->bindValue(':livro', $livro);
-		$this->resultSet->bindValue(':capitulo', $capitulo);
 		$this->resultSet->bindValue(':versao', $versao);
-		$this->resultSet->bindValue(':data', $data);
+		$this->resultSet->bindValue(':capitulo', $capitulo);
 
 		$this->resultSet->execute();
-		$result = $this->resultSet->rowCount();
+		$result = $this->resultSet->fetchColumn(); 
 		
 		return $result;
 	}
