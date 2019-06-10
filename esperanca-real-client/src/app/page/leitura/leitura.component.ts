@@ -7,11 +7,17 @@ import { TooltipPosition } from '@angular/material';
 import { LocalStorageService } from 'angular-web-storage';
 import { IdentityStorage } from 'src/app/_models/identity-storage';
 import { Versao } from 'src/app/model/versao';
+import { CalendarDateFormatter } from 'angular-calendar';
+import { SchedulerDateFormatter } from 'angular-calendar-scheduler';
 
 @Component({
   selector: 'app-leitura',
   templateUrl: './leitura.component.html',
-  styleUrls: ['./leitura.component.css']
+  styleUrls: ['./leitura.component.css'],
+  providers: [{
+    provide: CalendarDateFormatter,
+    useClass: SchedulerDateFormatter
+  }]
 })
 export class LeituraComponent implements OnInit {
 
@@ -218,6 +224,10 @@ export class LeituraComponent implements OnInit {
     this.livroService.findVersaoById(id).subscribe( result => {
       this.versaoDTO = this.setVersao(result[0]);
     });
+  }
+
+  usuarioLogado(): boolean {
+    return this.identityStorage.authenticationPresent();
   }
 
 }

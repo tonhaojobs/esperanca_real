@@ -21,7 +21,7 @@ import { LivroService } from './service/livro.service';
 import { LeituraComponent } from './page/leitura/leitura.component';
 import { MenuLeituraComponent } from './page/menu-leitura/menu-leitura.component';
 import { PesquisaComponent } from './page/pesquisa/pesquisa.component';
-import { MatButtonModule, MatFormFieldModule, MatInputModule, MatSelectModule, MAT_DATE_LOCALE } from '@angular/material';
+import { MatButtonModule, MatFormFieldModule, MatInputModule, MatSelectModule, MAT_DATE_LOCALE, DateAdapter } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
@@ -30,8 +30,6 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { LoginComponent } from './page/login/login.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ModalComponent } from './page/template/modal/modal.component';
-import { CarouselModule } from 'ngx-owl-carousel-o';
-import { CarouselHolderComponent } from './page/template/carousel-holder/carousel-holder.component';
 import { AngularWebStorageModule } from 'angular-web-storage';
 import { AuthenticationService } from './_services/authentication.service';
 import { IdentityStorage } from './_models/identity-storage';
@@ -40,6 +38,11 @@ import { PrivateComponent } from './page/private/private.component';
 import { PublicComponent } from './page/public/public.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { DashboardComponent } from './page/dashboard/dashboard.component';
+import { DemoComponent } from './page/demo/demo.component';
+
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { CalendarModule } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
 @NgModule({
   declarations: [
@@ -52,10 +55,10 @@ import { DashboardComponent } from './page/dashboard/dashboard.component';
     LeituraComponent,
     LoginComponent,
     ModalComponent,
-    CarouselHolderComponent,
     PrivateComponent,
     PublicComponent,
-    DashboardComponent
+    DashboardComponent,
+    DemoComponent
   ],
   imports: [
     ReactiveFormsModule,
@@ -78,8 +81,12 @@ import { DashboardComponent } from './page/dashboard/dashboard.component';
     MatDialogModule,
     MatTooltipModule,
     MatSelectModule,
-    CarouselModule,
-    AngularWebStorageModule
+    AngularWebStorageModule,
+    NgbModalModule,
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory
+    })
   ],
   providers: [ 
     LivroService, 
@@ -90,7 +97,8 @@ import { DashboardComponent } from './page/dashboard/dashboard.component';
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }, 
   ],
   bootstrap: [ AppComponent ],
-  entryComponents: [ LeituraComponent, ModalComponent ]
+  entryComponents: [ LeituraComponent, ModalComponent ],
+  exports: [DemoComponent]
 })
 export class AppModule { }
 

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { IdentityStorage } from 'src/app/_models/identity-storage';
 
 @Component({
   selector: 'app-menu',
@@ -7,17 +8,36 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuComponent implements OnInit {
 
-  itensMenu: Array<any> = [
-    { id: '#home', texto : 'Home' },
-    { id: '#indice', texto : 'Índice' },
-    { id: '#pesquisa', texto : 'Pesquisa' },
-    { id: '#leitura', texto : 'Leitura' },
-    { id: '#login', texto : 'Entrar' }
-  ];
+  private itensMenu: Array<any>;
+  private identityStorage: IdentityStorage;
 
-  constructor() { }
+  constructor(private idStorage: IdentityStorage) {
+    this.identityStorage = this.idStorage;
+  }
 
   ngOnInit() {
+    this.itensMenu = new Array<any>();
+
+    if(this.idStorage.authenticationPresent()) {
+      
+      this.itensMenu = [
+        { id: '#home', texto : 'Home' },
+        { id: '#dashboard', texto : 'Dashboard' },
+        { id: '#indice', texto : 'Índice' },
+        { id: '#pesquisa', texto : 'Pesquisa' },
+        { id: '#leitura', texto : 'Leitura' }
+      ];
+      
+    } else {
+
+      this.itensMenu = [
+        { id: '#home', texto : 'Home' },
+        { id: '#indice', texto : 'Índice' },
+        { id: '#pesquisa', texto : 'Pesquisa' },
+        { id: '#leitura', texto : 'Leitura' },
+        { id: '#login', texto : 'Login' }
+      ];
+    }
   }
 
 }

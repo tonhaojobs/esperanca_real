@@ -1,34 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-      <owl-carousel-o [options]="customOptions">
-        <ng-container *ngFor="let slide of slidesStore">
-          <ng-template carouselSlide [id]="slide.id">
-            <img [src]="slide.src" [alt]="slide.alt" [title]="slide.title">
-          </ng-template>
-        </ng-container>
-      </owl-carousel-o>
-
-
-      <owl-carousel-o [options]="customOptions" (translated)="getPassedData($event)" #owlCar>
-        
-          <ng-container *ngFor="let item of carouselData">
-            <ng-template carouselSlide [id]="item.id" [width]="item.width">
-              <div class="slider">
-                <p>{{item.text}}</p>
-                  
-              </div><!-- /.carousel-item team-member -->
-            </ng-template>
-          </ng-container>
-          
-        </owl-carousel-o>
-         
-        <p>
-          <a class="btn btn-success" (click)="owlCar.prev()">prev</a> <==>
-          <a class="btn btn-success" (click)="owlCar.next()">next</a>
-        </p>
-        <p><a class="btn btn-success" (click)="owlCar.to('slide-3')">move to 3th slide</a></p>
-        
+      
     </div>
   </div>
 </div>

@@ -96,11 +96,11 @@
 </section>
 
 <section id="leitura" class="testimonial-wrapper padding-top30" [ngClass]="(backgroundClass === 'white') ? 'white' : 'dark'">
-  <div id="sticky">
+  <!--div id="sticky">
     <ul>
       <li>
-        <a mat-button *ngIf="backgroundClass == 'dark'" (click)="alternarModoDiaENoite()" matTooltip="Modo Noite" [matTooltipPosition]="tooltipPosition"><i class="fas fa-sun"></i></a>
-        <a mat-button *ngIf="backgroundClass == 'white'" (click)="alternarModoDiaENoite()" matTooltip="Modo Dia" [matTooltipPosition]="tooltipPosition"><i class="fas fa-moon"></i></a>
+        <a mat-button *ngIf="backgroundClass == 'dark'" (click)="alternarModoDiaENoite()" matTooltip="Modo Dia" [matTooltipPosition]="tooltipPosition"><i class="fas fa-sun"></i></a>
+        <a mat-button *ngIf="backgroundClass == 'white'" (click)="alternarModoDiaENoite()" matTooltip="Modo Noite" [matTooltipPosition]="tooltipPosition"><i class="fas fa-moon"></i></a>
       </li>
       <li>
         <a mat-button [disabled]="fontSize > 22" (click)="aumentarTamanhoFonte()" matTooltip="Aumentar Fonte" [matTooltipPosition]="tooltipPosition"><i class="fas fa-search-plus"></i></a>
@@ -112,15 +112,16 @@
         <a mat-button pageScroll matTooltip="Alterar Versão" [matTooltipPosition]="tooltipPosition" href="#versao"><i class="fas fa-exchange-alt"></i></a>
       </li>
       <li>
-        <a mat-button pageScroll [pageScrollOffset]="0" [pageScrollDuration]="700" [pageScrollInterruptible]="false" href="#login"  (pageScrollFinish)="marcarCapitulo()"><i class="fas fa-check-square"></i></a>
+        <a mat-button *ngIf="usuarioLogado()" pageScroll [pageScrollOffset]="0" [pageScrollDuration]="700" [pageScrollInterruptible]="false" (pageScrollFinish)="marcarCapitulo()"><i class="fas fa-check-square"></i></a>
+        <a mat-button *ngIf="!usuarioLogado()" pageScroll [pageScrollOffset]="0" [pageScrollDuration]="700" [pageScrollInterruptible]="false" href="#login"><i class="fas fa-check-square"></i></a>
       </li>
     </ul>
-  </div>
+  </div-->
   <div class="container" data-wow-delay="80ms">
     <div class="row">
       <div class="col-md-12">
         <div class="section-title text-center wow fadeIn">
-          <h2 class="title wow fadeInUp" data-toggle="tooltip" title="Nova Versão Internacional">{{livroDTO.nome}} {{capitulo}} ({{versaoDTO.sigla}})</h2>
+          <h2 class="title wow fadeInUp" data-toggle="tooltip" [title]="versaoDTO.nome">{{livroDTO.nome}} {{capitulo}} ({{versaoDTO.sigla}})</h2>
         </div>
       </div>
     </div>
