@@ -146,3 +146,30 @@
     </div>
   </div>
 </section>
+
+<ng-template #modalContent let-close="close">
+  <div class="modal-header">
+    <h5 class="modal-title">Event action occurred</h5>
+  
+  </div>
+  <div class="modal-body">
+    <div class="row justify-content-md-center">
+      <div class="col col-md-7">
+        <div class="wow padding-top80" data-wow-delay="300ms">
+          <mat-form-field class="example-full-width">
+            <mat-select (selectionChange)="onVersaoChanged($event.value)" [(ngModel)]="versaoDTO.id" name="versao">
+              <mat-option *ngFor="let versao of versoes" [value]="versao.id" placeholder="Versão">
+                {{versao.nome}} - {{versao.sigla}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    
+  </div>
+</ng-template>
+
+<button mat-flat-button color="primary" (click)="handleEvent('Clicked', $event.event)">Alterar versão</button>

@@ -39,7 +39,7 @@ const colors: any = {
 };
 
 @Component({
-  selector: 'demo-component',
+  selector: 'app-demo',
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./demo.component.css'],
   templateUrl: './demo.component.html'
@@ -175,9 +175,7 @@ export class DemoComponent {
     ];
   }
 
-  deleteEvent(eventToDelete: CalendarEvent) {
-    this.events = this.events.filter(event => event !== eventToDelete);
-  }
+
 
   setView(view: CalendarView) {
     this.view = view;

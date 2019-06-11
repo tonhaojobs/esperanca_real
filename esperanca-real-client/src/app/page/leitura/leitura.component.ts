@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Livro } from 'src/app/model/livro';
 import { LivroService } from 'src/app/service/livro.service';
 import { Verso } from 'src/app/model/verso';
@@ -8,18 +8,20 @@ import { LocalStorageService } from 'angular-web-storage';
 import { IdentityStorage } from 'src/app/_models/identity-storage';
 import { Versao } from 'src/app/model/versao';
 import { CalendarDateFormatter } from 'angular-calendar';
-import { SchedulerDateFormatter } from 'angular-calendar-scheduler';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-leitura',
   templateUrl: './leitura.component.html',
-  styleUrls: ['./leitura.component.css'],
-  providers: [{
-    provide: CalendarDateFormatter,
-    useClass: SchedulerDateFormatter
-  }]
+  styleUrls: ['./leitura.component.css']
 })
 export class LeituraComponent implements OnInit {
+
+  @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
+
+  handleEvent(action: string): void {
+    this.modal.open(this.modalContent, { size: 'lg' });
+  }
 
   /* INDICE */
   private livros: Array<Livro[]>;
@@ -61,7 +63,8 @@ export class LeituraComponent implements OnInit {
   constructor(
     private livroService: LivroService,
     public local: LocalStorageService,
-    private idStorage: IdentityStorage) { 
+    private idStorage: IdentityStorage,
+    private modal: NgbModal) { 
       this.identityStorage = this.idStorage;
     }
 

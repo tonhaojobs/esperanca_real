@@ -21,7 +21,7 @@ import { LivroService } from './service/livro.service';
 import { LeituraComponent } from './page/leitura/leitura.component';
 import { MenuLeituraComponent } from './page/menu-leitura/menu-leitura.component';
 import { PesquisaComponent } from './page/pesquisa/pesquisa.component';
-import { MatButtonModule, MatFormFieldModule, MatInputModule, MatSelectModule, MAT_DATE_LOCALE, DateAdapter } from '@angular/material';
+import { MatButtonModule, MatFormFieldModule, MatInputModule, MatSelectModule, MAT_DATE_LOCALE } from '@angular/material';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
@@ -41,7 +41,7 @@ import { DashboardComponent } from './page/dashboard/dashboard.component';
 import { DemoComponent } from './page/demo/demo.component';
 
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
-import { CalendarModule } from 'angular-calendar';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
 @NgModule({
