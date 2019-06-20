@@ -1,0 +1,76 @@
+@import '~bootstrap/dist/css/bootstrap.min.css';
+
+html, body {
+    height: 100%;
+    width: 100%;
+    color: #555;
+    background: #FFFFFF;
+    font-family: 'Raleway', sans-serif;
+    font-size: 14px;
+    font-weight: 300
+}
+
+body {
+    overflow-x: hidden
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #444;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 700
+}
+
+h1 {
+    font-size: 36px;
+    margin-bottom: 15px
+}
+
+h2 {
+    font-size: 24px;
+    line-height: 30px;
+    letter-spacing: 0.05em
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 26px
+}
+
+h4 {
+    font-size: 15px;
+    line-height: 20px;
+    letter-spacing: 0.05em
+}
+
+h2.title {
+    font-size: 36px;
+    color: #474747;
+    font-weight: 300;
+    margin-bottom: 50px;
+    line-height: 36px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    -webkit-animation: 3s restart;
+    animation: 3s restart;
+    transition: opacity .5s ease-in-out;
+    -webkit-transition: opacity .5s ease-in-out
+}
+
+a {
+    color: #c0392b
+}
+
+img {
+    max-width: 100%
+}
+
+
+@media (max-width: 575.98px) {  }
+
+@media (min-width: 576px) and (max-width: 767.98px) {  }
+
+@media (min-width: 768px) and (max-width: 991.98px) { }
+
+@media (min-width: 992px) and (max-width: 1199.98px) {  }
+
+@media (min-width: 1200px) {  }
