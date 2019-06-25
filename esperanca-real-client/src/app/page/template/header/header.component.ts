@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { IdentityStorage } from 'src/app/_models/identity-storage';
 
 @Component({
   selector: 'app-header',
@@ -7,9 +8,31 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  home: string = "home";
+  menuOpen: boolean = false;
+  menuLink: string = 'menu_';
+
+  nomeUsuario: string;
+
+  constructor(private idStorage: IdentityStorage) { }
 
   ngOnInit() {
+    this.nomeUsuario = this.idStorage.getIdentity()['nome'];
+  }
+
+  toggleMenu() {
+    this.menuOpen = !this.menuOpen;
+
+    if(!this.menuOpen) {
+      this.menuLink = "menu_";
+    } else {
+      this.menuLink = "home";
+    }
+  }
+
+  gotoHome() {
+    this.menuOpen = false;
+    this.menuLink = "menu_";
   }
 
 }

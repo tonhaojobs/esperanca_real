@@ -7,8 +7,6 @@ import { TooltipPosition } from '@angular/material';
 import { LocalStorageService } from 'angular-web-storage';
 import { IdentityStorage } from 'src/app/_models/identity-storage';
 import { Versao } from 'src/app/model/versao';
-import { CalendarDateFormatter } from 'angular-calendar';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-leitura',
@@ -17,11 +15,6 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class LeituraComponent implements OnInit {
 
-  @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
-
-  handleEvent(action: string): void {
-    this.modal.open(this.modalContent, { size: 'lg' });
-  }
 
   /* INDICE */
   private livros: Array<Livro[]>;
@@ -63,8 +56,7 @@ export class LeituraComponent implements OnInit {
   constructor(
     private livroService: LivroService,
     public local: LocalStorageService,
-    private idStorage: IdentityStorage,
-    private modal: NgbModal) { 
+    private idStorage: IdentityStorage) { 
       this.identityStorage = this.idStorage;
     }
 

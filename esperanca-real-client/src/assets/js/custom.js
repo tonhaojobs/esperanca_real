@@ -1,15 +1,10 @@
-// ---------------------------------
-// -------- Document ready ---------
-// ---------------------------------
-
 
 jQuery(document).ready(function () {
-
-    //Tob bar shrinking
-    $(function () {
+	
+	$(function () {
         window.addEventListener('scroll', function (e) {
             var distanceY = window.pageYOffset || document.documentElement.scrollTop,
-                shrinkOn = $('header').height() - 150,
+                shrinkOn = 20 /*$('header').height() - 100,*/,
                 header = document.querySelector(".header-nav");
             if (header !== null) {
                 if (distanceY > shrinkOn) {
@@ -17,114 +12,64 @@ jQuery(document).ready(function () {
                 } else {
                     if (classie.has(header, "smaller")) {
                         classie.remove(header, "smaller");
+
+                        var line1 = document.querySelector(".line-1");
+                        var line2 = document.querySelector(".line-2");
+                        var line3 = document.querySelector(".line-3");
+
+                        classie.remove(line1, "rotate");
+                        classie.remove(line2, "rotate");
+                        classie.remove(line3, "rotate");
+
+                        classie.remove(line1, "rotate-1");
+                        classie.remove(line2, "rotate-2");
+                        classie.remove(line3, "rotate-3");
                     }
                 }
             }
         });
     });
+    
+    $('.home_').on('click', function () { 
+        var line1 = document.querySelector(".line-1");
+        var line2 = document.querySelector(".line-2");
+        var line3 = document.querySelector(".line-3");
 
-    //Localscroll initialization
-    $.localScroll({
+        classie.remove(line1, "rotate");
+        classie.remove(line2, "rotate");
+        classie.remove(line3, "rotate");
 
-        queue: true,
-        duration: 1000,
-        hash: false,
-        onBefore: function (e, anchor, $target) {
-            // The 'this' is the settings object, can be modified
-        },
-        onAfter: function (anchor, settings) {
-            // The 'this' contains the scrolled element (#content)
-        }
+        classie.remove(line1, "rotate-1");
+        classie.remove(line2, "rotate-2");
+        classie.remove(line3, "rotate-3");
     });
 
+    $('.header-hamburguer').on('click', function () { 
 
-    //Menu functionality
-    var menu = document.querySelector(".menu"),
-        menuCont = document.querySelector(".menu-container"),
-        toggle = document.querySelector(".menu-bar");
+        var line1 = document.querySelector(".line-1");
+        var line2 = document.querySelector(".line-2");
+        var line3 = document.querySelector(".line-3");
 
-    function toggleToggle() {
-        toggle.classList.toggle("menu-open");
+        if (classie.has(line1, "rotate")) {
 
-        var open = $('.menu-text').text();
-        var close = $('.menu-text').attr('data-text');
+            classie.remove(line1, "rotate");
+            classie.remove(line2, "rotate");
+            classie.remove(line3, "rotate");
 
-        if ($('.menu-text').text(open)) {
-            $('.menu-text').text(close);
+            classie.remove(line1, "rotate-1");
+            classie.remove(line2, "rotate-2");
+            classie.remove(line3, "rotate-3");
+
         } else {
-            $('.menu-text').text(open);
+
+            classie.add(line1, "rotate");
+            classie.add(line2, "rotate");
+            classie.add(line3, "rotate");
+
+            classie.add(line1, "rotate-1");
+            classie.add(line2, "rotate-2");
+            classie.add(line3, "rotate-3");
         }
-        $('.menu-text').attr('data-text', open);
-    };
-
-    function toggleMenu() {
-        menu.classList.toggle("active");
-        menuCont.classList.toggle('overlay_bg');
-    };
-
-    if (toggle !== null) {
-        toggle.addEventListener("click", toggleToggle, false);
-        toggle.addEventListener("click", toggleMenu, false);
-    }
-
-    if (menuCont !== null) {
-        menuCont.addEventListener("click", toggleToggle, false);
-        menuCont.addEventListener("click", toggleMenu, false);
-    }
-
-
-    /* ---------------------------------------------
-     Height 100%
-     --------------------------------------------- */
-    function js_height_init() {
-        (function ($) {
-            $(".js-full-height").height($(window).height());
-            $(".js-parent-height").each(function () {
-                $(this).height($(this).parent().first().height());
-            });
-        })(jQuery);
-    }
-
-    js_height_init();
-
-
-    $(window).resize(function () {
-        js_height_init();
     });
-
-    /*-------------------------------------------------*/
-    /* =  Animated content
-     /*-------------------------------------------------*/
-
-    wow = new WOW(
-        {
-            animateClass: 'animated',
-            offset: 100
-        }
-    );
-
-    wow.init();
-
-    //Tooltip
-    $('[data-toggle="tooltip"]').tooltip();
+    
 });
-
-//Testimonial box carousel
-$(document).ready(function () {
-    $('#Carousel-testimonial').carousel({
-        interval: 5000
-    });
-    $('.floating-menu li').on('click', function () {
-        $('li.current').removeClass('current');
-        $(this).addClass('current');
-    });
-    //scrollup js
-
-});
-
-
-
-
-
-
-

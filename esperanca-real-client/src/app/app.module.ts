@@ -38,11 +38,7 @@ import { PrivateComponent } from './page/private/private.component';
 import { PublicComponent } from './page/public/public.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { DashboardComponent } from './page/dashboard/dashboard.component';
-import { DemoComponent } from './page/demo/demo.component';
 
-import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
-import { CalendarModule, DateAdapter } from 'angular-calendar';
-import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
 @NgModule({
   declarations: [
@@ -57,8 +53,7 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
     ModalComponent,
     PrivateComponent,
     PublicComponent,
-    DashboardComponent,
-    DemoComponent
+    DashboardComponent
   ],
   imports: [
     ReactiveFormsModule,
@@ -81,12 +76,7 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
     MatDialogModule,
     MatTooltipModule,
     MatSelectModule,
-    AngularWebStorageModule,
-    NgbModalModule,
-    CalendarModule.forRoot({
-      provide: DateAdapter,
-      useFactory: adapterFactory
-    })
+    AngularWebStorageModule
   ],
   providers: [ 
     LivroService, 
@@ -97,8 +87,7 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }, 
   ],
   bootstrap: [ AppComponent ],
-  entryComponents: [ LeituraComponent, ModalComponent ],
-  exports: [DemoComponent]
+  entryComponents: [ LeituraComponent, ModalComponent ]
 })
 export class AppModule { }
 
