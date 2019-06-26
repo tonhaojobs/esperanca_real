@@ -18,7 +18,7 @@ export class LeituraComponent implements OnInit {
 
   /* INDICE */
   private livros: Array<Livro[]>;
-  private testamentos: Array<any> = [
+  testamentos: Array<any> = [
     { id: 1, descricao: 'Velho Testamento' },
     { id: 2, descricao: 'Novo Testamento' }
   ];
