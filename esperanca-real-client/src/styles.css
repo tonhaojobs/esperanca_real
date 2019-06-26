@@ -63,6 +63,14 @@ h2.title {
     -webkit-transition: opacity .5s ease-in-out;
 }
 
+.example-full-width {
+    width: 100%;
+}
+
+.space-top {
+    margin-top: 70px;
+}
+
 .text-bg-dark {
   color: #f4f3f2;
 }

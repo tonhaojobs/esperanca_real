@@ -71,5 +71,15 @@ jQuery(document).ready(function () {
             classie.add(line3, "rotate-3");
         }
     });
+
+
+    wow = new WOW(
+        {
+            animateClass: 'animated',
+            offset: 100
+        }
+    );
+
+    wow.init();
     
 });

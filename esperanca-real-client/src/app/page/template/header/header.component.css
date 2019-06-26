@@ -5,14 +5,11 @@
 }
 
 header {
-   /* background-color: #F0F2cc;*/
-    /*background-color: #D06503;*/
     height: 100%;
     min-width: 100%;
     border-radius: 2px;
-  /*  background-image: url('../../../../assets/img/bg/cool-background.png')*/
-    background-color: #f2ebe7;
-    background-image: url('../../../../assets/img/bg/shape.png'), url('../../../../assets/img/bg/shape-2.png');
+    background-color: #f2ebe7;/*#E2E2D3;*/
+    background-image: url('../../../../assets/img/bg/shape.png'), url('../../../../assets/img/bg/shape-2.png');/*, url('../../../../assets/img/bg/bg_04.jpg');*/
     background-position: 173% -433px, -193px 207%;
     background-size: 1000px, 900px;
     background-repeat: no-repeat, no-repeat;
@@ -167,92 +164,3 @@ header {
     border-right: 1px solid #aeb1be;
     padding: 15px;
 }*/
-
-
-.section-buy .card {
-    background-color: #FFFFFF;
-    border-radius: 2px;
-    padding: 7px;
-    text-align: center;
-    margin-top: 70px;
-}
-
-.section-buy .card .content-inside {
-    padding: 35px 15px 27px;
-    border: 1px solid #bbb;
-    background: white;
-    border-radius: 3px;
-}
-
-.text-white {
-    color: #fff!important;
-}
-
-.card.bg-primary {
-    border-color: #187da0;
-}
-
-.bg-primary {
-    background-color: #20a8d8!important;
-}
-
-.card.bg-warning {
-    border-color: #c69500;
-}
-
-.bg-warning {
-    background-color: #ffc107!important;
-}
-
-.card.bg-danger {
-    border-color: #f5302e;
-}
-
-.bg-danger {
-    background-color: #f86c6b!important;
-}
-
-
-
-
-.large-header {
-    position: relative;
-    width: 100%;
-    background: #111;
-    overflow: hidden;
-    background-size: cover;
-    background-position: center center;
-    z-index: 1;
- }
- 
- .demo .large-header {
-    background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/499416/demo-bg.jpg");
- }
- 
- .main-title {
-    position: absolute;
-    margin: 0;
-    padding: 0;
-    color: #F9F1E9;
-    text-align: center;
-    top: 50%;
-    left: 50%;
-    -webkit-transform: translate3d(-50%, -50%, 0);
-    transform: translate3d(-50%, -50%, 0);
- }
- 
- .demo .main-title {
-    text-transform: uppercase;
-    font-size: 4.2em;
-    letter-spacing: 0.1em;
- }
- 
- .main-title .thin {
-    font-weight: 200;
- }
- 
- @media only screen and (max-width: 768px) {
-    .demo .main-title {
-       font-size: 3em;
-    }
- }
