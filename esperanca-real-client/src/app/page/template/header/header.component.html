@@ -1,23 +1,27 @@
-<div class="nav-top" id="home"></div>
+
 <header>
-    <section class="header-nav">
-        <div class="logo">
-            <a pageScroll class="home_" (pageScrollFinish)="gotoHome()" [pageScrollOffset]="0" [pageScrollDuration]="700" [pageScrollInterruptible]="false" href="#home"><img src="assets/img/er-logo-dark.svg" alt="logo"></a>
-        </div>
-        <div pageScroll (pageScrollFinish)="toggleMenu()" [pageScrollOffset]="65" [pageScrollDuration]="700" [pageScrollInterruptible]="false" href="#{{menuLink}}" class="header-hamburguer">
-            <div class="line line-1"></div>
-            <div class="line line-2"></div>
-            <div class="line line-3"></div>
-        </div>
-    </section>
-    <div class="dashboard-wrapper">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-
-                </div>
-
-            </div>
-        </div>
+  
+  <nav class="header-nav">
+    <div class="logo wow slideInLeft" data-wow-duration="2s" data-wow-delay=".4s">
+      <a pageScroll class="home_" (pageScrollFinish)="gotoHome()" [pageScrollOffset]="0" [pageScrollDuration]="700" [pageScrollInterruptible]="false" href="#home"><img src="assets/img/er-logo-dark.svg" alt="logo"></a>
     </div>
+    <div pageScroll (pageScrollFinish)="toggleMenu()" [pageScrollOffset]="65" [pageScrollDuration]="700" [pageScrollInterruptible]="false" href="#{{menuLink}}" class="header-hamburguer wow slideInRight" data-wow-duration="2s" data-wow-delay=".4s">
+      <div class="line line-1"></div>
+      <div class="line line-2"></div>
+      <div class="line line-3"></div>
+    </div>
+  </nav>
+  
+  <section class="banner">
+    <div class="wow slideInUp" data-wow-duration="2s" data-wow-delay=".4s">
+      <h1 class="fables-main-text-color font-weight-bold mb-1">CONSULTING SERVICE FOR ALL 
+        <span class="fables-second-text-color">KIND OF BUSINESSES</span>
+      </h1>  
+      <p class="fables-forth-text-colo mb-3 light-font fables-header-slider-details">
+        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
+      </p>
+      <a href="#" class="btn fables-second-background-color fables-second-border-color white-color rounded-0 mr-4 px-3 px-md-4 py-2 bg-hover-transparent fables-second-hover-color">Our Services</a>
+      <a href="#" class="btn fables-second-border-color fables-second-text-color rounded-0 px-3 px-md-4 py-2 fables-second-hover-background-color">Learn More</a>  
+    </div> 
+  </section>
 </header>
