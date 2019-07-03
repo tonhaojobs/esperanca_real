@@ -1,28 +1,16 @@
 
 <div id="header" class="header">
-
-  <div class="container">
-    <div class="row align-items-center justify-content-between d-flex">
-      <div id="logo">
-        <a href="index.html"><img src="../../../../assets/img/er-logo-dark.svg" alt="" title=""></a>
-      </div>
-      <nav id="nav-menu-container">
-        <ul class="nav-menu sf-js-enabled sf-arrows" style="touch-action: pan-y;">
-          <li class="menu-active"><a href="#home">Home</a></li>
-          <li><a href="#feature">Feature</a></li>
-          <li><a href="#weoffer">We Offfer</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#contact">Contact</a></li>
-          <li class="menu-has-children"><a href="" class="sf-with-ul">Pages</a>
-            <ul style="display: none;">
-              <li><a href="generic.html">Generic</a></li>
-              <li><a href="elements.html">Elements</a></li>
-            </ul>
-          </li>
-        </ul>
-      </nav><!-- #nav-menu-container -->		    		
+  
+  <section class="header-nav">
+    <div class="logo">
+      <a pageScroll class="home_" (pageScrollFinish)="gotoHome()" [pageScrollOffset]="0" [pageScrollDuration]="700" [pageScrollInterruptible]="false" href="#home"><img src="assets/img/er-logo-dark.svg" alt="logo"></a>
     </div>
-  </div>
+    <div pageScroll (pageScrollFinish)="toggleMenu()" [pageScrollOffset]="65" [pageScrollDuration]="700" [pageScrollInterruptible]="false" href="#{{menuLink}}" class="header-hamburguer">
+      <div class="line line-1"></div>
+      <div class="line line-2"></div>
+      <div class="line line-3"></div>
+    </div>
+  </section>
   
   <section class="banner">
     <div class="wow slideInUp" data-wow-duration="2s" data-wow-delay=".4s">
