@@ -1,25 +1,23 @@
 <div class="nav-top" id="home"></div>
 <header>
-  <section class="header-nav">
-    <div class="logo">
-      <a pageScroll class="home_" (pageScrollFinish)="gotoHome()" [pageScrollOffset]="0" [pageScrollDuration]="700"
-        [pageScrollInterruptible]="false" href="#home"><img src="assets/img/er-logo-dark.svg" alt="logo"></a>
-    </div>
-    <div pageScroll (pageScrollFinish)="toggleMenu()" [pageScrollOffset]="65" [pageScrollDuration]="700"
-      [pageScrollInterruptible]="false" href="#{{menuLink}}" class="header-hamburguer">
-      <div class="line line-1"></div>
-      <div class="line line-2"></div>
-      <div class="line line-3"></div>
-    </div>
-  </section>
-    <div class="dashboard-wrapper">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-
-          </div>
-
+    <section class="header-nav">
+        <div class="logo">
+            <a pageScroll class="home_" (pageScrollFinish)="gotoHome()" [pageScrollOffset]="0" [pageScrollDuration]="700" [pageScrollInterruptible]="false" href="#home"><img src="assets/img/er-logo-dark.svg" alt="logo"></a>
         </div>
-      </div>
+        <div pageScroll (pageScrollFinish)="toggleMenu()" [pageScrollOffset]="65" [pageScrollDuration]="700" [pageScrollInterruptible]="false" href="#{{menuLink}}" class="header-hamburguer">
+            <div class="line line-1"></div>
+            <div class="line line-2"></div>
+            <div class="line line-3"></div>
+        </div>
+    </section>
+    <div class="dashboard-wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+
+                </div>
+
+            </div>
+        </div>
     </div>
 </header>

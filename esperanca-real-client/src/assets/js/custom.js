@@ -1,10 +1,9 @@
+jQuery(document).ready(function() {
 
-jQuery(document).ready(function () {
-	
-	$(function () {
-        window.addEventListener('scroll', function (e) {
+    $(function() {
+        window.addEventListener('scroll', function(e) {
             var distanceY = window.pageYOffset || document.documentElement.scrollTop,
-                shrinkOn = 20 /*$('header').height() - 100,*/,
+                shrinkOn = 20 /*$('header').height() - 100,*/ ,
                 header = document.querySelector(".header-nav");
             if (header !== null) {
                 if (distanceY > shrinkOn) {
@@ -29,8 +28,8 @@ jQuery(document).ready(function () {
             }
         });
     });
-    
-    $('.home_').on('click', function () { 
+
+    $('.home_').on('click', function() {
         var line1 = document.querySelector(".line-1");
         var line2 = document.querySelector(".line-2");
         var line3 = document.querySelector(".line-3");
@@ -44,7 +43,7 @@ jQuery(document).ready(function () {
         classie.remove(line3, "rotate-3");
     });
 
-    $('.header-hamburguer').on('click', function () { 
+    $('.header-hamburguer').on('click', function() {
 
         var line1 = document.querySelector(".line-1");
         var line2 = document.querySelector(".line-2");
@@ -73,13 +72,11 @@ jQuery(document).ready(function () {
     });
 
 
-    wow = new WOW(
-        {
-            animateClass: 'animated',
-            offset: 100
-        }
-    );
+    wow = new WOW({
+        animateClass: 'animated',
+        offset: 100
+    });
 
     wow.init();
-    
+
 });
