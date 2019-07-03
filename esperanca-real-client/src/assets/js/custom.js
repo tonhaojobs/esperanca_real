@@ -4,16 +4,13 @@ jQuery(document).ready(function () {
     // Header scroll class
     $(window).scroll(function() {
         if($(this).scrollTop() > 100) {
-            $('#header').addClass('header-scrolled');
+            $('.header-nav').addClass('header-scrolled');
         } else {
-            $('#header').removeClass('header-scrolled');
+            $('.header-nav').removeClass('header-scrolled');
         }
     });
 
-
-
-
-	/*
+/*
 	$(function () {
         window.addEventListener('scroll', function (e) {
             var distanceY = window.pageYOffset || document.documentElement.scrollTop,
@@ -41,7 +38,7 @@ jQuery(document).ready(function () {
                 }
             }
         });
-    });
+    });*/
     
     $('.home_').on('click', function () { 
         var line1 = document.querySelector(".line-1");
@@ -83,7 +80,7 @@ jQuery(document).ready(function () {
             classie.add(line2, "rotate-2");
             classie.add(line3, "rotate-3");
         }
-    });*/
+    });
 
 
     wow = new WOW(
