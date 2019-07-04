@@ -8,7 +8,7 @@ header {
     top: 0;
 }
 
-header::after{
+header::after {
     content: "";
     position: absolute;
     top: 0;
@@ -18,17 +18,27 @@ header::after{
     background-color: rgba(182, 200, 218, 0.2);
 }
 
+.banner-text {
+    padding: 35px;
+    /*background-color: #333;*/
+}
+
 .banner {
     width: 90%;
-    left: 5%;
-    position: absolute;
-    top: 300px;
+    position: relative;
+    float: left;
+    margin: 400px 0 0 5%;
+}
+
+.bible img {
+    width: 100%
 }
 
 .header-nav {
     width: 100%;
     color: #fff;
-    height: 80px;
+    height: 90px;
+    padding: 0 50px 0 50px;
     z-index: 1030;
     position: fixed;
     left: 0;
@@ -60,7 +70,7 @@ header::after{
 }
 
 .header-scrolled {
-    padding: 14px 0;
+    padding: 10px 0;
     position: fixed;
     left: 0;
     top: 0;
@@ -68,7 +78,7 @@ header::after{
     transition: all 0.5s;
     z-index: 997;
     background: #fff;
-    box-shadow: 0px 15px 10px 0px rgba(158,158,158,0.3);
+    box-shadow: 0px 15px 10px 0px rgba(158, 158, 158, 0.3);
     transition: all 0.5s;
 }
 
@@ -80,10 +90,11 @@ header::after{
     background-color: #161a25;
 }
 
-.line-1, .line-3 {
+.line-1,
+.line-3 {
     transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
     transform-style: preserve-3d;
- }
+}
 
 .line-1 {
     top: 0px;
@@ -101,7 +112,7 @@ header::after{
 }
 
 .rotate-1 {
-    transform: translate3d(0px, 10px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(45deg) skew(0deg, 0deg); 
+    transform: translate3d(0px, 10px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(45deg) skew(0deg, 0deg);
     transform-style: preserve-3d;
 }
 
@@ -111,15 +122,19 @@ header::after{
 }
 
 .rotate-3 {
-    transform: translate3d(0px, -10px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(-45deg) skew(0deg, 0deg); 
+    transform: translate3d(0px, -10px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(-45deg) skew(0deg, 0deg);
     transform-style: preserve-3d;
 }
 
-.line-1, .rotate-1, .line-3, .rotate-3 {
-    transition: transform 0.5s ease-out; 
+.line-1,
+.rotate-1,
+.line-3,
+.rotate-3 {
+    transition: transform 0.5s ease-out;
 }
 
-.line-2, .rotate-2 {
+.line-2,
+.rotate-2 {
     transition: width 0.5s ease-out;
 }
 
@@ -145,7 +160,6 @@ header::after{
     -webkit-align-items: center;
     -ms-flex-align: center;
     align-items: center;
-  /*  background-color: #161a25;*/
     text-align: center;
     cursor: pointer;
     transition: background-color 1s ease-out;

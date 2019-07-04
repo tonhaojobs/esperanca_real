@@ -1,46 +1,45 @@
-
-jQuery(document).ready(function () {
+jQuery(document).ready(function() {
 
     // Header scroll class
     $(window).scroll(function() {
-        if($(this).scrollTop() > 100) {
+        if ($(this).scrollTop() > 100) {
             $('.header-nav').addClass('header-scrolled');
         } else {
             $('.header-nav').removeClass('header-scrolled');
         }
     });
 
-/*
-	$(function () {
-        window.addEventListener('scroll', function (e) {
-            var distanceY = window.pageYOffset || document.documentElement.scrollTop,
-                shrinkOn = 20 $('header').height() - 100,
-                header = document.querySelector(".header-nav");
-            if (header !== null) {
-                if (distanceY > shrinkOn) {
-                    classie.add(header, "smaller");
-                } else {
-                    if (classie.has(header, "smaller")) {
-                        classie.remove(header, "smaller");
+    /*
+    	$(function () {
+            window.addEventListener('scroll', function (e) {
+                var distanceY = window.pageYOffset || document.documentElement.scrollTop,
+                    shrinkOn = 20 $('header').height() - 100,
+                    header = document.querySelector(".header-nav");
+                if (header !== null) {
+                    if (distanceY > shrinkOn) {
+                        classie.add(header, "smaller");
+                    } else {
+                        if (classie.has(header, "smaller")) {
+                            classie.remove(header, "smaller");
 
-                        var line1 = document.querySelector(".line-1");
-                        var line2 = document.querySelector(".line-2");
-                        var line3 = document.querySelector(".line-3");
+                            var line1 = document.querySelector(".line-1");
+                            var line2 = document.querySelector(".line-2");
+                            var line3 = document.querySelector(".line-3");
 
-                        classie.remove(line1, "rotate");
-                        classie.remove(line2, "rotate");
-                        classie.remove(line3, "rotate");
+                            classie.remove(line1, "rotate");
+                            classie.remove(line2, "rotate");
+                            classie.remove(line3, "rotate");
 
-                        classie.remove(line1, "rotate-1");
-                        classie.remove(line2, "rotate-2");
-                        classie.remove(line3, "rotate-3");
+                            classie.remove(line1, "rotate-1");
+                            classie.remove(line2, "rotate-2");
+                            classie.remove(line3, "rotate-3");
+                        }
                     }
                 }
-            }
-        });
-    });*/
-    
-    $('.home_').on('click', function () { 
+            });
+        });*/
+
+    $('.home_').on('click', function() {
         var line1 = document.querySelector(".line-1");
         var line2 = document.querySelector(".line-2");
         var line3 = document.querySelector(".line-3");
@@ -54,7 +53,7 @@ jQuery(document).ready(function () {
         classie.remove(line3, "rotate-3");
     });
 
-    $('.header-hamburguer').on('click', function () { 
+    $('.header-hamburguer').on('click', function() {
 
         var line1 = document.querySelector(".line-1");
         var line2 = document.querySelector(".line-2");
@@ -83,13 +82,11 @@ jQuery(document).ready(function () {
     });
 
 
-    wow = new WOW(
-        {
-            animateClass: 'animated',
-            offset: 100
-        }
-    );
+    wow = new WOW({
+        animateClass: 'animated',
+        offset: 100
+    });
 
     wow.init();
-    
+
 });

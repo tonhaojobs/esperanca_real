@@ -1,27 +1,88 @@
-
 <header>
-  
-  <nav class="header-nav">
-    <div class="logo wow slideInLeft" data-wow-duration="2s" data-wow-delay=".4s">
-      <a pageScroll class="home_" (pageScrollFinish)="gotoHome()" [pageScrollOffset]="0" [pageScrollDuration]="700" [pageScrollInterruptible]="false" href="#home"><img src="assets/img/er-logo-dark.svg" alt="logo"></a>
-    </div>
-    <div pageScroll (pageScrollFinish)="toggleMenu()" [pageScrollOffset]="65" [pageScrollDuration]="700" [pageScrollInterruptible]="false" href="#{{menuLink}}" class="header-hamburguer wow slideInRight" data-wow-duration="2s" data-wow-delay=".4s">
-      <div class="line line-1"></div>
-      <div class="line line-2"></div>
-      <div class="line line-3"></div>
-    </div>
-  </nav>
-  
-  <section class="banner">
-    <div class="wow slideInUp" data-wow-duration="2s" data-wow-delay=".4s">
-      <h1 class="fables-main-text-color font-weight-bold mb-1">CONSULTING SERVICE FOR ALL 
-        <span class="fables-second-text-color">KIND OF BUSINESSES</span>
-      </h1>  
-      <p class="fables-forth-text-colo mb-3 light-font fables-header-slider-details">
-        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-      </p>
-      <a href="#" class="btn fables-second-background-color fables-second-border-color white-color rounded-0 mr-4 px-3 px-md-4 py-2 bg-hover-transparent fables-second-hover-color">Our Services</a>
-      <a href="#" class="btn fables-second-border-color fables-second-text-color rounded-0 px-3 px-md-4 py-2 fables-second-hover-background-color">Learn More</a>  
-    </div> 
-  </section>
+    <nav class="header-nav">
+        <div class="logo wow slideInLeft" data-wow-duration="2s" data-wow-delay=".4s">
+            <a pageScroll class="home_" (pageScrollFinish)="gotoHome()" [pageScrollOffset]="0" [pageScrollDuration]="700" [pageScrollInterruptible]="false" href="#home"><img src="assets/img/er-logo-dark.svg" alt="logo"></a>
+        </div>
+        <div pageScroll (pageScrollFinish)="toggleMenu()" [pageScrollOffset]="65" [pageScrollDuration]="700" [pageScrollInterruptible]="false" href="#{{menuLink}}" class="header-hamburguer wow slideInRight" data-wow-duration="2s" data-wow-delay=".4s">
+            <div class="line line-1"></div>
+            <div class="line line-2"></div>
+            <div class="line line-3"></div>
+        </div>
+    </nav>
+
+    <section class="banner">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-7">
+
+                    <div class="banner-text wow slideInUp" data-wow-duration="2s" data-wow-delay=".4s">
+                        <h1 class="fables-main-text-color font-weight-bold mb-1">O Senhor é o meu pastor,
+                            <span class="fables-second-text-color">nada me faltará.</span>
+                        </h1>
+                        <p class="fables-forth-text-colo mb-3 light-font fables-header-slider-details">
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+                        </p>
+                        <a href="#" class="btn fables-second-background-color fables-second-border-color white-color rounded-0 mr-4 px-3 px-md-4 py-2 bg-hover-transparent fables-second-hover-color">Our Services</a>
+                        <a href="#" class="btn fables-second-border-color fables-second-text-color rounded-0 px-3 px-md-4 py-2 fables-second-hover-background-color">Learn More</a>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="bible wow slideInRight" data-wow-duration="2s" data-wow-delay=".4s">
+                        <img src="assets/img/bible.png">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!--div class="container-fluid overflow-hidden">
+        <div class="row mt-0 mt-lg-5">
+            <div class="col-12 col-md-6 p-0">
+                <div style="background-image: url(assets/custom/images/overlay1.jpg);">
+                    <div class="fables-second-color-transparent p-6">
+                        <h2 class="white-color font-weight-bold mb-4 font-35 wow fadeInLeft">Discover <br>Our Services</h2>
+                        <p class="fables-third-text-color wow fadeInLeft">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ac lorem pretium. laoreet enim at, malesuada Class aptent taciti sociosqu. Duis congue turpis risus, ac dapibus mi malesuada ut. Duis feugiat nisi orci.Lorem ipsum dolor sit amet, consectetur
+                        </p>
+                        <a href="#" class="btn border border-white white-color rounded-0 my-4 py-2 px-5  wow fadeInLeft bg-white-hover fables-second-hover-color">Learn More</a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-12 col-md-6 px-6">
+                <div class="row">
+                    <div class="col-12 col-sm-6 my-4 text-center text-md-left wow fadeInRight">
+                        <span class="fables-iconbussiness fables-second-text-color fa-3x"></span>
+                        <h2 class="fables-main-text-color font-18 my-2">BUSINESS CONSULTING</h2>
+                        <p class="fables-forth-text-color font-weight-light">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
+                        </p>
+                    </div>
+                    <div class="col-12 col-sm-6 my-4 text-center text-md-left wow fadeInRight">
+                        <span class="fables-iconbussiness2 fables-second-text-color fa-3x"></span>
+                        <h2 class="fables-main-text-color font-18 my-2">BUSINESS CONSULTING</h2>
+                        <p class="fables-forth-text-color font-weight-light">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
+                        </p>
+                    </div>
+                    <div class="col-12 col-sm-6 my-4 text-center text-md-left wow fadeInRight">
+                        <span class="fables-iconbussiness3 fables-second-text-color fa-3x"></span>
+                        <h2 class="fables-main-text-color font-18 my-2">BUSINESS CONSULTING</h2>
+                        <p class="fables-forth-text-color font-weight-light">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
+                        </p>
+                    </div>
+                    <div class="col-12 col-sm-6 my-4 text-center text-md-left wow fadeInRight">
+                        <span class="fables-iconbussiness4 fables-second-text-color fa-3x"></span>
+                        <h2 class="fables-main-text-color font-18 my-2">BUSINESS CONSULTING</h2>
+                        <p class="fables-forth-text-color font-weight-light">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div-->
 </header>
