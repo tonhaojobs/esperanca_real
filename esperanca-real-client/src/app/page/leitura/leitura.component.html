@@ -1,184 +1,52 @@
 <section id="pesquisa" class="clearfix padding-top100 padding-bottom130">
 
-
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="section-title text-center wow fadeInUp" data-wow-delay="300ms">
-          <h2 class="title wow fadeInUp" data-wow-delay="300ms">Pesquisa</h2>
+  <div class="container overflow-hidden">
+    <div class="row mt-0 mt-lg-5">
+      <div class="col-12 col-md-5 p-0">
+        <div class="search">
+          <div class="fables-second-color-transparent p-6">
+            <h2 class="white-color font-weight-bold mb-4 font-35 wow fadeInLeft">Discover <br>Our Services</h2>
+            <p class="fables-third-text-color wow fadeInLeft">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ac lorem pretium.
+              laoreet enim at, malesuada Class aptent taciti sociosqu. Duis congue turpis risus, ac dapibus mi
+              malesuada ut. Duis feugiat nisi orci.Lorem ipsum dolor sit amet, consectetur
+            </p>
+            <a href="#" class="btn border border-white white-color rounded-0 my-4 py-2 px-5  wow fadeInLeft bg-white-hover fables-second-hover-color">Learn
+              More</a>
+          </div>
         </div>
-      </div>
-    </div>
-    <div class="row justify-content-md-center">
-      <div class="col-md-5">
-        <mat-form-field class="example-full-width">
-          <mat-select  name="test" [(ngModel)]="versaoDTO.id">
-            <mat-option *ngFor="let test of testamentos" [value]="test.id" placeholder="Testamento">
-              {{test.descricao}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <div class="col-md-7">
-      </div>
-    </div>
-    <div class="row justify-content-md-center">
-      <div class="col-md-11">
-        <mat-form-field class="example-full-width">
-          <input matInput type="text" placeholder="" [(ngModel)]="palavraChave" >
-        </mat-form-field>
-      </div>
-      <div class="col-md-1">
-        <button mat-flat-button color="primary" (click)="pesquisar()"><i class="fas fa-search"></i></button>
-      </div>
-    </div>
-  </div>
 
-
-
-
-  <!--div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="section-title text-center wow fadeInUp" data-wow-delay="300ms">
-          <h2 class="title wow fadeInUp" data-wow-delay="300ms">Pesquisa</h2>
-        </div>
       </div>
-    </div>
-    <div class="row justify-content-md-center">
-      <div class="col col-md-7">
-        <mat-form-field class="example-full-width">
-          <input matInput type="text" placeholder="Buscar na Bíblia" [(ngModel)]="palavraChave" >
-        </mat-form-field>
-      </div>
-      <div class="col-md-1">
-        <button mat-flat-button color="primary" (click)="pesquisar()"><i class="fas fa-search"></i></button>
-      </div>
-    </div>
-  </div-->
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="section-title text-center wow fadeInUp" data-wow-delay="300ms">
-          <h3 *ngIf="countResultadoPesquisa > 0" class="title wow fadeInUp" data-wow-delay="300ms">{{palavraChave}}: {{countResultadoPesquisa}} resultado(s) encontrado(s)</h3>
-          <h3 *ngIf="countResultadoPesquisa == 0" class="title wow fadeInUp" data-wow-delay="300ms">A Pesquisa não retornou resultados para: '{{palavraChavePesquisa}}'</h3>
-        </div>
-      </div>
-    </div>
-    <div class="row padding-top30" *ngFor="let pesquisa of resultadoPesquisa | paginate: { id:'paginator-pesquisa', itemsPerPage: 7, currentPage: p, totalItems: countResultadoPesquisa}">
-      <div class="section-title text-left wow fadeInUp" data-wow-delay="300ms">
-        <div class="col-md-2">
-          <a pageScroll [pageScrollOffset]="0" [pageScrollDuration]="700" [pageScrollInterruptible]="false" href="#leitura" (pageScrollFinish)="abrirLivroPesquisa(pesquisa.livro, pesquisa.capitulo, pesquisa.versiculo)">{{pesquisa.nome}} {{pesquisa.capitulo}}:{{pesquisa.versiculo}}</a>
-        </div>
-        <div class="col-md-10">{{pesquisa.texto}}</div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12">
-        <div class="section-title text-center wow fadeInUp padding-top30" data-wow-delay="300ms" *ngIf="countResultadoPesquisa > 0"> 
-          <pagination-controls (pageChange)="p = $event" id="paginator-pesquisa"></pagination-controls>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="indice" class="padding-top100 padding-bottom80 testimonial-wrapper">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="section-title text-center wow fadeInUp" data-wow-delay="300ms">
-          <h2 class="title wow fadeInUp" data-wow-delay="300ms">Índice</h2>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12 text-center">
-        <!--mat-tab-group mat-align-tabs="center">
-          <mat-tab label="{{testamento.descricao}}" *ngFor="let testamento of testamentos">
-            <div class="testimonials">
-              <owl-carousel [options]="{items: 5, dots: true, navigation: true, reponsive: true}" [items]="livros[testamento.id]" [carouselClasses]="['owl-theme', 'row', 'sliding']">
-                <div class="item" *ngFor="let livro of livros[testamento.id]">
-                  <div class="thumbnail-image" >
-                    <a pageScroll [pageScrollOffset]="0" [pageScrollDuration]="700" [pageScrollInterruptible]="false" href="#leitura" (pageScrollFinish)="abrirLivroIndice(livro.id, 1, 1);">
-                   
-                    {{livro.nome}}
-                    </a>
-                    
-                  </div>
-                </div>
-              </owl-carousel>
-            </div>
-          </mat-tab>
-        </mat-tab-group-->
-      </div>
-    </div>
-  </div>
-</section>
-<section id="versao" class="padding-top80 padding-bottom80 testimonial-wrapper">
-  <div class="row justify-content-md-center">
-    <div class="col col-md-7">
-      <div class="wow padding-top80" data-wow-delay="300ms">
-        <mat-form-field class="example-full-width">
-          <mat-select (selectionChange)="onVersaoChanged($event.value)" [(ngModel)]="versaoDTO.id" name="versao">
-            <mat-option *ngFor="let versao of versoes" [value]="versao.id" placeholder="Versão">
-              {{versao.nome}} - {{versao.sigla}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-
-<section id="leitura" class="testimonial-wrapper padding-top30" [ngClass]="(backgroundClass === 'white') ? 'white' : 'dark'">
-  <!--div id="sticky">
-    <ul>
-      <li>
-        <a mat-button *ngIf="backgroundClass == 'dark'" (click)="alternarModoDiaENoite()" matTooltip="Modo Dia" [matTooltipPosition]="tooltipPosition"><i class="fas fa-sun"></i></a>
-        <a mat-button *ngIf="backgroundClass == 'white'" (click)="alternarModoDiaENoite()" matTooltip="Modo Noite" [matTooltipPosition]="tooltipPosition"><i class="fas fa-moon"></i></a>
-      </li>
-      <li>
-        <a mat-button [disabled]="fontSize > 22" (click)="aumentarTamanhoFonte()" matTooltip="Aumentar Fonte" [matTooltipPosition]="tooltipPosition"><i class="fas fa-search-plus"></i></a>
-      </li>
-      <li>
-        <a mat-button [disabled]="fontSize < 10" (click)="diminuirTamanhoFonte()" matTooltip="Diminuir Fonte" [matTooltipPosition]="tooltipPosition"><i class="fas fa-search-minus"></i></a>
-      </li>
-      <li>
-        <a mat-button pageScroll matTooltip="Alterar Versão" [matTooltipPosition]="tooltipPosition" href="#versao"><i class="fas fa-exchange-alt"></i></a>
-      </li>
-      <li>
-        <a mat-button *ngIf="usuarioLogado()" pageScroll [pageScrollOffset]="0" [pageScrollDuration]="700" [pageScrollInterruptible]="false" (pageScrollFinish)="marcarCapitulo()"><i class="fas fa-check-square"></i></a>
-        <a mat-button *ngIf="!usuarioLogado()" pageScroll [pageScrollOffset]="0" [pageScrollDuration]="700" [pageScrollInterruptible]="false" href="#login"><i class="fas fa-check-square"></i></a>
-      </li>
-    </ul>
-  </div-->
-  <div class="container" data-wow-delay="80ms">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="section-title text-center wow fadeIn">
-          <h2 class="title wow fadeInUp" data-toggle="tooltip" [title]="versaoDTO.nome">{{livroDTO.nome}} {{capitulo}} ({{versaoDTO.sigla}})</h2>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12">
-        <div class="section-title text-left wow fadeIn">
-          <p id="leitura_{{cap.versiculo}}" 
-            [ngStyle]="{'font-size': fontSize + 'px'}" 
-            [ngClass]="(livroPesquisa === livro && capituloPesquisa === capitulo && versiculoPesquisa === cap.versiculo) ? 'red' : ''"
-            *ngFor="let cap of versos | paginate: { id:'paginator-leitura', itemsPerPage: 1, currentPage: capitulo, totalItems: totalItems }">
-            {{cap.versiculo}} - {{cap.texto}}
-          </p>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12">
-        <div class="section-title text-center wow fadeInUp padding-top30 " data-wow-delay="300ms" *ngIf="totalItems > 0"> 
-          <pagination-controls (pageChange)="nextPage($event)" id="paginator-leitura"></pagination-controls>
+      <div class="col-12 col-md-7 px-7">
+        <div class="row">
+          <div class="col-12 col-sm-6 my-4 text-center text-md-left wow fadeInRight">
+            <span class="fables-iconbussiness fables-second-text-color fa-3x"></span>
+            <h2 class="fables-main-text-color font-18 my-2">BUSINESS CONSULTING</h2>
+            <p class="fables-forth-text-color font-weight-light">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
+            </p>
+          </div>
+          <div class="col-12 col-sm-6 my-4 text-center text-md-left wow fadeInRight">
+            <span class="fables-iconbussiness2 fables-second-text-color fa-3x"></span>
+            <h2 class="fables-main-text-color font-18 my-2">BUSINESS CONSULTING</h2>
+            <p class="fables-forth-text-color font-weight-light">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
+            </p>
+          </div>
+          <div class="col-12 col-sm-6 my-4 text-center text-md-left wow fadeInRight">
+            <span class="fables-iconbussiness3 fables-second-text-color fa-3x"></span>
+            <h2 class="fables-main-text-color font-18 my-2">BUSINESS CONSULTING</h2>
+            <p class="fables-forth-text-color font-weight-light">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
+            </p>
+          </div>
+          <div class="col-12 col-sm-6 my-4 text-center text-md-left wow fadeInRight">
+            <span class="fables-iconbussiness4 fables-second-text-color fa-3x"></span>
+            <h2 class="fables-main-text-color font-18 my-2">BUSINESS CONSULTING</h2>
+            <p class="fables-forth-text-color font-weight-light">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
+            </p>
+          </div>
         </div>
       </div>
     </div>
