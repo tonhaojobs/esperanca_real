@@ -24,24 +24,12 @@
             ],
             "styles": [
               "src/styles.css",
-              "src/assets/fonts/et-line-font/etline.css",
-              "src/assets/css/animations.css",
-              "src/assets/css/component.css",
-              "src/assets/css/theme-responsive.css",
-              "node_modules/animate.css/animate.min.css",
-              "node_modules/owl.carousel/dist/assets/owl.carousel.css",
-              "node_modules/owl.carousel/dist/assets/owl.theme.default.css"
+              "src/assets/css/libre-franklin.css",
+              "src/assets/fonts/et-line-font/etline.css"
             ],
             "scripts": [
-              "node_modules/jquery/dist/jquery.min.js",
-              "node_modules/bootstrap/dist/js/bootstrap.min.js",
-              "src/assets/js/modernizr.js",
-              "src/assets/js/classie.js",
-              "src/assets/js/jquery.localScroll.min.js",
-              "src/assets/js/custom.js",
-              "src/assets/js/jquery.parallax.js",
-              "src/assets/js/wow.js",
-              "node_modules/owl.carousel/dist/owl.carousel.js"
+              "src/assets/js/core.min.js",
+              "src/assets/js/script.js"
             ]
           },
           "configurations": {
