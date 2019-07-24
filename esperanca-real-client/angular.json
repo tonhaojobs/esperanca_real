@@ -24,12 +24,12 @@
             ],
             "styles": [
               "src/styles.css",
-              "src/assets/css/libre-franklin.css",
-              "src/assets/fonts/et-line-font/etline.css"
+              "src/assets/css/bootsnav.css"
             ],
             "scripts": [
-              "src/assets/js/core.min.js",
-              "src/assets/js/script.js"
+              "./node_modules/jquery/dist/jquery.min.js",
+              "./node_modules/bootstrap/dist/js/bootstrap.min.js",
+              "src/assets/js/bootsnav.js"
             ]
           },
           "configurations": {
