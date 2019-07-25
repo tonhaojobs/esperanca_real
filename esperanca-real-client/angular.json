@@ -24,12 +24,17 @@
             ],
             "styles": [
               "src/styles.css",
-              "src/assets/css/bootsnav.css"
+              "src/assets/css/reset.css",
+              "src/assets/css/color.css",
+              "src/assets/css/plugins.css"
             ],
             "scripts": [
               "./node_modules/jquery/dist/jquery.min.js",
+              "./node_modules/jquery-easing/jquery.easing.1.3.js",
               "./node_modules/bootstrap/dist/js/bootstrap.min.js",
-              "src/assets/js/bootsnav.js"
+              "src/assets/js/menu.js",
+              "src/assets/js/scrollToFixed.js",
+              "src/assets/js/custom.js"
             ]
           },
           "configurations": {
