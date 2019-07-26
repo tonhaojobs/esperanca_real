@@ -11,10 +11,6 @@ export class HeaderComponent implements OnInit {
   home: string = "home";
   menuOpen: boolean = false;
   menuLink: string = 'menu_';
-  texto: string = 'Лампа для моих ног - твое слово,';
-  texto2: string = 'и свет для моих путей.';
-  referencia: string = 'Псалмы 119:105';
-
   nomeUsuario: string;
 
   constructor(private idStorage: IdentityStorage) { }

@@ -38,6 +38,7 @@ import { PrivateComponent } from './page/private/private.component';
 import { PublicComponent } from './page/public/public.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { DashboardComponent } from './page/dashboard/dashboard.component';
+import { ApresentacaoComponent } from './page/apresentacao/apresentacao.component';
 
 
 @NgModule({
@@ -53,7 +54,8 @@ import { DashboardComponent } from './page/dashboard/dashboard.component';
     ModalComponent,
     PrivateComponent,
     PublicComponent,
-    DashboardComponent
+    DashboardComponent,
+    ApresentacaoComponent
   ],
   imports: [
     ReactiveFormsModule,
