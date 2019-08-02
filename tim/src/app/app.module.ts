@@ -1,0 +1,43 @@
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { RouterModule } from '@angular/router';
+import { AppRoutingModule } from './app.routing';
+
+import { AppComponent } from './app.component';
+import { NavbarComponent } from './shared/navbar/navbar.component';
+import { FooterComponent } from './shared/footer/footer.component';
+
+import { ComponentsModule } from './components/components.module';
+import { ExamplesModule } from './examples/examples.module';
+import { IndiceComponent } from './pages/indice/indice.component';
+import { PublicComponent } from './pages/public/public.component';
+import { HeaderComponent } from './pages/header/header.component';
+import { LivroService } from './services/livro.service';
+import { HttpClientModule } from '@angular/common/http';
+
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    NavbarComponent,
+    FooterComponent,
+    IndiceComponent,
+    PublicComponent,
+    HeaderComponent
+  ],
+  imports: [
+    BrowserModule,
+    NgbModule.forRoot(),
+    FormsModule,
+    RouterModule,
+    ComponentsModule,
+    ExamplesModule,
+    AppRoutingModule,
+    HttpClientModule
+  ],
+  providers: [ LivroService ],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
