@@ -1,0 +1,12 @@
+<div class="section">
+  <div class="container">
+    <div class="row">
+      <div ngbDropdown display="static" class="col-md-7">
+        <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>{{selecao}}</button>
+        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+          <button ngbDropdownItem *ngFor="let livro of livros" (click)="onSelectChange(livro, livro.nome)">{{livro.nome}}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

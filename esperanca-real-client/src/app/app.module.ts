@@ -39,6 +39,7 @@ import { PublicComponent } from './page/public/public.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { DashboardComponent } from './page/dashboard/dashboard.component';
 import { ApresentacaoComponent } from './page/apresentacao/apresentacao.component';
+import { BannerComponent } from './page/banner/banner.component';
 
 
 @NgModule({
@@ -55,7 +56,8 @@ import { ApresentacaoComponent } from './page/apresentacao/apresentacao.componen
     PrivateComponent,
     PublicComponent,
     DashboardComponent,
-    ApresentacaoComponent
+    ApresentacaoComponent,
+    BannerComponent
   ],
   imports: [
     ReactiveFormsModule,
