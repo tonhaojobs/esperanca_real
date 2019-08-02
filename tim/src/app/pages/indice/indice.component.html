@@ -1,96 +1,73 @@
 <div class="section">
     <div class="container">
+        <div class="tim-title"><h2>Índice de Livros</h2></div>
         <div class="row">
             <div class="col-md-3">
                 <img src="../../../assets/img/2277399.jpg">
             </div>
-
-
             <div class="col-md-9">
-                <div class="container">
-                    <div class="row">
-
-                        <div class="col-md-12">
-
-                            <div class="nav-tabs-navigation">
-                                <div class="nav-tabs-wrapper">
-                                    <ngb-tabset [justify]="'center'">
-                                        <ngb-tab title="Velho Testamento" (click)="teste()">
-                                            <ng-template ngbTabContent>
-                                                <div ngbDropdown display="static" class="col-md-12">
-                                                    <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle style="width: 100%; text-align: left">{{(selecaoVelhoTestamento.nome) ? selecaoVelhoTestamento.nome : 'selecione'}}</button>
-                                                    <div ngbDropdownMenu aria-labelledby="dropdownBasic1" style="width: 97%; text-align: left; max-height: 200px; overflow: scroll;">
-                                                        <button ngbDropdownItem *ngFor="let livro of velhoTestamento" (click)="onSelectChange(livro, 1)">{{livro.nome}}</button>
-                                                    </div>
+                <div class="nav-tabs-navigation">
+                    <div class="nav-tabs-wrapper">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <ngb-tabset [justify]="'center'">
+                                    <ngb-tab title="Velho Testamento" (click)="teste()">
+                                        <ng-template ngbTabContent>
+                                            <div ngbDropdown display="static" class="col-md-12">
+                                                <button class="btn btn-outline-primary dropdown-btn" id="dropdownBasic1" ngbDropdownToggle>{{(selecaoVelhoTestamento.nome) ? selecaoVelhoTestamento.nome : 'selecione'}}</button>
+                                                <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dropdown-books">
+                                                    <button ngbDropdownItem *ngFor="let livro of velhoTestamento" (click)="onSelectChange(livro, 1)">{{livro.nome}}</button>
                                                 </div>
-                                            </ng-template>
-                                        </ngb-tab>
-                                        <ngb-tab title="Novo Testamento">
-                                            <ng-template ngbTabContent>
-                                                <div ngbDropdown display="static" class="col-md-12">
-                                                    <button class="btn btn-outline-success" id="dropdownBasic1" ngbDropdownToggle style="width: 100%; text-align: left">{{(selecaoNovoTestamento.nome) ? selecaoNovoTestamento.nome : 'selecione'}}</button>
-                                                    <div ngbDropdownMenu aria-labelledby="dropdownBasic1" style="width: 97%; text-align: left; max-height: 200px; overflow: scroll;">
-                                                        <button ngbDropdownItem *ngFor="let livro of novoTestamento" (click)="onSelectChange(livro, 2)">{{livro.nome}}</button>
-                                                    </div>
+                                            </div>
+                                        </ng-template>
+                                    </ngb-tab>
+                                    <ngb-tab title="Novo Testamento">
+                                        <ng-template ngbTabContent>
+                                            <div ngbDropdown display="static" class="col-md-12">
+                                                <button class="btn btn-outline-success dropdown-btn" id="dropdownBasic1" ngbDropdownToggle>{{(selecaoNovoTestamento.nome) ? selecaoNovoTestamento.nome : 'selecione'}}</button>
+                                                <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dropdown-books">
+                                                    <button ngbDropdownItem *ngFor="let livro of novoTestamento" (click)="onSelectChange(livro, 2)">{{livro.nome}}</button>
                                                 </div>
-                                            </ng-template>
-                                        </ngb-tab>
-                                    </ngb-tabset>
-                                </div>
+                                            </div>
+                                        </ng-template>
+                                    </ngb-tab>
+                                </ngb-tabset>
                             </div>
-
                         </div>
-
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <button type="button" class="btn btn-danger">Default</button>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button type="button" class="btn btn-default float-left dropdown-btn-action">
+                                    <i class="fa fa-info"></i>
+                                    Informações
+                                </button>
+                                <button type="button" class="btn btn-success float-left dropdown-btn-action"><i class="fa fa-book-open"></i>Abrir Livro</button>
+                            </div>
                         </div>
                     </div>
-                </div>
-
+                </div> 
             </div>
         </div>
     </div>
 </div>
 
-<!--
-   <div class="col-md-3">
-                <img src="../../../assets/img/2277399.jpg">
-            </div>
-          
-
-            <div class="btn-group mr-3" style="width: 100%; text-align: left">
-                <div class="btn-group" style="width: 50%;" ngbDropdown role="group" aria-label="Button group with nested dropdown">
-                    <button class="btn btn-outline-danger" ngbDropdownToggle style="width: 100%; text-align: left">Select me</button>
-                    <div class="dropdown-menu" ngbDropdownMenu>
-                        <button ngbDropdownItem>One</button>
-                        <button ngbDropdownItem>Two</button>
-                        <button ngbDropdownItem>Four!</button>
-                    </div>
-                </div>
-                <div class="btn-group" style="width: 50%; text-align: left" ngbDropdown role="group" aria-label="Button group with nested dropdown">
-                    <button class="btn btn-outline-success" ngbDropdownToggle style="width: 100%; text-align: left">Or me</button>
-                    <div class="dropdown-menu" ngbDropdownMenu>
-                        <button ngbDropdownItem>One</button>
-                        <button ngbDropdownItem>Two</button>
-                        <button ngbDropdownItem>Four!</button>
-                    </div>
+<div class="section search">
+    <div class="search-header">
+        <div class="container">
+            <div class="row justify-content-md-center">
+                <div class="col-md-10">
+                    <h2 class="title">Pesquisa</h2>
                 </div>
             </div>
-            
+            <div class="row justify-content-md-center">
+                <div class="col-sm-8 col-md-8">
+                    <input type="text" class="form-control form-control-success" placeholder="Palavra-chave" aria-describedby="basic-addon1" (focus)="focus=true" (blur)="focus=false" >
+                </div>
+                <div class="col-sm-2 col-md-2">
+                    <button type="button" class="btn btn-danger"><i class="fa fa-search"></i> Pesquisar</button>
+               </div>
+            </div>
+        </div>
 
-              <div ngbDropdown display="static" class="col-md-9">
-                  <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle style="width: 100%; text-align: left">{{selecao}}</button>
-                  <div ngbDropdownMenu aria-labelledby="dropdownBasic1" style="width: 100%; text-align: left">
-                      <button ngbDropdownItem *ngFor="let livro of livros" (click)="onSelectChange(livro, livro.nome)">{{livro.nome}}</button>
-                  </div>
-              </div>
-              <div ngbDropdown display="static" class="col-md-5">
-                  <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle style="width: 100%; text-align: left">{{selecao}}</button>
-                  <div ngbDropdownMenu aria-labelledby="dropdownBasic1" style="width: 100%; text-align: left">
-                      <button ngbDropdownItem *ngFor="let livro of livros" (click)="onSelectChange(livro, livro.nome)">{{livro.nome}}</button>
-                  </div>
-              </div>
--->
+    </div>
+</div>
+<div class="section section-dark"></div>
