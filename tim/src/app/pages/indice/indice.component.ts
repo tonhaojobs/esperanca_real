@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Livro } from 'app/model/livro';
+import { LivroService } from 'app/services/livro.service';
 
 @Component({
   selector: 'app-indice',
@@ -7,28 +9,52 @@ import { Component, OnInit } from '@angular/core';
 })
 export class IndiceComponent implements OnInit {
 
-  livros = [
-    { id: 1, nome: 'Mateus' },
-    { id: 2, nome: 'Marcos' },
-    { id: 3, nome: 'Lucas' },
-    { id: 4, nome: 'João' }
-  ];
+  ID_VELHO_TESTAMENTO = 1;
+  ID_NOVO_TESTAMENTO = 2;
 
-  selecao: string = 'selecione';
+  private velhoTestamento: Array<Livro>;
+  private novoTestamento: Array<Livro>;
 
-  constructor() { }
+  selecaoVelhoTestamento: Livro = new Livro();
+  selecaoNovoTestamento: Livro = new Livro();
+
+  constructor(private livroService: LivroService) { }
 
   ngOnInit() {
+    this.getLivros(1);
+    this.getLivros(2);
   }
 
-  teste(event: string) {
-    console.log(event);
-    this.selecao = event;
+  getLivros(testamento: number) {
+
+    if(testamento === this.ID_VELHO_TESTAMENTO) {
+      this.velhoTestamento = new Array<Livro>();
+
+      this.livroService.findLivrosByTestamento(testamento).subscribe( livros => {
+        this.velhoTestamento.push(...livros);
+      });
+
+    } else {
+      this.novoTestamento = new Array<Livro>();
+
+      this.livroService.findLivrosByTestamento(testamento).subscribe( livros => {
+        this.novoTestamento.push(...livros);
+      });
+    }
+  }
+
+  onSelectChange(key: Livro, testamento: number) {
+
+    if(testamento === this.ID_VELHO_TESTAMENTO) {
+      this.selecaoVelhoTestamento = key;
+    } else {
+      this.selecaoNovoTestamento = key;
+    }
+  }
+
+  teste() {
+    console.log('teste');
     
-  }
-
-  onSelectChange(key: any, value: string) {
-    this.selecao = value;
   }
 
 }

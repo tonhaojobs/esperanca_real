@@ -14,6 +14,8 @@ import { ExamplesModule } from './examples/examples.module';
 import { IndiceComponent } from './pages/indice/indice.component';
 import { PublicComponent } from './pages/public/public.component';
 import { HeaderComponent } from './pages/header/header.component';
+import { LivroService } from './services/livro.service';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -33,8 +35,9 @@ import { HeaderComponent } from './pages/header/header.component';
     ComponentsModule,
     ExamplesModule,
     AppRoutingModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [ LivroService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
