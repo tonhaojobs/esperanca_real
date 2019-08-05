@@ -16,6 +16,9 @@ import { PublicComponent } from './pages/public/public.component';
 import { HeaderComponent } from './pages/header/header.component';
 import { LivroService } from './services/livro.service';
 import { HttpClientModule } from '@angular/common/http';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
+import { NgxPageScrollModule } from 'ngx-page-scroll';
 
 
 @NgModule({
@@ -29,13 +32,16 @@ import { HttpClientModule } from '@angular/common/http';
   ],
   imports: [
     BrowserModule,
+    NgxPaginationModule,
+    NgxPageScrollCoreModule,
     NgbModule.forRoot(),
     FormsModule,
     RouterModule,
     ComponentsModule,
     ExamplesModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxPageScrollModule
   ],
   providers: [ LivroService ],
   bootstrap: [AppComponent]

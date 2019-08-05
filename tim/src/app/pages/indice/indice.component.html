@@ -1,6 +1,8 @@
-<div class="section">
+<div id="indice" class="section">
     <div class="container">
-        <div class="tim-title"><h2>Índice de Livros</h2></div>
+        <div class="tim-title">
+            <h2>Índice de Livros</h2>
+        </div>
         <div class="row">
             <div class="col-md-3">
                 <img src="../../../assets/img/2277399.jpg">
@@ -44,13 +46,13 @@
                             </div>
                         </div>
                     </div>
-                </div> 
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-<div class="section search">
+<div id="pesquisa" class="section search">
     <div class="search-header">
         <div class="container">
             <div class="row justify-content-md-center">
@@ -60,14 +62,48 @@
             </div>
             <div class="row justify-content-md-center">
                 <div class="col-sm-8 col-md-8">
-                    <input type="text" class="form-control form-control-success" placeholder="Palavra-chave" aria-describedby="basic-addon1" (focus)="focus=true" (blur)="focus=false" >
+                    <input type="text" [(ngModel)]="palavraChave" class="form-control form-control-success" placeholder="Palavra-chave" aria-describedby="basic-addon1" (focus)="focus=true" (blur)="focus=false">
                 </div>
                 <div class="col-sm-2 col-md-2">
-                    <button type="button" class="btn btn-danger"><i class="fa fa-search"></i> Pesquisar</button>
-               </div>
+                    <button type="button" class="btn btn-danger" (click)="pesquisar()"><i class="fa fa-search"></i> Pesquisar</button>
+                </div>
+            </div>
+            <div class="row justify-content-md-center search-count-result" *ngIf="exibirResultado">
+                <div class="col-md-10 wrapper-count">
+                    <div *ngIf="resultadoPesquisa.length > 0; then pesquisaComResultado else pesquisaSemResultado"></div>
+                    <ng-template #pesquisaComResultado>
+                        <h3>Sua pesquisa retornou {{resultadoPesquisa.length}} resultado(s).</h3>
+                    </ng-template>
+                    <ng-template #pesquisaSemResultado>
+                        <h3>Sua pesquisa não retornou resultados.</h3>
+                    </ng-template>
+                </div>
             </div>
         </div>
-
     </div>
 </div>
-<div class="section section-dark"></div>
+
+<div class="section section-dark search-result" *ngIf="resultadoPesquisa.length > 0 && exibirResultado">
+    <div class="container">
+        <div class="row item" *ngFor="let pesquisa of resultadoPesquisa | paginate: { id:'paginator-pesquisa', itemsPerPage: 10, currentPage: p, totalItems: resultadoPesquisa.length}">
+            <div class="col-md-2"><a pageScroll [pageScrollOffset]="0" [pageScrollDuration]="700" [pageScrollInterruptible]="false" href="#leitura" (pageScrollFinish)="abrirLivro(pesquisa.capitulo, pesquisa.versiculo);">{{pesquisa.nome}} {{pesquisa.capitulo}}:{{pesquisa.versiculo}}</a></div>
+            <div class="col-md-10">{{pesquisa.texto}}</div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="pagination-wrapper text-center">
+                    <ngb-pagination id="paginator-pesquisa" [collectionSize]="resultadoPesquisa.length" [maxSize]="7" [boundaryLinks]="true" (pageChange)="p = $event"></ngb-pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="leitura" class="section">
+    <div class="container">
+        <div class="col-md-12">
+            <h2>Leitura</h2>
+        </div>
+    </div>
+</div>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Livro } from 'app/model/livro';
 import { LivroService } from 'app/services/livro.service';
+import { Pesquisa } from 'app/model/pesquisa';
 
 @Component({
   selector: 'app-indice',
@@ -18,11 +19,21 @@ export class IndiceComponent implements OnInit {
   selecaoVelhoTestamento: Livro = new Livro();
   selecaoNovoTestamento: Livro = new Livro();
 
+
+  resultadoPesquisa: Array<Pesquisa>;
+  palavraChave: string;
+  exibirResultado: boolean;
+  countResultadoBusca: number;
+  menorIndex = 0;
+  maiorIndex = 10;
+  
+
   constructor(private livroService: LivroService) { }
 
   ngOnInit() {
     this.getLivros(1);
     this.getLivros(2);
+    this.resultadoPesquisa = new Array<Pesquisa>();
   }
 
   getLivros(testamento: number) {
@@ -55,6 +66,17 @@ export class IndiceComponent implements OnInit {
   teste() {
     console.log('teste');
     
+  }
+
+  public pesquisar() {
+      
+    this.livroService.search(this.palavraChave, 1).subscribe(result => {
+      this.resultadoPesquisa = new Array<Pesquisa>();
+      this.resultadoPesquisa.push(...result);
+      
+      this.countResultadoBusca = this.resultadoPesquisa.length;
+      this.exibirResultado = true;
+    });
   }
 
 }
