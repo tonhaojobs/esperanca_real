@@ -12,6 +12,11 @@ import { Versao } from 'app/model/versao';
 })
 export class BibliaComponent implements OnInit {
 
+  simpleSlider = 20;
+  doubleSlider = [20, 40];
+  state_default: boolean = true;
+  focus: any;
+
   ID_VELHO_TESTAMENTO = 1;
   ID_NOVO_TESTAMENTO = 2;
 
@@ -157,6 +162,10 @@ export class BibliaComponent implements OnInit {
     versaoRetorno.ativo = versao.ativo;
 
     return versaoRetorno;
+  }
+
+  private getVersoes() {
+    
   }
 
   private iniciarVariaveis(): void {

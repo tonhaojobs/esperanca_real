@@ -21,6 +21,7 @@ import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
 import { NgxPageScrollModule } from 'ngx-page-scroll';
 import { BibliaComponent } from './pages/biblia/biblia.component';
 import { JwBootstrapSwitchNg2Module } from 'jw-bootstrap-switch-ng2';
+import { NouisliderModule } from 'ng2-nouislider';
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import { JwBootstrapSwitchNg2Module } from 'jw-bootstrap-switch-ng2';
     AppRoutingModule,
     HttpClientModule,
     NgxPageScrollModule,
-    JwBootstrapSwitchNg2Module
+    JwBootstrapSwitchNg2Module,
+    NouisliderModule
   ],
   providers: [ LivroService ],
   bootstrap: [AppComponent]
