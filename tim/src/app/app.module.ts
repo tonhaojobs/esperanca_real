@@ -19,6 +19,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
 import { NgxPageScrollModule } from 'ngx-page-scroll';
+import { BibliaComponent } from './pages/biblia/biblia.component';
+import { JwBootstrapSwitchNg2Module } from 'jw-bootstrap-switch-ng2';
 
 
 @NgModule({
@@ -28,7 +30,8 @@ import { NgxPageScrollModule } from 'ngx-page-scroll';
     FooterComponent,
     IndiceComponent,
     PublicComponent,
-    HeaderComponent
+    HeaderComponent,
+    BibliaComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +44,8 @@ import { NgxPageScrollModule } from 'ngx-page-scroll';
     ExamplesModule,
     AppRoutingModule,
     HttpClientModule,
-    NgxPageScrollModule
+    NgxPageScrollModule,
+    JwBootstrapSwitchNg2Module
   ],
   providers: [ LivroService ],
   bootstrap: [AppComponent]
