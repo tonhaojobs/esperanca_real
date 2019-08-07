@@ -43,7 +43,7 @@ export class BibliaComponent implements OnInit {
   private versos: Array<Verso>;
   private totalItems: number;
   private livros: Array<Livro[]>;
-  
+  private versoes: Array<any>;
 
   constructor(private livroService: LivroService) { }
 
@@ -51,6 +51,7 @@ export class BibliaComponent implements OnInit {
     this.iniciarVariaveis();
     this.getLivros(1);
     this.getLivros(2);
+    this.getVersoes();
 
     this.abrirLivro(1, 1, 1);
     this.resultadoPesquisa = new Array<Pesquisa>();
@@ -165,6 +166,13 @@ export class BibliaComponent implements OnInit {
   }
 
   private getVersoes() {
+
+    this.versoes = new Array<any>();
+
+    this.livroService.findAllVersoes().subscribe( versoes => {
+      this.versoes.push(... versoes);
+    });
+    console.log(this.versoes);
     
   }
 

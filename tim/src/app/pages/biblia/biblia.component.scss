@@ -21,12 +21,26 @@ img {
 }
 
 .search-header {
-    min-height: 400px;
+    min-height: 465px;
     background-image: url(../../../assets/img/search.jpg);
     background-position: top center;
     background-size: cover;
     background-attachment: fixed;
-    padding: 30px 0;
+    padding: 0 0 30px 0;
+}
+
+.leitura-header {
+    background-image: url(../../../assets/img/mountain.jpg);
+    background-color: rgba(0, 0, 0, 0.6);
+    background-size: cover;
+    background-position-y: 75%;
+    height: 300px;
+    padding: 30px;
+}
+
+.leitura-opcoes-header {
+    background-color: #EAEAEA;
+    padding: 20px 0 20px 0;
 }
 
 .search-result {
