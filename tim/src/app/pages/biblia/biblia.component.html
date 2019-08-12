@@ -32,6 +32,22 @@
         </div>
     </div>
 </div>
+<div class="section section-dark search-result" *ngIf="resultadoPesquisa.length > 0 && exibirResultado">
+    <div class="container">
+        <div class="row item" *ngFor="let pesquisa of resultadoPesquisa | paginate: { id:'paginator-pesquisa', itemsPerPage: 10, currentPage: p, totalItems: resultadoPesquisa.length}">
+            <div class="col-md-2"><a pageScroll [pageScrollOffset]="0" [pageScrollDuration]="700" [pageScrollInterruptible]="false" href="#leitura" (pageScrollFinish)="abrirLivro(pesquisa.capitulo, pesquisa.versiculo);">{{pesquisa.nome}}
+          {{pesquisa.capitulo}}:{{pesquisa.versiculo}}</a></div>
+            <div class="col-md-10">{{pesquisa.texto}}</div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="pagination-wrapper text-center">
+                    <ngb-pagination id="paginator-pesquisa" [collectionSize]="resultadoPesquisa.length" [maxSize]="7" [boundaryLinks]="true" [rotate]="true" (pageChange)="p = $event"></ngb-pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div id="indice" class="section">
     <div class="container">
         <div class="tim-title">
@@ -84,88 +100,70 @@
         </div>
     </div>
 </div>
-<div class="section section-dark search-result" *ngIf="resultadoPesquisa.length > 0 && exibirResultado">
-    <div class="container">
-        <div class="row item" *ngFor="let pesquisa of resultadoPesquisa | paginate: { id:'paginator-pesquisa', itemsPerPage: 10, currentPage: p, totalItems: resultadoPesquisa.length}">
-            <div class="col-md-2"><a pageScroll [pageScrollOffset]="0" [pageScrollDuration]="700" [pageScrollInterruptible]="false" href="#leitura" (pageScrollFinish)="abrirLivro(pesquisa.capitulo, pesquisa.versiculo);">{{pesquisa.nome}}
-          {{pesquisa.capitulo}}:{{pesquisa.versiculo}}</a></div>
-            <div class="col-md-10">{{pesquisa.texto}}</div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="pagination-wrapper text-center">
-                    <ngb-pagination id="paginator-pesquisa" [collectionSize]="resultadoPesquisa.length" [maxSize]="7" [boundaryLinks]="true" (pageChange)="p = $event"></ngb-pagination>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+
 
 <div id="leitura" class="section">
     <div class="leitura-header">
         <div class="container">
             <!--Essa seção conterá uma imagem de fundo com o nome do livro e o capítulo selecionado-->
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-4">
                     <div class="section-title wow fadeIn">
                         <h2 class="title wow fadeInUp" data-toggle="tooltip">{{livroDTO.nome}} {{capitulo}} </h2>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="leitura-opcoes-header">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="section-title">
-                        <h4>Opções de leitura</h4>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-2">
-                    <div class="section-title">
-                        <h5>Modo Noturno</h5>
-                    </div>
-                    <bSwitch (changeState)="onChangeSwitchState($event)"></bSwitch>
-                </div>
-                <div class="col-md-4">
-                    <div class="section-title">
-                        <h5>Tamanho da fonte</h5>
-                    </div>
-                    <nouislider [connect]="false" [min]="12" [max]="32" [step]="1" [(ngModel)]="simpleSlider" [tooltips]="false" class="slider"></nouislider>
-                </div>
-                <div class="col-md-6">
-                    <div class="section-title">
-                        <h5>Versão</h5>
-                    </div>
-                    <div ngbDropdown display="static" class="col-md-12">
-                        <button class="btn btn-outline-success dropdown-btn" id="dropdownBasic1" ngbDropdownToggle>versao</button>
-                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dropdown-books">
-                            <button ngbDropdownItem *ngFor="let versao of versoes">{{versao.nome}}</button>
+                <div class="col-md-8">
+                    <div class="leitura-opcoes-header">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="section-title" style="margin-bottom: 20px;">
+                                    <h3 class="title ">Opções de leitura</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5">
+                                <p class="align">Modo Noturno
+                                    <bSwitch (changeState)="onChangeSwitchState($event)"></bSwitch>
+                                </p>
+                            </div>
+                            <div class="col-md-7">
+                                <p>Tamanho da fonte</p>
+                                <nouislider [connect]="false" [min]="12" [max]="32" [step]="1" [(ngModel)]="simpleSlider" [tooltips]="false" class="slider"></nouislider>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p>Versão</p>
+                                <div ngbDropdown display="static" class="col-md-12">
+                                    <button class="btn btn-outline-success dropdown-btn" id="dropdownBasic1" ngbDropdownToggle>versao</button>
+                                    <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dropdown-books">
+                                        <button ngbDropdownItem *ngFor="let versao of versoes">{{versao.nome}}</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="container">
-
-        <div class="row">
-            <div class="col-md-12">
-                <div class="section-title text-left wow fadeIn">
-                    <p id="leitura_{{cap.versiculo}}" [ngStyle]="{'font-size': fontSize + 'px'}" [ngClass]="(livroPesquisa === livro && capituloPesquisa === capitulo && versiculoPesquisa === cap.versiculo) ? 'red' : ''" *ngFor="let cap of versos | paginate: { id:'paginator-leitura', itemsPerPage: 1, currentPage: p2, totalItems: totalItems }">
-                        {{cap.versiculo}} - {{cap.texto}}
-                    </p>
+    <div class="section" [ngClass]="(backgroundClass === 'black') ? 'section-dark' : ''">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="section-title text-left wow fadeIn">
+                        <p id="leitura_{{cap.versiculo}}" [ngStyle]="{'font-size': fontSize + 'px'}" [ngClass]="(livroPesquisa === livro && capituloPesquisa === capitulo && versiculoPesquisa === cap.versiculo) ? 'red' : ''" *ngFor="let cap of versos | paginate: { id:'paginator-leitura', itemsPerPage: 1, currentPage: capitulo, totalItems: totalItems }">
+                            {{cap.versiculo}} - {{cap.texto}}
+                        </p>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="pagination-wrapper text-center">
-                    <ngb-pagination id="paginator-leitura" [collectionSize]="totalItems" [maxSize]="7" [boundaryLinks]="true" (pageChange)="p2 = $event"></ngb-pagination>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="pagination-wrapper text-center">
+                        <ngb-pagination id="paginator-leitura" [collectionSize]="totalItems * 10" [maxSize]="7" [rotate]="true" [boundaryLinks]="true" (pageChange)="nextPage($event)"></ngb-pagination>
+                    </div>
                 </div>
             </div>
         </div>

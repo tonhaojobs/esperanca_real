@@ -44,6 +44,7 @@ export class BibliaComponent implements OnInit {
   private totalItems: number;
   private livros: Array<Livro[]>;
   private versoes: Array<any>;
+  private backgroundClass: string; 
 
   constructor(private livroService: LivroService) { }
 
@@ -55,6 +56,7 @@ export class BibliaComponent implements OnInit {
 
     this.abrirLivro(1, 1, 1);
     this.resultadoPesquisa = new Array<Pesquisa>();
+    this.backgroundClass = 'white';
   }
 
   getLivros(testamento: number) {
@@ -191,8 +193,18 @@ export class BibliaComponent implements OnInit {
 
 
   public onChangeSwitchState(event): void {
-    console.log(event.currentValue);
+
+    let modoNoturno = event.currentValue;
     
+    if(modoNoturno) {
+      this.backgroundClass = 'black';
+    } else {
+      this.backgroundClass = 'white';
+    }
   }
 
+  nextPage($event: any) {
+    this.capitulo = $event;
+    this.abrirLivro(this.livro, this.capitulo, this.versao);
+  }
 }
