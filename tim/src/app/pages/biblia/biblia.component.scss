@@ -34,14 +34,14 @@ img {
     background-color: rgba(0, 0, 0, 0.6);
     background-size: cover;
     background-position-y: 75%;
-    height: 300px;
+    min-height: 250px;
 }
 
 .leitura-opcoes-header {
     background-color: #EAEAEA;
     padding: 0 20px 20px 20px;
     background-color: rgba(234, 234, 234, 0.9);
-    min-height: 300px;
+    min-height: 250px;
 }
 
 .search-result {

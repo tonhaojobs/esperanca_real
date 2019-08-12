@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Livro } from 'app/model/livro';
+import { Versao } from 'app/model/versao';
 
 @Injectable({
   providedIn: 'root'
@@ -31,7 +32,7 @@ export class LivroService {
     return this.getMethod(this.url + "versoes");
   }
 
-  findVersaoById(id: number): Observable<any> {
+  findVersaoById(id: number): Observable<Versao> {
     return this.getMethod(this.url + "versao/" + id );
   }
 

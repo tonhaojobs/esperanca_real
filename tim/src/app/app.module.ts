@@ -22,6 +22,7 @@ import { NgxPageScrollModule } from 'ngx-page-scroll';
 import { BibliaComponent } from './pages/biblia/biblia.component';
 import { JwBootstrapSwitchNg2Module } from 'jw-bootstrap-switch-ng2';
 import { NouisliderModule } from 'ng2-nouislider';
+import { LoginComponent } from './pages/login/login.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { NouisliderModule } from 'ng2-nouislider';
     IndiceComponent,
     PublicComponent,
     HeaderComponent,
-    BibliaComponent
+    BibliaComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

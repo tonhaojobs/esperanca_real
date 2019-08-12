@@ -12,10 +12,9 @@ import { Versao } from 'app/model/versao';
 })
 export class BibliaComponent implements OnInit {
 
-  simpleSlider = 20;
-  doubleSlider = [20, 40];
-  state_default: boolean = true;
+  fontSize = 16;
   focus: any;
+  podeAbrirLivro: boolean = false;
 
   ID_VELHO_TESTAMENTO = 1;
   ID_NOVO_TESTAMENTO = 2;
@@ -25,6 +24,7 @@ export class BibliaComponent implements OnInit {
 
   selecaoVelhoTestamento: Livro = new Livro();
   selecaoNovoTestamento: Livro = new Livro();
+  selecaoVersao: Versao = new Versao();
 
   resultadoPesquisa: Array<Pesquisa>;
   palavraChave: string;
@@ -34,7 +34,6 @@ export class BibliaComponent implements OnInit {
   private livroPesquisa: number;
   private capituloPesquisa: number;
   private versiculoPesquisa: number;
-
 
   private livroDTO: Livro;
   private livro: number;
@@ -55,8 +54,6 @@ export class BibliaComponent implements OnInit {
     this.getVersoes();
 
     this.abrirLivro(1, 1, 1);
-    this.resultadoPesquisa = new Array<Pesquisa>();
-    this.backgroundClass = 'white';
   }
 
   getLivros(testamento: number) {
@@ -79,6 +76,9 @@ export class BibliaComponent implements OnInit {
 
   onSelectChange(key: Livro, testamento: number) {
 
+    this.livro = key.id;
+    this.podeAbrirLivro = true;
+
     if(testamento === this.ID_VELHO_TESTAMENTO) {
       this.selecaoVelhoTestamento = key;
     } else {
@@ -86,9 +86,10 @@ export class BibliaComponent implements OnInit {
     }
   }
 
-  teste() {
-    console.log('teste');
-    
+  onTabSelect(tab: number) {
+    this.selecaoVelhoTestamento = new Livro();
+    this.selecaoNovoTestamento = new Livro();
+    this.podeAbrirLivro = false;  
   }
 
   public pesquisar() {
@@ -101,9 +102,6 @@ export class BibliaComponent implements OnInit {
       this.exibirResultado = true;
     });
   }
-
-
-
 
   private abrirLivro(livro: number, capitulo: number, versao: number) {
   
@@ -123,13 +121,16 @@ export class BibliaComponent implements OnInit {
      });
   }
 
-  private abrirLivroIndice(livro: number, capitulo: number, versao: number) {
-    
-    this.livroPesquisa = 0;
-    this.capituloPesquisa = 0;
-    this.versiculoPesquisa = 0;
+  private abrirLivroIndice() {
 
-    this.abrirLivro(livro, capitulo, versao);
+    if(this.podeAbrirLivro) {
+      this.livroPesquisa = 0;
+      this.capituloPesquisa = 0;
+      this.versiculoPesquisa = 0;
+      this.abrirLivro(this.livro, 1, this.selecaoVersao.id);
+    } else {
+      console.log('erro');
+    }
   }
 
   private abrirLivroPesquisa(livro: number, capitulo: number, versiculo: number) {
@@ -137,7 +138,6 @@ export class BibliaComponent implements OnInit {
     this.livroPesquisa = livro;
     this.capituloPesquisa = capitulo;
     this.versiculoPesquisa = versiculo;
-
     this.abrirLivro(livro, capitulo, 1);
   }
 
@@ -152,7 +152,6 @@ export class BibliaComponent implements OnInit {
     livroRetorno.posicao = livro.posicao;
     livroRetorno.testamento = livro.testamento;
     livroRetorno.id = livro.id;
-
     return livroRetorno;
   }
 
@@ -174,28 +173,24 @@ export class BibliaComponent implements OnInit {
     this.livroService.findAllVersoes().subscribe( versoes => {
       this.versoes.push(... versoes);
     });
-    console.log(this.versoes);
-    
   }
 
   private iniciarVariaveis(): void {
+
+    this.resultadoPesquisa = new Array<Pesquisa>();
+    this.backgroundClass = 'white';
     this.livroDTO = new Livro();
     this.livros = new Array<Livro[]>();
     this.versao = 1;
-    /*
-    this.getVersao(this.versao);
-
-    this.backgroundClass = 'white';
-    this.fontSize = 14;
-    this.resultadoPesquisa = new Array<Pesquisa>();
-    this.versoes = new Array<any>();*/
+    
+    this.livroService.findVersaoById(this.versao).subscribe( versao => {
+      this.selecaoVersao = this.setVersao(versao[0]);
+    });
   }
-
 
   public onChangeSwitchState(event): void {
 
     let modoNoturno = event.currentValue;
-    
     if(modoNoturno) {
       this.backgroundClass = 'black';
     } else {
@@ -206,5 +201,14 @@ export class BibliaComponent implements OnInit {
   nextPage($event: any) {
     this.capitulo = $event;
     this.abrirLivro(this.livro, this.capitulo, this.versao);
+  }
+
+  rangeChanged(updatedRange): void {
+    this.fontSize = updatedRange;
+  }
+
+  onChangeVersao(key: Versao) {
+    this.selecaoVersao = key;
+    this.abrirLivro(this.livro, this.capitulo, key.id);
   }
 }
