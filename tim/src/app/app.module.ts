@@ -15,7 +15,7 @@ import { IndiceComponent } from './pages/indice/indice.component';
 import { PublicComponent } from './pages/public/public.component';
 import { HeaderComponent } from './pages/header/header.component';
 import { LivroService } from './services/livro.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgxPageScrollCoreModule } from 'ngx-page-scroll-core';
 import { NgxPageScrollModule } from 'ngx-page-scroll';
@@ -23,6 +23,11 @@ import { BibliaComponent } from './pages/biblia/biblia.component';
 import { JwBootstrapSwitchNg2Module } from 'jw-bootstrap-switch-ng2';
 import { NouisliderModule } from 'ng2-nouislider';
 import { LoginComponent } from './pages/login/login.component';
+import { AuthGuard } from './_guards/auth.guard';
+import { IdentityStorage } from './_models/identity-storage';
+import { AuthenticationService } from './_services/authentication.service';
+import { AuthInterceptor } from './_guards/auth.interceptor';
+import { AngularWebStorageModule } from 'angular-web-storage';
 
 
 @NgModule({
@@ -49,9 +54,14 @@ import { LoginComponent } from './pages/login/login.component';
     HttpClientModule,
     NgxPageScrollModule,
     JwBootstrapSwitchNg2Module,
-    NouisliderModule
+    NouisliderModule,
+    AngularWebStorageModule
   ],
-  providers: [ LivroService ],
+  providers: [ LivroService,
+    AuthenticationService, 
+    IdentityStorage, 
+    AuthGuard,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
