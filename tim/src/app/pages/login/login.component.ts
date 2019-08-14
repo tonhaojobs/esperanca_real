@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from 'app/_services/authentication.service';
 import { Router } from '@angular/router';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { ToastService } from 'app/services/toast.service';
 
 @Component({
   selector: 'app-login',
@@ -23,17 +23,11 @@ export class LoginComponent implements OnInit {
   campoObrigatorio: string = '';
 
   errorEmail: boolean = false;
-
-  loginForm: FormGroup;
   
-  constructor(private authenticationService: AuthenticationService, public router: Router) { }
+  constructor(private authenticationService: AuthenticationService, public router: Router, public toastService: ToastService) { }
 
   ngOnInit() {
     this.authenticationService.clearAuthentication();
-
-    this.loginForm = new FormGroup({
-      email: new FormControl("", Validators.required),
-    });
   }
 
   logon(): void {
@@ -48,7 +42,8 @@ export class LoginComponent implements OnInit {
         }
       );
     } else {
-      this.errorEmail = true;
+      this.campoObrigatorio = 'campo obrigatório';
+      
     }
   }
 
@@ -79,6 +74,11 @@ export class LoginComponent implements OnInit {
     } else {
       this.possuiCadastro = true;
     }
+  }
+
+
+  showDanger(dangerTpl) {
+    this.toastService.show(dangerTpl, { classname: 'bg-danger text-light', delay: 15000 });
   }
 
 }

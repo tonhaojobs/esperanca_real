@@ -28,6 +28,12 @@ import { IdentityStorage } from './_models/identity-storage';
 import { AuthenticationService } from './_services/authentication.service';
 import { AuthInterceptor } from './_guards/auth.interceptor';
 import { AngularWebStorageModule } from 'angular-web-storage';
+import { PrivateComponent } from './pages/private/private.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from './material.module';
+import { MAT_DATE_LOCALE } from '@angular/material';
+import { ToastService } from './services/toast.service';
 
 
 @NgModule({
@@ -39,7 +45,9 @@ import { AngularWebStorageModule } from 'angular-web-storage';
     PublicComponent,
     HeaderComponent,
     BibliaComponent,
-    LoginComponent
+    LoginComponent,
+    PrivateComponent,
+    DashboardComponent 
   ],
   imports: [
     BrowserModule,
@@ -55,13 +63,19 @@ import { AngularWebStorageModule } from 'angular-web-storage';
     NgxPageScrollModule,
     JwBootstrapSwitchNg2Module,
     NouisliderModule,
-    AngularWebStorageModule
+    AngularWebStorageModule,
+    BrowserAnimationsModule,
+    MaterialModule
   ],
-  providers: [ LivroService,
+  providers: [ 
+    LivroService,
+    ToastService,
     AuthenticationService, 
     IdentityStorage, 
     AuthGuard,
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },  ],
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: MAT_DATE_LOCALE, useValue: "pt-BR" }  
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

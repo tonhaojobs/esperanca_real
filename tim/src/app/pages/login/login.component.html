@@ -8,17 +8,7 @@
                     <div class="card card-register">
                         <h3 class="title">{{tituloLogin}}</h3>
 
-                        <form class="register-form" [formGroup]="loginForm">
-
-                            <mat-form-field class="example-full-width">
-                                <input matInput #input [formControl]="loginForm.controls['email']" name="email"
-                                type="text" placeholder="E-mail" required >
-                                <mat-error *ngIf="loginForm.controls['email'].hasError('required')">teste</mat-error>
-                            </mat-form-field>
-                        
-
-
-
+                        <form class="register-form">
                             <label *ngIf="!esqueciSenha && !possuiCadastro">Nome</label>
                             <div class="input-group form-group-no-border" [ngClass]="{'input-group-focus':focus1===true}" *ngIf="!esqueciSenha && !possuiCadastro">
                                 <div class="input-group-prepend">
@@ -61,7 +51,8 @@
                             </div>
 
 
-                            <button *ngIf="!esqueciSenha && possuiCadastro" class="btn btn-success btn-block btn-round" (click)="logon()">Entrar</button>
+                            <button *ngIf="!esqueciSenha && possuiCadastro" class="btn btn-success btn-block btn-round" (click)="showDanger(dangerTpl)" (click)="logon()">Entrar</button>
+
                             <button *ngIf="!esqueciSenha && possuiCadastro" class="btn btn-primary btn-block btn-round" (click)="toggleEsqueciSenha()">Esqueci a senha</button>
                             <button *ngIf="!esqueciSenha && possuiCadastro" class="btn btn-danger btn-block btn-round" (click)="togglePossuiCadastro()">Não possui login? Cadastre-se!</button>
 
@@ -77,3 +68,16 @@
         </div>
     </div>
 </div>
+
+<ngb-toast
+      *ngFor="let toast of toastService.toasts"
+      [class]="toast.classname"
+      [autohide]="true"
+      [delay]="toast.delay || 5000"
+      (hide)="toastService.remove(toast)">
+    <ng-template [ngIf]="isTemplate(toast)" [ngIfElse]="text">
+        <ng-template [ngTemplateOutlet]="toast.textOrTpl"></ng-template>
+    </ng-template>
+
+    <ng-template #text>{{ toast.textOrTpl }}</ng-template>
+</ngb-toast>
