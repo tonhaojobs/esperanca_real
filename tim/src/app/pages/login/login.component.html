@@ -2,33 +2,42 @@
     <div class="page-header" style="background-image: url('./assets/img/login-image.jpg');">
         <div class="filter"></div>
 
-
         <div class="container">
             <div class="row">
-                <div class="col-lg-5 col-sm-6 mr-auto ml-auto">
+                <div class="col-lg-4 col-sm-6 mr-auto ml-auto">
                     <div class="card card-register">
                         <h3 class="title">{{tituloLogin}}</h3>
 
-                        <form class="register-form">
+                        <form class="register-form" [formGroup]="loginForm">
+
+                            <mat-form-field class="example-full-width">
+                                <input matInput #input [formControl]="loginForm.controls['email']" name="email"
+                                type="text" placeholder="E-mail" required >
+                                <mat-error *ngIf="loginForm.controls['email'].hasError('required')">teste</mat-error>
+                            </mat-form-field>
+                        
+
+
+
                             <label *ngIf="!esqueciSenha && !possuiCadastro">Nome</label>
                             <div class="input-group form-group-no-border" [ngClass]="{'input-group-focus':focus1===true}" *ngIf="!esqueciSenha && !possuiCadastro">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
-                                      <i class="nc-icon nc-key-25"></i>
-                                  </span>
+                                        <i class="nc-icon nc-key-25"></i>
+                                    </span>
                                 </div>
-                                <input type="text" class="form-control" placeholder="nome" (focus)="focus1=true" (blur)="focus1=false">
+                                <input type="text" class="form-control" placeholder="nome" (focus)="focus1=true" (blur)="focus1=false" >
                             </div>
 
                             <label>Email</label>
                             <div class="input-group form-group-no-border" [ngClass]="{'input-group-focus':focus===true}">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
-                                      <i class="nc-icon nc-email-85"></i>
-                                  </span>
+                                        <i class="nc-icon nc-email-85"></i>
+                                    </span>
                                 </div>
 
-                                <input type="text" name="email" class="form-control" placeholder="Email" [(ngModel)]="email" (focus)="focus=true" (blur)="focus=false">
+                                <input type="text" name="email" class="form-control" placeholder="Email" [(ngModel)]="email">
                             </div>
 
                             <label *ngIf="!esqueciSenha">Senha</label>
@@ -38,21 +47,21 @@
                                       <i class="nc-icon nc-key-25"></i>
                                   </span>
                                 </div>
-                                <input type="password" class="form-control" placeholder="Senha" (focus)="focus1=true" (blur)="focus1=false">
+                                <input type="password" name="senha" class="form-control" placeholder="Senha" [(ngModel)]="senha" (focus)="focus1=true" (blur)="focus1=false">
                             </div>
 
                             <label *ngIf="!esqueciSenha && !possuiCadastro">Repetir Senha</label>
                             <div class="input-group form-group-no-border" [ngClass]="{'input-group-focus':focus1===true}" *ngIf="!esqueciSenha && !possuiCadastro">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
-                                      <i class="nc-icon nc-key-25"></i>
-                                  </span>
+                                        <i class="nc-icon nc-key-25"></i>
+                                    </span>
                                 </div>
                                 <input type="password" class="form-control" placeholder="Senha" (focus)="focus1=true" (blur)="focus1=false">
                             </div>
 
 
-                            <button *ngIf="!esqueciSenha && possuiCadastro" class="btn btn-success btn-block btn-round" (clcik)="logon()">Entrar</button>
+                            <button *ngIf="!esqueciSenha && possuiCadastro" class="btn btn-success btn-block btn-round" (click)="logon()">Entrar</button>
                             <button *ngIf="!esqueciSenha && possuiCadastro" class="btn btn-primary btn-block btn-round" (click)="toggleEsqueciSenha()">Esqueci a senha</button>
                             <button *ngIf="!esqueciSenha && possuiCadastro" class="btn btn-danger btn-block btn-round" (click)="togglePossuiCadastro()">Não possui login? Cadastre-se!</button>
 

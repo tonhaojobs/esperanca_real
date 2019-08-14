@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from 'app/_services/authentication.service';
+import { Router } from '@angular/router';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -18,19 +20,44 @@ export class LoginComponent implements OnInit {
 
   esqueciSenha: boolean = false;
   possuiCadastro: boolean = true;
+  campoObrigatorio: string = '';
+
+  errorEmail: boolean = false;
+
+  loginForm: FormGroup;
   
-  constructor(private authenticationService: AuthenticationService) { }
+  constructor(private authenticationService: AuthenticationService, public router: Router) { }
 
   ngOnInit() {
     this.authenticationService.clearAuthentication();
+
+    this.loginForm = new FormGroup({
+      email: new FormControl("", Validators.required),
+    });
   }
 
   logon(): void {
 
-    
-      console.log('OK');
-      
-    
+    if(this.email && this.email.trim().length > 0) {
+
+      this.authenticationService.authenticate(this.email, this.senha).subscribe(
+        result => {
+          this.router.navigate(["private"]);
+        }, error => {
+          this.router.navigate(["public"]);
+        }
+      );
+    } else {
+      this.errorEmail = true;
+    }
+  }
+
+  redefinirSenha(): void {
+
+  }
+
+  cadastro(): void {
+
   }
 
   toggleEsqueciSenha(): void {
