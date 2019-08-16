@@ -16,7 +16,7 @@
                                         <i class="nc-icon nc-key-25"></i>
                                     </span>
                                 </div>
-                                <input type="text" class="form-control" placeholder="nome" (focus)="focus1=true" (blur)="focus1=false" >
+                                <input type="text" class="form-control" placeholder="nome" [(ngModel)]="nome" >
                             </div>
 
                             <label>Email</label>
@@ -51,15 +51,15 @@
                             </div>
 
 
-                            <button *ngIf="!esqueciSenha && possuiCadastro" class="btn btn-success btn-block btn-round" (click)="showDanger(dangerTpl)" (click)="logon()">Entrar</button>
+                            <button *ngIf="!esqueciSenha && possuiCadastro" class="btn btn-success btn-block btn-round" (click)="logon()">Entrar</button>
 
                             <button *ngIf="!esqueciSenha && possuiCadastro" class="btn btn-primary btn-block btn-round" (click)="toggleEsqueciSenha()">Esqueci a senha</button>
                             <button *ngIf="!esqueciSenha && possuiCadastro" class="btn btn-danger btn-block btn-round" (click)="togglePossuiCadastro()">Não possui login? Cadastre-se!</button>
 
-                            <button *ngIf="esqueciSenha && possuiCadastro" class="btn btn-success btn-block btn-round">Redefinir senha</button>
+                            <button *ngIf="esqueciSenha && possuiCadastro" class="btn btn-success btn-block btn-round" (click)="redefinirSenha()">Redefinir senha</button>
                             <button *ngIf="esqueciSenha && possuiCadastro" class="btn btn-primary btn-block btn-round" (click)="voltar('redefinirSenha')">Voltar</button>
 
-                            <button *ngIf="!esqueciSenha && !possuiCadastro" class="btn btn-success btn-block btn-round">Cadastrar</button>
+                            <button *ngIf="!esqueciSenha && !possuiCadastro" class="btn btn-success btn-block btn-round" (click)="cadastrar()">Cadastrar</button>
                             <button *ngIf="!esqueciSenha && !possuiCadastro" class="btn btn-primary btn-block btn-round" (click)="voltar('cadastro')">Voltar</button>
                         </form>
                     </div>
@@ -69,15 +69,4 @@
     </div>
 </div>
 
-<ngb-toast
-      *ngFor="let toast of toastService.toasts"
-      [class]="toast.classname"
-      [autohide]="true"
-      [delay]="toast.delay || 5000"
-      (hide)="toastService.remove(toast)">
-    <ng-template [ngIf]="isTemplate(toast)" [ngIfElse]="text">
-        <ng-template [ngTemplateOutlet]="toast.textOrTpl"></ng-template>
-    </ng-template>
 
-    <ng-template #text>{{ toast.textOrTpl }}</ng-template>
-</ngb-toast>

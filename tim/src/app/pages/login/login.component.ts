@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from 'app/_services/authentication.service';
 import { Router } from '@angular/router';
-import { ToastService } from 'app/services/toast.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -10,11 +10,18 @@ import { ToastService } from 'app/services/toast.service';
 })
 export class LoginComponent implements OnInit {
 
+  readonly ID_FORMULARIO_LOGON: number = 1;
+  readonly ID_FORMULARIO_SENHA: number = 2;
+  readonly ID_FORMULARIO_CADASTRO: number = 3;
+
   focus;
   focus1;
 
   email: string;
   senha: string;
+  senhaConfirmacao: string;
+  nome: string;
+
 
   tituloLogin: string = 'Entrar';
 
@@ -24,7 +31,7 @@ export class LoginComponent implements OnInit {
 
   errorEmail: boolean = false;
   
-  constructor(private authenticationService: AuthenticationService, public router: Router, public toastService: ToastService) { }
+  constructor(private authenticationService: AuthenticationService, public router: Router, private toastr: ToastrService) { }
 
   ngOnInit() {
     this.authenticationService.clearAuthentication();
@@ -32,7 +39,9 @@ export class LoginComponent implements OnInit {
 
   logon(): void {
 
-    if(this.email && this.email.trim().length > 0) {
+    // https://www.npmjs.com/package/ngx-toastr
+
+    if(this.validarFormulario(this.ID_FORMULARIO_LOGON)) {
 
       this.authenticationService.authenticate(this.email, this.senha).subscribe(
         result => {
@@ -41,17 +50,21 @@ export class LoginComponent implements OnInit {
           this.router.navigate(["public"]);
         }
       );
-    } else {
-      this.campoObrigatorio = 'campo obrigatório';
-      
-    }
+    } 
   }
 
   redefinirSenha(): void {
 
+    if(this.validarFormulario(this.ID_FORMULARIO_SENHA)) {
+      console.log('teste');
+      
+    }
   }
 
-  cadastro(): void {
+  cadastrar(): void {
+
+    if(this.validarFormulario(this.ID_FORMULARIO_CADASTRO)) {
+    }
 
   }
 
@@ -76,9 +89,77 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  validarFormulario(idFormulario: number): boolean {
 
-  showDanger(dangerTpl) {
-    this.toastService.show(dangerTpl, { classname: 'bg-danger text-light', delay: 15000 });
+    let erro: number = 0;
+    this.toastr.clear();
+    
+    switch(idFormulario) {
+
+      case this.ID_FORMULARIO_LOGON : {
+        
+        if(!this.senha || this.senha.trim().length === 0){
+          this.toastr.warning('Campo \'Senha\' Obrigatório', '');
+          erro++;
+        }
+
+        if(!this.email || this.email.trim().length === 0){
+          this.toastr.warning('Campo \'E-mail\' Obrigatório', '');
+          erro++;
+        }
+        
+        break;
+      }
+
+      case this.ID_FORMULARIO_SENHA : {
+
+        if(!this.email || this.email.trim().length === 0){
+          this.toastr.warning('Campo \'Senha\' Obrigatório', '');
+          erro++;
+        }
+
+        break;
+      }
+
+      case this.ID_FORMULARIO_CADASTRO : {
+
+        if(!this.senhaConfirmacao || this.senhaConfirmacao.trim().length === 0){
+          this.toastr.warning('Campo \'Repetir Senha\' Obrigatório', '');
+          erro++;
+        }
+
+        if(!this.senha || this.senha.trim().length === 0){
+          this.toastr.warning('Campo \'Senha\' Obrigatório', '');
+          erro++;
+        }
+
+        if(!this.email || this.email.trim().length === 0){
+          this.toastr.warning('Campo \'E-mail\' Obrigatório', '');
+          erro++;
+        }
+
+        if(!this.nome || this.nome.trim().length === 0){
+          this.toastr.warning('Campo \'Nome\' Obrigatório', '');
+          erro++;
+        }
+
+        if((this.senhaConfirmacao && this.senhaConfirmacao.trim().length > 0) && (this.senha && this.senha.trim().length > 0)){
+          
+          if(this.senhaConfirmacao !== this.senha) {
+            this.toastr.warning('As senhas são diferentes', '');
+            erro++;
+          }
+        }
+
+        break;
+      }
+    }
+
+    if(erro > 0) {
+      return false;
+    }
+
+    return true;
   }
 
 }

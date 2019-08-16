@@ -33,8 +33,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { MAT_DATE_LOCALE } from '@angular/material';
-import { ToastService } from './services/toast.service';
-
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -47,13 +46,14 @@ import { ToastService } from './services/toast.service';
     BibliaComponent,
     LoginComponent,
     PrivateComponent,
-    DashboardComponent 
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,
     NgxPaginationModule,
     NgxPageScrollCoreModule,
     NgbModule.forRoot(),
+    ToastrModule.forRoot(),
     FormsModule,
     RouterModule,
     ComponentsModule,
@@ -69,7 +69,6 @@ import { ToastService } from './services/toast.service';
   ],
   providers: [ 
     LivroService,
-    ToastService,
     AuthenticationService, 
     IdentityStorage, 
     AuthGuard,
