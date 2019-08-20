@@ -137,3 +137,4 @@
 [2019-06-10 10:08:57] my_logger.DEBUG: Using token from environment [] []
 [2019-06-10 10:09:00] my_logger.DEBUG: Using token from environment [] []
 [2019-06-10 10:52:00] my_logger.DEBUG: Using token from environment [] []
+[2019-08-18 14:05:33] my_logger.WARNING: Token not found [] []

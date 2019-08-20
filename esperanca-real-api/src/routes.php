@@ -33,7 +33,7 @@ return function (App $app) {
 				"jti" => $jti,
 				"sub" => $usuario
 			];
-			
+		
 			$secret = "@33sp33r44nc44_R3344L";
 			$token = JWT::encode($payload, $secret, "HS256");
 			
@@ -50,7 +50,7 @@ return function (App $app) {
 				
 		} else {
 			
-			$data = ["status" => 403, 'msg' => 'UsuÃ¡rio e/ou Senha incorreto(s)'];
+			$data = ["status" => 403, "msg" => "Usuário e/ou Senha incorreto(s)"];
 			
 			return $response->withStatus(403)
 				->withHeader("Content-Type", "application/json")
@@ -197,6 +197,27 @@ return function (App $app) {
 			->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
 			->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS')
 			->write(json_encode($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));	
+	});
+	
+	$app->post("/cadastro",  function ($request, $response, $args) {
+
+		$data_ = $request->getParsedBody();
+	
+		$biblia = new \Service\BibliaService();
+		
+		$primeiroNome = $data_['primeiroNome']; 
+		$ultimoNome = $data_['ultimoNome']; 
+		$email = $data_['email']; 
+		$senha = $data_['senha'];
+		
+		$data = $biblia->cadastro($primeiroNome, $ultimoNome, $email, $senha);
+		
+		return $response->withStatus(200)
+			->withHeader("Content-Type", "application/json")
+			->withHeader('Access-Control-Allow-Origin', '*')
+			->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
+			->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS')
+			->write(json_encode($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
 	});
 	
 	$app->map(['GET', 'POST', 'PUT', 'DELETE', 'PATCH'], '/{routes:.+}', function($req, $res) {

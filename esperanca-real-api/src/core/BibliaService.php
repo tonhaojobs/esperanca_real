@@ -45,8 +45,7 @@ class BibliaService {
 	}
 	
 	public function login($email, $senha) {
-	//	$senhaCriptografada = $this->getSenhaCriptografada($senha);
-		$senhaCriptografada = $senha;
+		$senhaCriptografada = $this->getSenhaCriptografada($senha);
 		return $this->bibliaDAO->login($email, $senhaCriptografada);
 	}
 	
@@ -68,11 +67,20 @@ class BibliaService {
 	
 	private function getSenhaCriptografada($senha) {
 		
-		$salt = md5("@33sp33r44nc44_Ree44L");
-		
-		$senhaCriptografada = crypt($senha, $salt);
-		$senhaCriptografada = hash('sha512', $senhaCriptografada);
+		$salt = md5("33sp33r44nc44_Ree44L");
+		$senhaCriptografada_ = crypt($senha, '$6$rounds=12000$'.$salt);
+		$senhaCriptografada = hash('sha512', $senhaCriptografada_);
 		
 		return $senhaCriptografada;
+	}
+	
+	public function cadastro($primeiroNome, $ultimoNome, $email, $senha) {
+
+		$count = $this->bibliaDAO->getUsuarioByEmail($email);
+		
+		if($count == 0) {
+			$senhaCriptografada = $this->getSenhaCriptografada($senha);
+			return $this->bibliaDAO->cadastro($primeiroNome, $ultimoNome, $email, $senhaCriptografada);
+		} 
 	}
 }

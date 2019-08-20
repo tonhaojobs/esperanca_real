@@ -20,7 +20,8 @@ export class LoginComponent implements OnInit {
   email: string;
   senha: string;
   senhaConfirmacao: string;
-  nome: string;
+  primeiroNome: string;
+  ultimoNome: string;
 
 
   tituloLogin: string = 'Entrar';
@@ -47,6 +48,10 @@ export class LoginComponent implements OnInit {
         result => {
           this.router.navigate(["private"]);
         }, error => {
+          if(error['status'] === 403) {
+            this.toastr.error('E-mail e/ou Senha Inválido(s)');
+          }
+          
           this.router.navigate(["public"]);
         }
       );
@@ -56,16 +61,25 @@ export class LoginComponent implements OnInit {
   redefinirSenha(): void {
 
     if(this.validarFormulario(this.ID_FORMULARIO_SENHA)) {
-      console.log('teste');
-      
+      this.authenticationService.authenticate(this.email, this.senha).subscribe(
+        
+      );
     }
   }
 
   cadastrar(): void {
 
     if(this.validarFormulario(this.ID_FORMULARIO_CADASTRO)) {
-    }
 
+      this.authenticationService.cadastro(this.primeiroNome, this.ultimoNome, this.email, this.senha).subscribe( data => {
+      
+        if(data) {
+          this.toastr.success('Usuário cadastrado com sucesso');
+        } else {
+          this.toastr.error('Usuário já cadastrado. Utilize outra conta de e-mail');
+        }
+      });
+    }
   }
 
   toggleEsqueciSenha(): void {
@@ -91,7 +105,7 @@ export class LoginComponent implements OnInit {
 
   validarFormulario(idFormulario: number): boolean {
 
-    let erro: number = 0;
+    let validaPreenchimento: boolean = true;
     this.toastr.clear();
     
     switch(idFormulario) {
@@ -100,12 +114,12 @@ export class LoginComponent implements OnInit {
         
         if(!this.senha || this.senha.trim().length === 0){
           this.toastr.warning('Campo \'Senha\' Obrigatório', '');
-          erro++;
+          validaPreenchimento = false;
         }
 
         if(!this.email || this.email.trim().length === 0){
           this.toastr.warning('Campo \'E-mail\' Obrigatório', '');
-          erro++;
+          validaPreenchimento = false;
         }
         
         break;
@@ -115,7 +129,7 @@ export class LoginComponent implements OnInit {
 
         if(!this.email || this.email.trim().length === 0){
           this.toastr.warning('Campo \'Senha\' Obrigatório', '');
-          erro++;
+          validaPreenchimento = false;
         }
 
         break;
@@ -125,41 +139,40 @@ export class LoginComponent implements OnInit {
 
         if(!this.senhaConfirmacao || this.senhaConfirmacao.trim().length === 0){
           this.toastr.warning('Campo \'Repetir Senha\' Obrigatório', '');
-          erro++;
+          validaPreenchimento = false;
         }
 
         if(!this.senha || this.senha.trim().length === 0){
           this.toastr.warning('Campo \'Senha\' Obrigatório', '');
-          erro++;
+          validaPreenchimento = false;
         }
 
         if(!this.email || this.email.trim().length === 0){
           this.toastr.warning('Campo \'E-mail\' Obrigatório', '');
-          erro++;
+          validaPreenchimento = false;
         }
 
-        if(!this.nome || this.nome.trim().length === 0){
-          this.toastr.warning('Campo \'Nome\' Obrigatório', '');
-          erro++;
+        if(!this.ultimoNome || this.ultimoNome.trim().length === 0){
+          this.toastr.warning('Campo \'Último Nome\' Obrigatório', '');
+          validaPreenchimento = false;
+        }
+
+        if(!this.primeiroNome || this.primeiroNome.trim().length === 0){
+          this.toastr.warning('Campo \'Primeiro Nome\' Obrigatório', '');
+          validaPreenchimento = false;
         }
 
         if((this.senhaConfirmacao && this.senhaConfirmacao.trim().length > 0) && (this.senha && this.senha.trim().length > 0)){
           
           if(this.senhaConfirmacao !== this.senha) {
             this.toastr.warning('As senhas são diferentes', '');
-            erro++;
+            validaPreenchimento = false;
           }
         }
-
         break;
       }
     }
-
-    if(erro > 0) {
-      return false;
-    }
-
-    return true;
+    return validaPreenchimento;
   }
 
 }

@@ -205,4 +205,39 @@ class BibliaDAO {
 		return $result;
 	}
 	
+	public function getUsuarioByEmail($email) {
+		
+		$sql  = " SELECT COUNT(*) FROM biblia.usuario ";
+		$sql .= " WHERE email = :email ";
+		
+		$this->resultSet = $this->PDO->prepare($sql);
+		
+		$this->resultSet->bindValue(':email', $email);
+		$this->resultSet->execute();
+		$result = $this->resultSet->fetchColumn(); 
+		
+		return $result;
+	}
+	
+	public function cadastro($primeiroNome, $ultimoNome, $email, $senha) {
+		
+		try{
+			$sql  = " INSERT INTO biblia.usuario (primeiro_nome, ultimo_nome, email, senha) ";
+			$sql .= " VALUES (:primeiroNome, :ultimoNome, :email, :senha) ";
+			
+			$this->resultSet = $this->PDO->prepare($sql);
+			
+			$this->resultSet->bindValue(':primeiroNome', $primeiroNome);
+			$this->resultSet->bindValue(':ultimoNome', $ultimoNome);
+			$this->resultSet->bindValue(':email', $email);
+			$this->resultSet->bindValue(':senha', $senha);
+
+			$result = $this->resultSet->execute();
+			
+			return $result;	
+			
+		} catch (PDOException $ex) {
+			return $ex->getCode();
+		}
+	}
 }

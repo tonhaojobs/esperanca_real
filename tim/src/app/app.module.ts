@@ -34,6 +34,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { MAT_DATE_LOCALE } from '@angular/material';
 import { ToastrModule } from 'ngx-toastr';
+import { CalendarModule } from 'angular-calendar';
+import { SchedulerModule } from 'angular-calendar-scheduler';
 
 @NgModule({
   declarations: [
@@ -65,7 +67,9 @@ import { ToastrModule } from 'ngx-toastr';
     NouisliderModule,
     AngularWebStorageModule,
     BrowserAnimationsModule,
-    MaterialModule
+    MaterialModule,
+    CalendarModule.forRoot(),
+    SchedulerModule.forRoot({ locale: 'en', headerDateFormat: 'daysRange' })
   ],
   providers: [ 
     LivroService,

@@ -1,4 +1,4 @@
-import { BehaviorSubject, Observable, from, fromEventPattern } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { LocalStorageService } from 'angular-web-storage';
@@ -58,6 +58,17 @@ export class AuthenticationService {
         return new AuthenticationResult(false, "Login ou Senha Inválidos");
       }
     });
+  }
+
+  cadastro(primeiroNome: string, ultimoNome: string, email: string, senha: string) : Observable<Response> {
+
+    let formData: FormData = new FormData(); 
+    formData.append('primeiroNome', primeiroNome); 
+    formData.append('ultimoNome', ultimoNome); 
+    formData.append('email', email); 
+    formData.append('senha', senha); 
+
+    return this.http.post<Response>(this.url + 'cadastro', formData);
   }
 
   getIdentity(): Identity {

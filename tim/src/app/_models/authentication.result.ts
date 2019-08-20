@@ -8,3 +8,7 @@ export class AuthenticationResult {
         this.message = message;
     }
 }
+
+export class UsuarioResult {
+    
+}

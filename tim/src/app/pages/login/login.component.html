@@ -9,45 +9,55 @@
                         <h3 class="title">{{tituloLogin}}</h3>
 
                         <form class="register-form">
-                            <label *ngIf="!esqueciSenha && !possuiCadastro">Nome</label>
-                            <div class="input-group form-group-no-border" [ngClass]="{'input-group-focus':focus1===true}" *ngIf="!esqueciSenha && !possuiCadastro">
+                            <label *ngIf="!esqueciSenha && !possuiCadastro">Primeiro Nome</label>
+                            <div class="input-group form-group-no-border" *ngIf="!esqueciSenha && !possuiCadastro">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
-                                        <i class="nc-icon nc-key-25"></i>
+                                        <i class="nc-icon nc-single-02"></i>
                                     </span>
                                 </div>
-                                <input type="text" class="form-control" placeholder="nome" [(ngModel)]="nome" >
+                                <input type="text" class="form-control" name="primeiroNome" [(ngModel)]="primeiroNome">
+                            </div>
+
+                            <label *ngIf="!esqueciSenha && !possuiCadastro">Último Nome</label>
+                            <div class="input-group form-group-no-border" *ngIf="!esqueciSenha && !possuiCadastro">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">
+                                        <i class="nc-icon nc-single-02"></i>
+                                    </span>
+                                </div>
+                                <input type="text" class="form-control" name="ultimoNome" [(ngModel)]="ultimoNome">
                             </div>
 
                             <label>Email</label>
-                            <div class="input-group form-group-no-border" [ngClass]="{'input-group-focus':focus===true}">
+                            <div class="input-group form-group-no-border">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
                                         <i class="nc-icon nc-email-85"></i>
                                     </span>
                                 </div>
 
-                                <input type="text" name="email" class="form-control" placeholder="Email" [(ngModel)]="email">
+                                <input type="text" name="email" class="form-control" [(ngModel)]="email">
                             </div>
 
                             <label *ngIf="!esqueciSenha">Senha</label>
-                            <div class="input-group form-group-no-border" [ngClass]="{'input-group-focus':focus1===true}" *ngIf="!esqueciSenha">
+                            <div class="input-group form-group-no-border" *ngIf="!esqueciSenha">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
                                       <i class="nc-icon nc-key-25"></i>
                                   </span>
                                 </div>
-                                <input type="password" name="senha" class="form-control" placeholder="Senha" [(ngModel)]="senha" (focus)="focus1=true" (blur)="focus1=false">
+                                <input type="password" name="senha" class="form-control" [(ngModel)]="senha">
                             </div>
 
                             <label *ngIf="!esqueciSenha && !possuiCadastro">Repetir Senha</label>
-                            <div class="input-group form-group-no-border" [ngClass]="{'input-group-focus':focus1===true}" *ngIf="!esqueciSenha && !possuiCadastro">
+                            <div class="input-group form-group-no-border" *ngIf="!esqueciSenha && !possuiCadastro">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">
                                         <i class="nc-icon nc-key-25"></i>
                                     </span>
                                 </div>
-                                <input type="password" class="form-control" placeholder="Senha" (focus)="focus1=true" (blur)="focus1=false">
+                                <input type="password" name="senhaConfirmacao" class="form-control" [(ngModel)]="senhaConfirmacao">
                             </div>
 
 
@@ -68,5 +78,3 @@
         </div>
     </div>
 </div>
-
-
