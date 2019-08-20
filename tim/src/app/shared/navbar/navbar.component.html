@@ -10,28 +10,24 @@
         </div>
         <div class="navbar-collapse" id="navbarToggler">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item" *ngIf="!isDocumentation()">
+                <li class="nav-item">
                     <a class="nav-link" pageScroll [pageScrollOffset]="70" [pageScrollDuration]="700" [pageScrollInterruptible]="false" href="#home">home</a>
                 </li>
-                <li class="nav-item" *ngIf="!isDocumentation()">
-                    <a class="nav-link" pageScroll [pageScrollOffset]="0" [pageScrollDuration]="700" [pageScrollInterruptible]="false" href="#pesquisa">pesquisa</a>
-                </li>
-                <li class="nav-item" *ngIf="!isDocumentation()">
-                    <a class="nav-link" pageScroll [pageScrollOffset]="70" [pageScrollDuration]="700" [pageScrollInterruptible]="false" href="#indice">índice</a>
-                </li>
-                <li class="nav-item" *ngIf="!isDocumentation()">
-                    <a class="nav-link" pageScroll [pageScrollOffset]="0" [pageScrollDuration]="700" [pageScrollInterruptible]="false" href="#leitura">leitura</a>
+                <li class="nav-item">
+                    <a class="nav-link" pageScroll [pageScrollOffset]="70" [pageScrollDuration]="700" [pageScrollInterruptible]="false" href="#apresentacao" *ngIf="!isLogged()">Apresentação</a>
+                    <a class="nav-link" pageScroll [pageScrollOffset]="70" [pageScrollDuration]="700" [pageScrollInterruptible]="false" href="#dashboard" *ngIf="isLogged()">Dashboard</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" pageScroll [pageScrollOffset]="0" [pageScrollDuration]="700" [pageScrollInterruptible]="false" href="#pesquisa">pesquisa</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" pageScroll [pageScrollOffset]="70" [pageScrollDuration]="700" [pageScrollInterruptible]="false" href="#indice">índice</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" pageScroll [pageScrollOffset]="0" [pageScrollDuration]="700" [pageScrollInterruptible]="false" href="#leitura">leitura</a>
+                </li>
+                <li class="nav-item" *ngIf="!isLogged()">
                     <a class="nav-link" pageScroll [pageScrollOffset]="0" [pageScrollDuration]="700" [pageScrollInterruptible]="false" href="#login">login</a>
-
-                    <!--div ngbDropdown class="d-inline-block dropdown">
-                        <a class="nav-link" id="dropdownBasic1" ngbDropdownToggle>Login</a>
-                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dropdown-primary">
-                            <a class="dropdown-item">Entrar</a>
-                            <a class="dropdown-item">Cadastrar</a>
-                        </div>
-                    </div-->
                 </li>
             </ul>
         </div>

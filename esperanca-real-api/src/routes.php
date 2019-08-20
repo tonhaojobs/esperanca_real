@@ -23,7 +23,7 @@ return function (App $app) {
 		if(!empty($retorno)) {
 			
 			$now = new DateTime();
-			$future = new DateTime("+2000 minutes");
+			$future = new DateTime("+2 minutes");
 			$server = $request->getServerParams();
 			$jti = (new Base62)->encode(random_bytes(16));
 			
@@ -39,7 +39,7 @@ return function (App $app) {
 			
 			$data["user"] = $retorno;
 			$data["token"] = $token;
-			//$data["expires"] = $future->getTimeStamp();
+			$data["expires"] = $future->getTimeStamp();
 			
 			return $response->withStatus(201)
 				->withHeader("Content-Type", "application/json")

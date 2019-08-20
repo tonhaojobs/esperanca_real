@@ -28,6 +28,7 @@
     "@angular/platform-browser-dynamic": "7.2.0",
     "@angular/router": "7.2.0",
     "@ng-bootstrap/ng-bootstrap": "^4.1.0",
+    "@syncfusion/ej2-angular-schedule": "^17.2.41",
     "angular-calendar-scheduler": "^1.0.10",
     "angular-web-storage": "^7.0.0-beta.1",
     "bootstrap": "4.1.2",

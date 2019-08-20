@@ -34,8 +34,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { MAT_DATE_LOCALE } from '@angular/material';
 import { ToastrModule } from 'ngx-toastr';
-import { CalendarModule } from 'angular-calendar';
-import { SchedulerModule } from 'angular-calendar-scheduler';
+import {ScheduleModule, AgendaService, DayService, WeekService, WorkWeekService, MonthService } from '@syncfusion/ej2-angular-schedule';
 
 @NgModule({
   declarations: [
@@ -68,8 +67,7 @@ import { SchedulerModule } from 'angular-calendar-scheduler';
     AngularWebStorageModule,
     BrowserAnimationsModule,
     MaterialModule,
-    CalendarModule.forRoot(),
-    SchedulerModule.forRoot({ locale: 'en', headerDateFormat: 'daysRange' })
+    ScheduleModule
   ],
   providers: [ 
     LivroService,
@@ -77,7 +75,8 @@ import { SchedulerModule } from 'angular-calendar-scheduler';
     IdentityStorage, 
     AuthGuard,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-    { provide: MAT_DATE_LOCALE, useValue: "pt-BR" }  
+    { provide: MAT_DATE_LOCALE, useValue: "pt-BR" } ,
+    AgendaService, DayService, WeekService, WorkWeekService, MonthService
   ],
   bootstrap: [AppComponent]
 })

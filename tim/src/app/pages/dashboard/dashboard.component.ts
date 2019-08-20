@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IdentityStorage } from 'app/_models/identity-storage';
+import { Router } from '@angular/router';
+import { View } from '@syncfusion/ej2-schedule';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,8 +11,11 @@ import { IdentityStorage } from 'app/_models/identity-storage';
 export class DashboardComponent implements OnInit {
 
   nomeUsuario: string;
+  public currentDate: Date = new Date(2018, 10, 30);
+  public newViewMode: View = 'Month';
+  public views: Array<string> = ['Teste'];
 
-  constructor(private idStorage: IdentityStorage) { }
+  constructor(private idStorage: IdentityStorage, public router: Router) { }
 
   ngOnInit() {
     this.nomeUsuario = this.idStorage.getIdentity()['nome'];
@@ -25,6 +30,12 @@ export class DashboardComponent implements OnInit {
     return COUNTRIES
       .map((country, i) => ({id: i + 1, ...country}))
       .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
+  }
+
+  logout() {
+    this.idStorage.clearAuthData();
+    localStorage.removeItem('currentUser');
+    this.router.navigate(["public"]);
   }
 }
 
