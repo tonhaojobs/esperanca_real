@@ -158,6 +158,12 @@
     </div>
     <div class="section" [ngClass]="(backgroundClass === 'black') ? 'section-dark' : ''">
         <div class="container">
+            <div class="row" *ngIf="usuarioLogado">
+                <div class="col-md-12 mb-4">
+                    <h6>Percentual de leitura do livro: 25%</h6>
+                    <ngb-progressbar type="danger" [max]="50" [value]="1" [striped]="true" [animated]="true"></ngb-progressbar>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-md-12">
                     <div class="section-title text-left wow fadeIn">
@@ -165,6 +171,11 @@
                             {{cap.versiculo}} - {{cap.texto}}
                         </p>
                     </div>
+                </div>
+            </div>
+            <div class="row justify-content-md-center" *ngIf="usuarioLogado">
+                <div class="col-md-4 mt-4">
+                    <button type="button" class="btn" [ngClass]="(capituloLido) ? 'btn-success' : 'btn-primary'" [disabled]="capituloLido" (click)="marcarCapituloLido()"><i class="fa fa-check"></i> {{labelBotaoCapituloLido}}</button>
                 </div>
             </div>
             <div class="row">

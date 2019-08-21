@@ -4,6 +4,8 @@ import { LivroService } from 'app/services/livro.service';
 import { Pesquisa } from 'app/model/pesquisa';
 import { Verso } from 'app/model/verso';
 import { Versao } from 'app/model/versao';
+import { IdentityStorage } from 'app/_models/identity-storage';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-biblia',
@@ -44,14 +46,18 @@ export class BibliaComponent implements OnInit {
   private livros: Array<Livro[]>;
   private versoes: Array<any>;
   private backgroundClass: string; 
+  private usuarioLogado: boolean;
+  private capituloLido: boolean;
+  private labelBotaoCapituloLido: string = 'Marcar capítulo como lido';
 
-  constructor(private livroService: LivroService) { }
+  constructor(private livroService: LivroService, private idStorage: IdentityStorage, private toastr: ToastrService) { }
 
   ngOnInit() {
     this.iniciarVariaveis();
     this.getLivros(1);
     this.getLivros(2);
     this.getVersoes();
+    this.usuarioLogado = this.idStorage.authenticationPresent();
 
     this.abrirLivro(1, 1, 1);
   }
@@ -72,24 +78,6 @@ export class BibliaComponent implements OnInit {
         this.novoTestamento.push(...livros);
       });
     }
-  }
-
-  onSelectChange(key: Livro, testamento: number) {
-
-    this.livro = key.id;
-    this.podeAbrirLivro = true;
-
-    if(testamento === this.ID_VELHO_TESTAMENTO) {
-      this.selecaoVelhoTestamento = key;
-    } else {
-      this.selecaoNovoTestamento = key;
-    }
-  }
-
-  onTabSelect(tab: number) {
-    this.selecaoVelhoTestamento = new Livro();
-    this.selecaoNovoTestamento = new Livro();
-    this.podeAbrirLivro = false;  
   }
 
   public pesquisar() {
@@ -167,7 +155,6 @@ export class BibliaComponent implements OnInit {
   }
 
   private getVersoes() {
-
     this.versoes = new Array<any>();
 
     this.livroService.findAllVersoes().subscribe( versoes => {
@@ -185,6 +172,15 @@ export class BibliaComponent implements OnInit {
     
     this.livroService.findVersaoById(this.versao).subscribe( versao => {
       this.selecaoVersao = this.setVersao(versao[0]);
+    });
+  }
+
+  public marcarCapituloLido(): void {
+
+    this.livroService.marcarCapitulo(this.idStorage.getIdentityPromise()['id'], this.livro, this.capitulo, this.versao).subscribe(retorno => {
+      this.toastr.success('Leitura do capítulo ' + this.capitulo + ' do livro de ' + this.livroDTO.nome + ' concluída');
+      this.capituloLido = true;
+      this.labelBotaoCapituloLido = 'Leitura do capítulo concluída';
     });
   }
 
@@ -210,5 +206,23 @@ export class BibliaComponent implements OnInit {
   onChangeVersao(key: Versao) {
     this.selecaoVersao = key;
     this.abrirLivro(this.livro, this.capitulo, key.id);
+  }
+
+  onSelectChange(key: Livro, testamento: number) {
+
+    this.livro = key.id;
+    this.podeAbrirLivro = true;
+
+    if(testamento === this.ID_VELHO_TESTAMENTO) {
+      this.selecaoVelhoTestamento = key;
+    } else {
+      this.selecaoNovoTestamento = key;
+    }
+  }
+
+  onTabSelect(tab: number) {
+    this.selecaoVelhoTestamento = new Livro();
+    this.selecaoNovoTestamento = new Livro();
+    this.podeAbrirLivro = false;  
   }
 }

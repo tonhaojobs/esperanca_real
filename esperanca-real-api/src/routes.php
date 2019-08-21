@@ -23,7 +23,7 @@ return function (App $app) {
 		if(!empty($retorno)) {
 			
 			$now = new DateTime();
-			$future = new DateTime("+2 minutes");
+			$future = new DateTime("+20 minutes");
 			$server = $request->getServerParams();
 			$jti = (new Base62)->encode(random_bytes(16));
 			
@@ -160,6 +160,21 @@ return function (App $app) {
             ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS')
 			->write(json_encode($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
 	});
+	
+	$app->get("/historico/{usuario}",  function ($request, $response, $args) {
+
+		$biblia = new \Service\BibliaService();
+		$usuario = $args['usuario'];
+		$data = $biblia->getHistorico($usuario);
+
+		return $response->withStatus(200)
+			->withHeader("Content-Type", "application/json")
+			->withHeader('Access-Control-Allow-Origin', '*')
+            ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
+            ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS')
+			->write(json_encode($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
+	});
+	
 	
 	$app->get("/search/{palavraChave}/{versao}",  function ($request, $response, $args) {
 

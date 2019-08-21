@@ -11,8 +11,6 @@ import { View } from '@syncfusion/ej2-schedule';
 export class DashboardComponent implements OnInit {
 
   nomeUsuario: string;
-  public currentDate: Date = new Date(2018, 10, 30);
-  public newViewMode: View = 'Month';
   public views: Array<string> = ['Teste'];
 
   constructor(private idStorage: IdentityStorage, public router: Router) { }

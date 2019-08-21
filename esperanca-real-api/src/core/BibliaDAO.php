@@ -205,6 +205,25 @@ class BibliaDAO {
 		return $result;
 	}
 	
+	public function getHistorico($usuario) {
+		
+		$sql  = " SELECT h.id_livro, l.nome AS nome, l.abreviacao AS abreviacao, h.num_capitulo, DATE_FORMAT(h.dt_historico, '%d/%m/%Y') dt_historico ";
+		$sql .= " FROM biblia.usuario_historico h ";
+		$sql .= " INNER JOIN biblia.livro l ";
+		$sql .= " ON l.id_livro = h.id_livro ";
+		$sql .= " WHERE h.id_usuario = :usuario ";
+		$sql .= " GROUP BY h.id_livro, h.num_capitulo ";
+		$sql .= " ORDER BY h.id_livro, h.num_capitulo ";
+		
+		$this->resultSet = $this->PDO->prepare($sql);
+		$this->resultSet->bindValue(':usuario', $usuario);
+
+		$this->resultSet->execute();
+		$result = $this->resultSet->fetchAll(\PDO::FETCH_ASSOC); 
+		
+		return $result;
+	}
+	
 	public function getUsuarioByEmail($email) {
 		
 		$sql  = " SELECT COUNT(*) FROM biblia.usuario ";

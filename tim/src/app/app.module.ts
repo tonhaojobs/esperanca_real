@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
@@ -34,7 +34,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { MAT_DATE_LOCALE } from '@angular/material';
 import { ToastrModule } from 'ngx-toastr';
-import {ScheduleModule, AgendaService, DayService, WeekService, WorkWeekService, MonthService } from '@syncfusion/ej2-angular-schedule';
 
 @NgModule({
   declarations: [
@@ -66,8 +65,7 @@ import {ScheduleModule, AgendaService, DayService, WeekService, WorkWeekService,
     NouisliderModule,
     AngularWebStorageModule,
     BrowserAnimationsModule,
-    MaterialModule,
-    ScheduleModule
+    MaterialModule
   ],
   providers: [ 
     LivroService,
@@ -75,8 +73,7 @@ import {ScheduleModule, AgendaService, DayService, WeekService, WorkWeekService,
     IdentityStorage, 
     AuthGuard,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-    { provide: MAT_DATE_LOCALE, useValue: "pt-BR" } ,
-    AgendaService, DayService, WeekService, WorkWeekService, MonthService
+    { provide: MAT_DATE_LOCALE, useValue: "pt-BR" } 
   ],
   bootstrap: [AppComponent]
 })

@@ -49,19 +49,12 @@ class BibliaService {
 		return $this->bibliaDAO->login($email, $senhaCriptografada);
 	}
 	
-	
 	public function createHistorico($usuario, $livro, $capitulo, $versao) {
 		
-		if($this->bibliaDAO->countHistorico($usuario, $livro, $versao, $capitulo) == 0) {
-			
-			if($this->bibliaDAO->createHistorico($usuario, $livro, $capitulo, $versao)) {
-				return "Historico cadastrado com sucesso!";
-			} else {
-				return "Ocorreu um erro";
-			}
-			
-		} else {
-			return "Ja cadastrado";
+		$count = $this->bibliaDAO->countHistorico($usuario, $livro, $versao, $capitulo);
+		
+		if($count == 0) {
+			return $this->bibliaDAO->createHistorico($usuario, $livro, $capitulo, $versao);
 		}
 	}
 	
@@ -82,5 +75,9 @@ class BibliaService {
 			$senhaCriptografada = $this->getSenhaCriptografada($senha);
 			return $this->bibliaDAO->cadastro($primeiroNome, $ultimoNome, $email, $senhaCriptografada);
 		} 
+	}
+	
+	public function getHistorico($usuario) { 
+		return $this->bibliaDAO->getHistorico($usuario);
 	}
 }
