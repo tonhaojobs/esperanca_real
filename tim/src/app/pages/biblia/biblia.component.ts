@@ -49,6 +49,9 @@ export class BibliaComponent implements OnInit {
   private usuarioLogado: boolean;
   private capituloLido: boolean;
   private labelBotaoCapituloLido: string = 'Marcar capítulo como lido';
+  private porcentagem: string;
+  private numeroCapitulosLidos: number;
+  private tipoProgressBar: string;
 
   constructor(private livroService: LivroService, private idStorage: IdentityStorage, private toastr: ToastrService) { }
 
@@ -97,6 +100,11 @@ export class BibliaComponent implements OnInit {
     this.livro = livro;
     this.capitulo = capitulo;
     this.versao = versao;
+    this.porcentagem = '0%';
+    this.numeroCapitulosLidos = 0;
+    this.tipoProgressBar = 'danger';
+    this.capituloLido = false;
+    this.labelBotaoCapituloLido = 'Marcar capítulo como lido';
 
     this.livroService.abrirLivro(livro, capitulo, versao).subscribe(result => {
       this.versos.push(...result);
@@ -106,7 +114,21 @@ export class BibliaComponent implements OnInit {
       
       this.livroDTO = this.setLivro(retorno[0]);
       this.totalItems = this.livroDTO.numeroCapitulos;
-     });
+    });
+
+    let usuario = this.idStorage.getIdentityPromise()['id'];
+
+    this.livroService.historicoByLivro(usuario, livro).subscribe(retorno => {
+      this.porcentagem = retorno[0]['porcentagem'];
+      this.numeroCapitulosLidos = retorno[0]['capitulos_lidos'];
+    });
+
+    this.livroService.historicoByLivroCapitulo(usuario, livro, this.capitulo).subscribe(retorno => {
+      if(retorno !== '0') {
+        this.capituloLido = true;
+        this.labelBotaoCapituloLido = 'Leitura do capítulo concluída';
+      }
+    });
   }
 
   private abrirLivroIndice() {

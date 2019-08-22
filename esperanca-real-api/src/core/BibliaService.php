@@ -80,4 +80,12 @@ class BibliaService {
 	public function getHistorico($usuario) { 
 		return $this->bibliaDAO->getHistorico($usuario);
 	}
+
+	public function getHistoricoByLivro($usuario, $livro) { 
+		return $this->bibliaDAO->getHistoricoByLivro($usuario, $livro);
+	}
+	
+	public function getHistoricoByLivroCapitulo($usuario, $livro, $capitulo) {
+		return $this->bibliaDAO->getHistoricoByLivroCapitulo($usuario, $livro, $capitulo);
+	}
 }

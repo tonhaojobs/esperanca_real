@@ -224,6 +224,55 @@ class BibliaDAO {
 		return $result;
 	}
 	
+	public function getHistoricoByLivro($usuario, $livro) {
+		
+		$sql  = " SELECT ";
+		$sql .= " 	(SELECT COUNT(*) ";
+		$sql .= "		FROM biblia.usuario_historico ";
+		$sql .= "		WHERE id_livro = h.id_livro ";
+		$sql .= " 		AND id_usuario = :usuario ";
+		$sql .= "		AND id_livro = :livro) capitulos_lidos, ";
+		$sql .= " 	CONCAT(FORMAT( ";
+		$sql .= "	(SELECT COUNT(*) ";
+		$sql .= "		FROM biblia.usuario_historico ";
+		$sql .= "		WHERE id_livro = h.id_livro ";
+		$sql .=	" 		AND id_usuario = :usuario ";
+		$sql .= " 		AND id_livro = :livro) * 100 / l.num_capitulos, 2), '%') porcentagem ";
+		$sql .= " FROM biblia.usuario_historico h ";
+		$sql .= " INNER JOIN biblia.livro l ";
+		$sql .= " ON l.id_livro = h.id_livro ";
+		$sql .= " WHERE h.id_usuario = :usuario ";
+		$sql .= " 	AND h.id_livro = :livro ";
+		$sql .= " GROUP BY h.id_livro ";
+		$sql .= " ORDER BY h.id_livro, h.num_capitulo ";
+		
+		$this->resultSet = $this->PDO->prepare($sql);
+		$this->resultSet->bindValue(':usuario', $usuario);
+		$this->resultSet->bindValue(':livro', $livro);
+
+		$this->resultSet->execute();
+		$result = $this->resultSet->fetchAll(\PDO::FETCH_ASSOC); 
+		
+		return $result;
+	}
+	
+	public function getHistoricoByLivroCapitulo($usuario, $livro, $capitulo) {
+		
+		$sql  = " SELECT COUNT(*) FROM biblia.usuario_historico WHERE id_usuario = :usuario AND id_livro = :livro AND num_capitulo = :capitulo ";
+		
+		$this->resultSet = $this->PDO->prepare($sql);
+		
+		$this->resultSet->bindValue(':usuario', $usuario);
+		$this->resultSet->bindValue(':livro', $livro);
+		$this->resultSet->bindValue(':capitulo', $capitulo);
+		
+		$this->resultSet->execute();
+		$result = $this->resultSet->fetchColumn(); 
+		
+		return $result;
+		return $result;
+	}
+	
 	public function getUsuarioByEmail($email) {
 		
 		$sql  = " SELECT COUNT(*) FROM biblia.usuario ";

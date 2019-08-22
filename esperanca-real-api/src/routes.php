@@ -175,6 +175,37 @@ return function (App $app) {
 			->write(json_encode($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
 	});
 	
+	$app->get("/historicoLivro/{usuario}/{livro}",  function ($request, $response, $args) {
+
+		$biblia = new \Service\BibliaService();
+		$usuario = $args['usuario'];
+		$livro = $args['livro'];
+		$data = $biblia->getHistoricoByLivro($usuario, $livro);
+
+		return $response->withStatus(200)
+			->withHeader("Content-Type", "application/json")
+			->withHeader('Access-Control-Allow-Origin', '*')
+            ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
+            ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS')
+			->write(json_encode($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
+	});
+	
+	$app->get("/historicoLivroCapitulo/{usuario}/{livro}/{capitulo}",  function ($request, $response, $args) {
+
+		$biblia = new \Service\BibliaService();
+		$usuario = $args['usuario'];
+		$livro = $args['livro'];
+		$capitulo = $args['capitulo'];
+		$data = $biblia->getHistoricoByLivroCapitulo($usuario, $livro, $capitulo);
+
+		return $response->withStatus(200)
+			->withHeader("Content-Type", "application/json")
+			->withHeader('Access-Control-Allow-Origin', '*')
+            ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
+            ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS')
+			->write(json_encode($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
+	});
+	
 	
 	$app->get("/search/{palavraChave}/{versao}",  function ($request, $response, $args) {
 

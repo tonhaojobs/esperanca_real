@@ -113,7 +113,6 @@
 <div id="leitura" class="section">
     <div class="leitura-header">
         <div class="container">
-            <!--Essa seção conterá uma imagem de fundo com o nome do livro e o capítulo selecionado-->
             <div class="row">
                 <div class="col-md-5">
                     <div class="section-title wow fadeIn">
@@ -160,8 +159,8 @@
         <div class="container">
             <div class="row" *ngIf="usuarioLogado">
                 <div class="col-md-12 mb-4">
-                    <h6>Percentual de leitura do livro: 25%</h6>
-                    <ngb-progressbar type="danger" [max]="50" [value]="1" [striped]="true" [animated]="true"></ngb-progressbar>
+                    <h6>Percentual de leitura do livro: {{numeroCapitulosLidos}} Capítulo(s) / Total de {{totalItems}} ({{porcentagem}})</h6>
+                    <ngb-progressbar type="danger" [max]="totalItems" [value]="numeroCapitulosLidos" [striped]="true" [animated]="true"></ngb-progressbar>
                 </div>
             </div>
             <div class="row">
