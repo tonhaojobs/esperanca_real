@@ -77,6 +77,12 @@ class BibliaService {
 		} 
 	}
 	
+	public function findUsuarioBySenha($usuario, $senha) {
+		
+		$senhaCriptografada = $this->getSenhaCriptografada($senha);
+		return $this->bibliaDAO->findUsuarioBySenha($usuario, $senhaCriptografada);
+	}
+	
 	public function getHistorico($usuario) { 
 		return $this->bibliaDAO->getHistorico($usuario);
 	}

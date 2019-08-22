@@ -45,6 +45,7 @@ export class AuthInterceptor implements HttpInterceptor {
               }, err => {
                 if (err.status === 401) {
                   this.router.navigate(["public"]);
+                  this.toastr.clear();
                   this.toastr.error("Sessao expirada, faça login novamente!");
                 }
               }

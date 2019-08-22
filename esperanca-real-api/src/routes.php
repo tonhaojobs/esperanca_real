@@ -245,6 +245,24 @@ return function (App $app) {
 			->write(json_encode($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));	
 	});
 	
+	$app->get("/usuarioSenha/{usuario}/{senha}",  function ($request, $response, $args) {
+
+		$biblia = new \Service\BibliaService();
+		
+		$palavraChave = $args['palavraChave'];
+		$usuario = $args['usuario'];
+		$senha = $args['senha'];
+		
+		$data = $biblia->findUsuarioBySenha($usuario, $senha);
+
+		return $response->withStatus(200)
+			->withHeader("Content-Type", "application/json")
+			->withHeader('Access-Control-Allow-Origin', '*')
+            ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
+            ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS')
+			->write(json_encode($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
+	});
+	
 	$app->post("/cadastro",  function ($request, $response, $args) {
 
 		$data_ = $request->getParsedBody();

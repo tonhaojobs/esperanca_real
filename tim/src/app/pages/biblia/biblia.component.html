@@ -159,8 +159,8 @@
         <div class="container">
             <div class="row" *ngIf="usuarioLogado">
                 <div class="col-md-12 mb-4">
-                    <h6>Percentual de leitura do livro: {{numeroCapitulosLidos}} Capítulo(s) / Total de {{totalItems}} ({{porcentagem}})</h6>
-                    <ngb-progressbar type="danger" [max]="totalItems" [value]="numeroCapitulosLidos" [striped]="true" [animated]="true"></ngb-progressbar>
+                    <h6>Percentual de leitura do livro: {{numeroCapitulosLidos}} Capítulo(s) / Total de {{totalItems}} ({{porcentagem}}%)</h6>
+                    <ngb-progressbar type="{{tipoProgressBar}}" [max]="totalItems" [value]="numeroCapitulosLidos" [striped]="true" [animated]="true"></ngb-progressbar>
                 </div>
             </div>
             <div class="row">

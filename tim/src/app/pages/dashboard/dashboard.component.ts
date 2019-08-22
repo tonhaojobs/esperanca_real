@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { IdentityStorage } from 'app/_models/identity-storage';
 import { Router } from '@angular/router';
-import { View } from '@syncfusion/ej2-schedule';
+import { ToastrService } from 'ngx-toastr';
+import { AuthenticationService } from 'app/_services/authentication.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,13 +13,15 @@ export class DashboardComponent implements OnInit {
 
   nomeUsuario: string;
   public views: Array<string> = ['Teste'];
+  private senha: string;
+  private novaSenha: string;
+  private novaSenhaConfirmacao: string;
 
-  constructor(private idStorage: IdentityStorage, public router: Router) { }
+  constructor(private idStorage: IdentityStorage, public router: Router, private toastr: ToastrService, private authSevice: AuthenticationService) { }
 
   ngOnInit() {
     this.nomeUsuario = this.idStorage.getIdentity()['nome'];
   }
-
 
   page = 1;
   pageSize = 5;
@@ -34,6 +37,45 @@ export class DashboardComponent implements OnInit {
     this.idStorage.clearAuthData();
     localStorage.removeItem('currentUser');
     this.router.navigate(["public"]);
+  }
+
+  alterarSenha(): void {
+    
+  }
+
+  validarFormulario(idFormulario: number): boolean {
+
+    let validaPreenchimento: boolean = true;
+    this.toastr.clear();
+    
+    if(!this.novaSenhaConfirmacao || this.novaSenhaConfirmacao.trim().length === 0){
+      this.toastr.warning('Campo \'Repetir Nova Senha\' Obrigatório', '');
+      validaPreenchimento = false;
+    }
+    
+    if(!this.novaSenha || this.novaSenha.trim().length === 0){
+      this.toastr.warning('Campo \'Nova Senha\' Obrigatório', '');
+      validaPreenchimento = false;
+    }
+  
+    if(!this.senha || this.senha.trim().length === 0){
+      this.toastr.warning('Campo \'Senha Atual\' Obrigatório', '');
+      validaPreenchimento = false;
+    } 
+    
+    if((this.senha && this.senha.trim().length > 0) && (this.novaSenha && this.novaSenha.trim().length > 0) && (this.novaSenhaConfirmacao && this.novaSenhaConfirmacao.trim().length > 0)) {
+
+      let usuario = this.idStorage.getIdentityPromise()['id'];
+
+      this.authSevice.findUsuarioBySenha(usuario, this.senha).subscribe(result => {
+        if(!result) {
+          this.toastr.warning('\'Senha Atual\' incorreta', '');
+          validaPreenchimento = false;
+        }
+      });
+    }
+
+    return validaPreenchimento;
   }
 }
 

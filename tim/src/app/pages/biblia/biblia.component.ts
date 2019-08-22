@@ -49,7 +49,7 @@ export class BibliaComponent implements OnInit {
   private usuarioLogado: boolean;
   private capituloLido: boolean;
   private labelBotaoCapituloLido: string = 'Marcar capítulo como lido';
-  private porcentagem: string;
+  private porcentagem: number;
   private numeroCapitulosLidos: number;
   private tipoProgressBar: string;
 
@@ -100,7 +100,7 @@ export class BibliaComponent implements OnInit {
     this.livro = livro;
     this.capitulo = capitulo;
     this.versao = versao;
-    this.porcentagem = '0%';
+    this.porcentagem = 0;
     this.numeroCapitulosLidos = 0;
     this.tipoProgressBar = 'danger';
     this.capituloLido = false;
@@ -118,17 +118,29 @@ export class BibliaComponent implements OnInit {
 
     let usuario = this.idStorage.getIdentityPromise()['id'];
 
-    this.livroService.historicoByLivro(usuario, livro).subscribe(retorno => {
-      this.porcentagem = retorno[0]['porcentagem'];
-      this.numeroCapitulosLidos = retorno[0]['capitulos_lidos'];
-    });
+    if(usuario) {
+      this.livroService.historicoByLivro(usuario, livro).subscribe(retorno => {
+        this.porcentagem = retorno[0]['porcentagem'];
+        this.numeroCapitulosLidos = retorno[0]['capitulos_lidos'];
+  
+        if(this.porcentagem < 25) {
+          this.tipoProgressBar = 'danger';
+        } else if (this.porcentagem >= 25 && this.porcentagem < 50) {
+          this.tipoProgressBar = 'warning';
+        } else if (this.porcentagem >= 50 && this.porcentagem < 75) {
+          this.tipoProgressBar = 'info';
+        } else {
+          this.tipoProgressBar = 'success';
+        }
+      });
 
-    this.livroService.historicoByLivroCapitulo(usuario, livro, this.capitulo).subscribe(retorno => {
-      if(retorno !== '0') {
-        this.capituloLido = true;
-        this.labelBotaoCapituloLido = 'Leitura do capítulo concluída';
-      }
-    });
+      this.livroService.historicoByLivroCapitulo(usuario, livro, this.capitulo).subscribe(retorno => {
+        if(retorno !== '0') {
+          this.capituloLido = true;
+          this.labelBotaoCapituloLido = 'Leitura do capítulo concluída';
+        }
+      });
+    }
   }
 
   private abrirLivroIndice() {
@@ -138,8 +150,6 @@ export class BibliaComponent implements OnInit {
       this.capituloPesquisa = 0;
       this.versiculoPesquisa = 0;
       this.abrirLivro(this.livro, 1, this.selecaoVersao.id);
-    } else {
-      console.log('erro');
     }
   }
 
@@ -203,7 +213,9 @@ export class BibliaComponent implements OnInit {
       this.toastr.success('Leitura do capítulo ' + this.capitulo + ' do livro de ' + this.livroDTO.nome + ' concluída');
       this.capituloLido = true;
       this.labelBotaoCapituloLido = 'Leitura do capítulo concluída';
+      this.abrirLivro(this.livro, this.capitulo, this.versao);
     });
+
   }
 
   public onChangeSwitchState(event): void {

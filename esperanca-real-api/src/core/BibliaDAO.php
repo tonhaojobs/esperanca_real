@@ -232,12 +232,12 @@ class BibliaDAO {
 		$sql .= "		WHERE id_livro = h.id_livro ";
 		$sql .= " 		AND id_usuario = :usuario ";
 		$sql .= "		AND id_livro = :livro) capitulos_lidos, ";
-		$sql .= " 	CONCAT(FORMAT( ";
+		$sql .= " 	FORMAT( ";
 		$sql .= "	(SELECT COUNT(*) ";
 		$sql .= "		FROM biblia.usuario_historico ";
 		$sql .= "		WHERE id_livro = h.id_livro ";
 		$sql .=	" 		AND id_usuario = :usuario ";
-		$sql .= " 		AND id_livro = :livro) * 100 / l.num_capitulos, 2), '%') porcentagem ";
+		$sql .= " 		AND id_livro = :livro) * 100 / l.num_capitulos, 1) porcentagem ";
 		$sql .= " FROM biblia.usuario_historico h ";
 		$sql .= " INNER JOIN biblia.livro l ";
 		$sql .= " ON l.id_livro = h.id_livro ";
@@ -281,6 +281,22 @@ class BibliaDAO {
 		$this->resultSet = $this->PDO->prepare($sql);
 		
 		$this->resultSet->bindValue(':email', $email);
+		$this->resultSet->execute();
+		$result = $this->resultSet->fetchColumn(); 
+		
+		return $result;
+	}
+	public function findUsuarioBySenha($usuario, $senha) {
+		
+		$sql  = " SELECT COUNT(*) FROM biblia.usuario ";
+		$sql .= " WHERE id_usuario = :usuario ";
+		$sql .= " AND senha = :senha ";
+		
+		$this->resultSet = $this->PDO->prepare($sql);
+		
+		$this->resultSet->bindValue(':usuario', $usuario);
+		$this->resultSet->bindValue(':senha', $senha);
+		
 		$this->resultSet->execute();
 		$result = $this->resultSet->fetchColumn(); 
 		

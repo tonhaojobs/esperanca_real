@@ -83,6 +83,14 @@ export class AuthenticationService {
     this.identityStorage.clearAuthData();
   }
 
+  findUsuarioBySenha(usuario: number, senha: string) : Observable<Response> {
+    let formData: FormData = new FormData(); 
+    formData.append('usuario', usuario.toString()); 
+    formData.append('senha', senha); 
+
+    return this.http.post<Response>(this.url + 'usuarioSenha', formData);
+  }
+
   protected getHeaders() {
     const headers = new HttpHeaders();
     headers.set('Content-Type', 'application/json');
