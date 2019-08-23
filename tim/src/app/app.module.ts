@@ -34,6 +34,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { MAT_DATE_LOCALE } from '@angular/material';
 import { ToastrModule } from 'ngx-toastr';
+import { NgCircleProgressModule } from 'ng-circle-progress';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import { ToastrModule } from 'ngx-toastr';
     NouisliderModule,
     AngularWebStorageModule,
     BrowserAnimationsModule,
-    MaterialModule
+    MaterialModule,
+    NgCircleProgressModule.forRoot()
   ],
   providers: [ 
     LivroService,
