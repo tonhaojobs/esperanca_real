@@ -108,4 +108,8 @@ class BibliaService {
 		return $this->bibliaDAO->getHistoricoByData($usuario);
 	}
 	
+	public function getHistoricoGeral($usuario) {
+		return $this->bibliaDAO->getHistoricoGeral($usuario);
+	}
+	
 }

@@ -220,6 +220,20 @@ return function (App $app) {
 			->write(json_encode($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
 	});
 	
+	$app->get("/historicoGeral/{usuario}",  function ($request, $response, $args) {
+
+		$biblia = new \Service\BibliaService();
+		$usuario = $args['usuario'];
+		$data = $biblia->getHistoricoGeral($usuario);
+
+		return $response->withStatus(200)
+			->withHeader("Content-Type", "application/json")
+			->withHeader('Access-Control-Allow-Origin', '*')
+            ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
+            ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS')
+			->write(json_encode($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
+	});
+	
 	$app->get("/search/{palavraChave}/{versao}",  function ($request, $response, $args) {
 
 		$biblia = new \Service\BibliaService();

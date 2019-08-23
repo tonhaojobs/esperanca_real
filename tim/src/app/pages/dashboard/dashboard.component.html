@@ -1,5 +1,5 @@
 <div id="dashboard" class="section section-test">
-    <div class="container-fluid">
+    <div class="container-fluid" style="background-color: #F5593D; padding: 20px -15px; margin-top: -70px">
         <div class="row justify-content-md-center">
             <div class="col col-md-6">
                 <h3 class="" data-wow-delay="300ms">Olá, {{nomeUsuario}}</h3>
@@ -8,7 +8,8 @@
                 <button type="button" class="btn btn-default float-right" (click)="logout()"><i class="fa fa-exit"></i>Sair</button>
             </div>
         </div>
-
+    </div>
+    <div class="container-fluid">
         <div class="nav-tabs-navigation mt-4">
             <div class="nav-tabs-wrapper dashboard-tabs">
                 <ngb-tabset [justify]="'center'">
@@ -72,22 +73,25 @@
                             <div class="container-fluid">
                                 <div class="row justify-content-md-center mt-4">
                                     <div class="col col-md-3">
-                                            <circle-progress
-                                                [percent]="85"
-                                                [radius]="75"
-                                                [outerStrokeWidth]="2"
-                                                [innerStrokeWidth]="4"
-                                                [outerStrokeColor]="'#78C000'"
-                                                [innerStrokeColor]="'#C7E596'"
-                                                [animation]="true"
-                                                [animationDuration]="1000"
-                                                [responsive]="true"
-                                                [titleColor]="'#D8D8DA'"
-                                                [unitsColor]="'#D8D8DA'"
-                                                [subtitleColor]="'#D8D8DA'"
-                                                [subtitle]="Teste"
+                                        <circle-progress
+                                            [percent]="statusPorcentagem"
+                                            [radius]="30"
+                                            [outerStrokeWidth]="1"
+                                            [innerStrokeWidth]="2"
+                                            [outerStrokeColor]="'#922e3f'"
+                                            [innerStrokeColor]="'#191B1C'"
+                                            [animation]="true"
+                                            [animationDuration]="1000"
+                                            [responsive]="true"
+                                            [titleColor]="'#D8D8DA'"
+                                            [unitsColor]="'#D8D8DA'"
+                                            [subtitleColor]="'#D8D8DA'"
+                                            [showSubtitle]="false"
 
-                                            ></circle-progress>
+                                        ></circle-progress>
+                                        <span>
+                                            Seu progresso: {{statusCapitulo}} / 1189
+                                        </span>
                                     </div>
                                     <div class="col col-md-9">
                                         <button *ngFor="let l of leituraList" class="btn btn-primary btn-round" placement="top" ngbPopover="{{l.textos}}" popoverTitle="Textos Lidos" type="button">{{l.dataHistorico}}</button>

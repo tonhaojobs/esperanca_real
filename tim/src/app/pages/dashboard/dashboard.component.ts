@@ -19,11 +19,22 @@ export class DashboardComponent implements OnInit {
   private novaSenhaConfirmacao: string;
   private leituraList: Array<any>;
 
+  private statusPorcentagem;
+  private statusCapitulo;
+  private statusColor: string;
+  private status: Array<any> = [
+    { start: 0, cor: '#922e3f' },
+    { start: 25, cor: '#922e3f' },
+    { start: 50, cor: '#922e3f' },
+    { start: 75, cor: '#922e3f' }
+  ];
+
   constructor(private idStorage: IdentityStorage, public router: Router, private toastr: ToastrService, private authSevice: AuthenticationService, private livroService: LivroService) { }
 
   ngOnInit() {
     this.nomeUsuario = this.idStorage.getIdentity()['nome'];
     this.carregaHistoricoLeitura();
+    this.carregaHistoricoGeral();
   }
 
   page = 1;
@@ -50,8 +61,19 @@ export class DashboardComponent implements OnInit {
       this.livroService.historicoByData(usuario).subscribe(retorno => {
         this.leituraList.push(...retorno);
       });
-      console.log(this.leituraList);
-      
+    }
+  }
+
+  // Carrega o percentual total de leitura do usuário
+  carregaHistoricoGeral() {
+
+    let usuario = this.idStorage.getIdentityPromise()['id'];
+
+    if(usuario) {
+      this.livroService.historicoGeral(usuario).subscribe(result => {
+        this.statusPorcentagem = result[0]['porcentagem'];
+        this.statusCapitulo = result[0]['capitulos_lidos'];
+      });
     }
   }
 
@@ -61,8 +83,6 @@ export class DashboardComponent implements OnInit {
       let usuario = this.idStorage.getIdentityPromise()['id'];
 
       this.authSevice.alterarSenha(usuario, this.senha, this.novaSenha).subscribe(result =>{
-        console.log(result);
-        
         if(result != null) {
           if(result) {
             this.toastr.success('Senha alterada com sucesso', '');

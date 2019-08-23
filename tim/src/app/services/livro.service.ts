@@ -48,6 +48,10 @@ export class LivroService {
     return this.getMethod(this.url + "historicoLivroCapitulo/" + usuario + "/" + livro + "/" + capitulo);
   }
 
+  historicoGeral(usuario: number): Observable<any> {
+    return this.getMethod(this.url + "historicoGeral/" + usuario );
+  }
+
   search(palavraChave: string, versao: number): Observable<any> {   
     return this.getMethod(this.url + "search/" + palavraChave + "/" + versao);
   }

@@ -292,6 +292,31 @@ class BibliaDAO {
 		return $result;
 	}
 	
+	public function getHistoricoGeral($usuario) {
+	
+		$sql  = " SELECT ";
+		$sql .= " (SELECT COUNT(*) ";
+		$sql .= " FROM biblia.usuario_historico ";
+		$sql .= " WHERE id_usuario = :usuario) capitulos_lidos, ";
+		$sql .= " FORMAT( ";
+		$sql .= " (SELECT COUNT(*) ";
+		$sql .= " FROM biblia.usuario_historico ";
+		$sql .= " WHERE id_usuario = :usuario ";
+		$sql .= " )* 100 / 1189, 1) porcentagem ";
+		$sql .= " FROM biblia.usuario_historico ";
+		$sql .= " WHERE id_usuario = :usuario ";
+		$sql .= " GROUP BY id_usuario ";
+		
+		$this->resultSet = $this->PDO->prepare($sql);
+		
+		$this->resultSet->bindValue(':usuario', $usuario);
+		
+		$this->resultSet->execute();
+		$result = $this->resultSet->fetchAll(\PDO::FETCH_ASSOC); 
+		
+		return $result;
+	}
+	
 	public function getUsuarioByEmail($email) {
 		
 		$sql  = " SELECT COUNT(*) FROM biblia.usuario ";
