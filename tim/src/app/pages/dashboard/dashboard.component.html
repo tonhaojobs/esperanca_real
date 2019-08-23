@@ -72,14 +72,14 @@
                             <div class="container-fluid">
                                 <div class="row justify-content-md-center">
                                     <div class="col col-md-11 mt-4">
-                                        <button _ngcontent-c9="" class="btn btn-primary btn-round" placement="top" ngbPopover="Mt. 4" popoverTitle="Textos Lidos" ngbTooltip="Click para ver os textos lidos nessa data" type="button">22/08/2019</button>
+                                        <button *ngFor="let l of leituraList" class="btn btn-primary btn-round" placement="top" ngbPopover="{{l.textos}}" popoverTitle="Textos Lidos" type="button">{{l.dataHistorico}}</button>
                                         <button _ngcontent-c9="" class="btn btn-primary btn-round" placement="top" ngbPopover="Mt. 9" popoverTitle="Textos Lidos" ngbTooltip="Click para ver os textos lidos nessa data" type="button">23/08/2019</button>
                                     </div>
                                 </div>
                             </div>
                         </ng-template>
                     </ngb-tab>
-                    <ngb-tab>
+                    <!--ngb-tab>
                         <ng-template ngbTabTitle>
                             <div>Minha Conta</div>
                         </ng-template>
@@ -118,7 +118,7 @@
                                 </div>
                             </div>
                         </ng-template>
-                    </ngb-tab>
+                    </ngb-tab-->
                     <ngb-tab>
                         <ng-template ngbTabTitle>
                             <div>Alterar Senha</div>
@@ -150,7 +150,7 @@
                                                 <input type="password" name="novaSenhaConfirmacao" class="form-control" [(ngModel)]="novaSenhaConfirmacao">
                                             </div>
 
-                                            <button class="btn btn-success btn-block mt-4" (click)="logon()">Alterar Senha</button>
+                                            <button class="btn btn-success btn-block mt-4" (click)="alterarSenha()">Alterar Senha</button>
                                         </form>
                                     </div>
                                 </div>

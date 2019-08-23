@@ -206,6 +206,19 @@ return function (App $app) {
 			->write(json_encode($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
 	});
 	
+	$app->get("/historicoUsuarioData/{usuario}",  function ($request, $response, $args) {
+
+		$biblia = new \Service\BibliaService();
+		$usuario = $args['usuario'];
+		$data = $biblia->getHistoricoByData($usuario);
+
+		return $response->withStatus(200)
+			->withHeader("Content-Type", "application/json")
+			->withHeader('Access-Control-Allow-Origin', '*')
+            ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
+            ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS')
+			->write(json_encode($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));
+	});
 	
 	$app->get("/search/{palavraChave}/{versao}",  function ($request, $response, $args) {
 
@@ -245,15 +258,16 @@ return function (App $app) {
 			->write(json_encode($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));	
 	});
 	
-	$app->get("/usuarioSenha/{usuario}/{senha}",  function ($request, $response, $args) {
+	$app->post("/usuarioSenha",  function ($request, $response, $args) {
 
 		$biblia = new \Service\BibliaService();
+
+		$data_ = $request->getParsedBody();		
+		$usuario = $data_['usuario'];
+		$senha = $data_['senha'];
+		$novaSenha = $data_['novaSenha'];
 		
-		$palavraChave = $args['palavraChave'];
-		$usuario = $args['usuario'];
-		$senha = $args['senha'];
-		
-		$data = $biblia->findUsuarioBySenha($usuario, $senha);
+		$data = $biblia->alterarSenhaUsuario($usuario, $senha, $novaSenha);
 
 		return $response->withStatus(200)
 			->withHeader("Content-Type", "application/json")

@@ -37,7 +37,8 @@ return function (App $app) {
 					"/testamentos", 
 					"/capitulo", 
 					"/search",
-					"/cadastro"
+					"/cadastro",
+					"/historicoUsuarioData"
 				]
 			]),
 			new \Slim\Middleware\JwtAuthentication\RequestMethodRule([

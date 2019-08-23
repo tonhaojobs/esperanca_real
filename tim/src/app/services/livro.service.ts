@@ -36,8 +36,8 @@ export class LivroService {
     return this.getMethod(this.url + "versao/" + id );
   }
 
-  historico(usuario: number): Observable<any> {
-    return this.getMethod(this.url + "historico/" + usuario );
+  historicoByData(usuario: number): Observable<any> {
+    return this.getMethod(this.url + "historicoUsuarioData/" + usuario );
   }
 
   historicoByLivro(usuario: number, livro: number): Observable<any> {

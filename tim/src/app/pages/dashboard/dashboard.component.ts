@@ -3,6 +3,7 @@ import { IdentityStorage } from 'app/_models/identity-storage';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthenticationService } from 'app/_services/authentication.service';
+import { LivroService } from 'app/services/livro.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,11 +17,13 @@ export class DashboardComponent implements OnInit {
   private senha: string;
   private novaSenha: string;
   private novaSenhaConfirmacao: string;
+  private leituraList: Array<any>;
 
-  constructor(private idStorage: IdentityStorage, public router: Router, private toastr: ToastrService, private authSevice: AuthenticationService) { }
+  constructor(private idStorage: IdentityStorage, public router: Router, private toastr: ToastrService, private authSevice: AuthenticationService, private livroService: LivroService) { }
 
   ngOnInit() {
     this.nomeUsuario = this.idStorage.getIdentity()['nome'];
+    this.carregaHistoricoLeitura();
   }
 
   page = 1;
@@ -39,11 +42,41 @@ export class DashboardComponent implements OnInit {
     this.router.navigate(["public"]);
   }
 
-  alterarSenha(): void {
-    
+  carregaHistoricoLeitura() {
+    let usuario = this.idStorage.getIdentityPromise()['id'];
+
+    if(usuario) {
+      this.leituraList = new Array<any>();
+      this.livroService.historicoByData(usuario).subscribe(retorno => {
+        this.leituraList.push(...retorno);
+      });
+      console.log(this.leituraList);
+      
+    }
   }
 
-  validarFormulario(idFormulario: number): boolean {
+  alterarSenha(): void {
+
+    if(this.validarFormulario()) {
+      let usuario = this.idStorage.getIdentityPromise()['id'];
+
+      this.authSevice.alterarSenha(usuario, this.senha, this.novaSenha).subscribe(result =>{
+        console.log(result);
+        
+        if(result != null) {
+          if(result) {
+            this.toastr.success('Senha alterada com sucesso', '');
+          } else {
+            this.toastr.warning('A nova senha deve ser diferente da senha atual', '');
+          }
+        } else {
+          this.toastr.warning('A senha atual informada está incorreta', '');
+        }
+      });
+    }
+  }
+
+  validarFormulario(): boolean {
 
     let validaPreenchimento: boolean = true;
     this.toastr.clear();
@@ -64,15 +97,10 @@ export class DashboardComponent implements OnInit {
     } 
     
     if((this.senha && this.senha.trim().length > 0) && (this.novaSenha && this.novaSenha.trim().length > 0) && (this.novaSenhaConfirmacao && this.novaSenhaConfirmacao.trim().length > 0)) {
-
-      let usuario = this.idStorage.getIdentityPromise()['id'];
-
-      this.authSevice.findUsuarioBySenha(usuario, this.senha).subscribe(result => {
-        if(!result) {
-          this.toastr.warning('\'Senha Atual\' incorreta', '');
-          validaPreenchimento = false;
-        }
-      });
+      if(this.novaSenha !== this.novaSenhaConfirmacao) {
+        this.toastr.warning('As senhas são diferentes', '');
+        validaPreenchimento = false;
+      }
     }
 
     return validaPreenchimento;

@@ -83,10 +83,11 @@ export class AuthenticationService {
     this.identityStorage.clearAuthData();
   }
 
-  findUsuarioBySenha(usuario: number, senha: string) : Observable<Response> {
+  alterarSenha(usuario: number, senha: string, novaSenha: string) : Observable<Response> {
     let formData: FormData = new FormData(); 
     formData.append('usuario', usuario.toString()); 
     formData.append('senha', senha); 
+    formData.append('novaSenha', novaSenha); 
 
     return this.http.post<Response>(this.url + 'usuarioSenha', formData);
   }

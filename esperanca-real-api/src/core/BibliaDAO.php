@@ -256,6 +256,26 @@ class BibliaDAO {
 		return $result;
 	}
 	
+	public function getHistoricoByData($usuario) {
+		
+		$sql  = " SELECT "; 
+		$sql .= " DATE_FORMAT(hl.dt_historico, '%d/%m/%Y') dataHistorico, "; 
+		$sql .= " GROUP_CONCAT(CONCAT(l.nome, ' ', hl.num_capitulo)) textos ";
+		$sql .= " FROM biblia.usuario_historico hl ";
+		$sql .= " INNER JOIN biblia.livro l ON l.id_livro = hl.id_livro ";
+		$sql .= " WHERE id_usuario = :usuario ";
+		$sql .= " GROUP BY DATE_FORMAT(dt_historico, '%d/%m/%Y') ";
+
+		$this->resultSet = $this->PDO->prepare($sql);
+		
+		$this->resultSet->bindValue(':usuario', $usuario);
+		
+		$this->resultSet->execute();
+		$result = $this->resultSet->fetchAll(\PDO::FETCH_ASSOC); 
+		
+		return $result;
+	}
+	
 	public function getHistoricoByLivroCapitulo($usuario, $livro, $capitulo) {
 		
 		$sql  = " SELECT COUNT(*) FROM biblia.usuario_historico WHERE id_usuario = :usuario AND id_livro = :livro AND num_capitulo = :capitulo ";
@@ -268,8 +288,7 @@ class BibliaDAO {
 		
 		$this->resultSet->execute();
 		$result = $this->resultSet->fetchColumn(); 
-		
-		return $result;
+
 		return $result;
 	}
 	
@@ -286,6 +305,7 @@ class BibliaDAO {
 		
 		return $result;
 	}
+	
 	public function findUsuarioBySenha($usuario, $senha) {
 		
 		$sql  = " SELECT COUNT(*) FROM biblia.usuario ";
@@ -301,6 +321,25 @@ class BibliaDAO {
 		$result = $this->resultSet->fetchColumn(); 
 		
 		return $result;
+	}
+	
+	public function alterarSenhaUsuario($usuario, $senha) {
+		
+		try{
+			$sql  = " UPDATE biblia.usuario SET senha = :senha WHERE id_usuario = :usuario ";
+			
+			$this->resultSet = $this->PDO->prepare($sql);
+			
+			$this->resultSet->bindValue(':usuario', $usuario);
+			$this->resultSet->bindValue(':senha', $senha);
+			$this->resultSet->execute();
+			$result = $this->resultSet->rowCount(); 
+			
+			return $result;
+		
+		} catch (PDOException $ex) {
+			return $ex->getCode();
+		}
 	}
 	
 	public function cadastro($primeiroNome, $ultimoNome, $email, $senha) {

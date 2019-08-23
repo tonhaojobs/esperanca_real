@@ -77,10 +77,19 @@ class BibliaService {
 		} 
 	}
 	
-	public function findUsuarioBySenha($usuario, $senha) {
+	public function alterarSenhaUsuario($usuario, $senha, $novaSenha) {
 		
 		$senhaCriptografada = $this->getSenhaCriptografada($senha);
-		return $this->bibliaDAO->findUsuarioBySenha($usuario, $senhaCriptografada);
+		$count = $this->bibliaDAO->findUsuarioBySenha($usuario, $senhaCriptografada);
+		
+		if($count != 0) {
+			$novaSenhaCriptografada = $this->getSenhaCriptografada($novaSenha);
+			return $this->bibliaDAO->alterarSenhaUsuario($usuario, $novaSenhaCriptografada);
+		}
+	}
+	
+	private function findUsuarioBySenha($usuario, $senha) {
+		return $this->bibliaDAO->findUsuarioBySenha($usuario, $senha);
 	}
 	
 	public function getHistorico($usuario) { 
@@ -94,4 +103,9 @@ class BibliaService {
 	public function getHistoricoByLivroCapitulo($usuario, $livro, $capitulo) {
 		return $this->bibliaDAO->getHistoricoByLivroCapitulo($usuario, $livro, $capitulo);
 	}
+	
+	public function getHistoricoByData($usuario) {
+		return $this->bibliaDAO->getHistoricoByData($usuario);
+	}
+	
 }
