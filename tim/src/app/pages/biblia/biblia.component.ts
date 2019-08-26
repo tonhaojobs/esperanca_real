@@ -6,6 +6,7 @@ import { Verso } from 'app/model/verso';
 import { Versao } from 'app/model/versao';
 import { IdentityStorage } from 'app/_models/identity-storage';
 import { ToastrService } from 'ngx-toastr';
+import { NgBlockUI, BlockUI } from 'ng-block-ui';
 
 @Component({
   selector: 'app-biblia',
@@ -52,6 +53,7 @@ export class BibliaComponent implements OnInit {
   private porcentagem: number;
   private numeroCapitulosLidos: number;
   private tipoProgressBar: string;
+  @BlockUI() blockUI: NgBlockUI;
 
   constructor(private livroService: LivroService, private idStorage: IdentityStorage, private toastr: ToastrService) { }
 
@@ -63,6 +65,10 @@ export class BibliaComponent implements OnInit {
     this.usuarioLogado = this.idStorage.authenticationPresent();
 
     this.abrirLivro(1, 1, 1);
+
+    if(this.livro !== 0) {
+      this.podeAbrirLivro = true;
+    }
   }
 
   getLivros(testamento: number) {
@@ -86,12 +92,14 @@ export class BibliaComponent implements OnInit {
   public pesquisar() {
 
     if(this.palavraChave && this.palavraChave.trim().length > 0) {
+      this.blockUI.start();
       this.livroService.search(this.palavraChave, 1).subscribe(result => {
         this.resultadoPesquisa = new Array<Pesquisa>();
         this.resultadoPesquisa.push(...result);
         
         this.countResultadoBusca = this.resultadoPesquisa.length;
         this.exibirResultado = true;
+        this.blockUI.stop();
       });
     } else {
       this.toastr.warning('Para realizar uma pesquisa informe uma palavra-chave.');
@@ -100,6 +108,7 @@ export class BibliaComponent implements OnInit {
 
   private abrirLivro(livro: number, capitulo: number, versao: number) {
   
+    this.blockUI.start();
     this.versos = new Array();
     this.livro = livro;
     this.capitulo = capitulo;
@@ -112,6 +121,7 @@ export class BibliaComponent implements OnInit {
 
     this.livroService.abrirLivro(livro, capitulo, versao).subscribe(result => {
       this.versos.push(...result);
+      this.blockUI.stop();
     });
 
     this.livroService.findLivroById(livro).subscribe(retorno => {

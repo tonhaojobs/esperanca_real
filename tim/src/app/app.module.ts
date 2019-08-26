@@ -36,6 +36,7 @@ import { MAT_DATE_LOCALE } from '@angular/material';
 import { ToastrModule } from 'ngx-toastr';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { ApresentacaoComponent } from './pages/apresentacao/apresentacao.component';
+import { BlockUIModule } from 'ng-block-ui';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,11 @@ import { ApresentacaoComponent } from './pages/apresentacao/apresentacao.compone
     AngularWebStorageModule,
     BrowserAnimationsModule,
     MaterialModule,
-    NgCircleProgressModule.forRoot()
+    NgCircleProgressModule.forRoot(),
+    BlockUIModule.forRoot({
+      message: 'Carregando...',
+      delayStop: 750
+    })
   ],
   providers: [ 
     LivroService,
