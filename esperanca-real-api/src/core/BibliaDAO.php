@@ -260,7 +260,8 @@ class BibliaDAO {
 		
 		$sql  = " SELECT "; 
 		$sql .= " DATE_FORMAT(hl.dt_historico, '%d/%m/%Y') dataHistorico, "; 
-		$sql .= " GROUP_CONCAT(CONCAT(l.nome, ' ', hl.num_capitulo)) textos ";
+		$sql .= " GROUP_CONCAT(CONCAT('  ', l.nome, ' ', hl.num_capitulo)) textos, ";
+		$sql .= " COUNT(hl.num_capitulo) quantidade ";
 		$sql .= " FROM biblia.usuario_historico hl ";
 		$sql .= " INNER JOIN biblia.livro l ON l.id_livro = hl.id_livro ";
 		$sql .= " WHERE id_usuario = :usuario ";

@@ -35,6 +35,7 @@ import { MaterialModule } from './material.module';
 import { MAT_DATE_LOCALE } from '@angular/material';
 import { ToastrModule } from 'ngx-toastr';
 import { NgCircleProgressModule } from 'ng-circle-progress';
+import { ApresentacaoComponent } from './pages/apresentacao/apresentacao.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
     LoginComponent,
     PrivateComponent,
     DashboardComponent,
+    ApresentacaoComponent,
   ],
   imports: [
     BrowserModule,

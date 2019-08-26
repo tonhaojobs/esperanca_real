@@ -1,50 +1,65 @@
-<div id="pesquisa" class="section search">
+<div id="pesquisa" class="section search height-100">
     <div class="search-header">
-        <div class="container">
+        <div class="container-fluid">
             <div class="row justify-content-md-center">
-                <div class="col-md-10">
+                <div class="col col-md-8">
                     <h2 class="title">Pesquisa</h2>
                 </div>
             </div>
             <div class="row justify-content-md-center">
-                <div class="col-sm-8 col-md-8">
+                <div class="col col-md-6">
                     <input type="text" [(ngModel)]="palavraChave" class="form-control form-control-success" placeholder="Palavra-chave" aria-describedby="basic-addon1" (focus)="focus=true" (blur)="focus=false">
                 </div>
-                <div class="col-sm-2 col-md-2">
+                <div class="col col-sm-2 col-md-2">
                     <button type="button" class="btn btn-danger" (click)="pesquisar()"><i class="fa fa-search"></i> Pesquisar</button>
                 </div>
             </div>
-            <div class="row justify-content-md-center search-count-result" *ngIf="exibirResultado">
-                <div class="col-md-10 wrapper-count">
+            <div class="search-result mt-4" *ngIf="exibirResultado">
+                <div class="row justify-content-md-center">
                     <div *ngIf="resultadoPesquisa.length > 0; then pesquisaComResultado else pesquisaSemResultado"></div>
                     <ng-template #pesquisaComResultado>
-                        <h3>Sua pesquisa retornou {{resultadoPesquisa.length}} resultado(s).</h3>
+                        <div class="col col-md-7 pt-4 pb-3">
+                            <h3>Sua pesquisa retornou {{resultadoPesquisa.length}} resultado(s).</h3>
+                        </div>
+                        <div class="col col-md-1 pt-4 pb-3">
+                            <button type="button" class="btn btn-default float-right mt-4" (click)="limpar()"><i class="fa fa-exit"></i>Limpar Pesquisa</button>
+                        </div>
                     </ng-template>
                     <ng-template #pesquisaSemResultado>
-                        <h3>Sua pesquisa não retornou resultados.</h3>
+                        <div class="col col-md-8 pt-4 pb-3">
+                            <h3>Sua pesquisa não retornou resultados.</h3>
+                        </div>
                     </ng-template>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="section section-dark search-result" *ngIf="resultadoPesquisa.length > 0 && exibirResultado">
-    <div class="container">
-        <div class="row item" *ngFor="let pesquisa of resultadoPesquisa | paginate: { id:'paginator-pesquisa', itemsPerPage: 10, currentPage: p, totalItems: resultadoPesquisa.length}">
-            <div class="col-md-2"><a pageScroll [pageScrollOffset]="0" [pageScrollDuration]="700" [pageScrollInterruptible]="false" href="#leitura" (pageScrollFinish)="abrirLivro(pesquisa.capitulo, pesquisa.versiculo);">{{pesquisa.nome}}
-          {{pesquisa.capitulo}}:{{pesquisa.versiculo}}</a></div>
-            <div class="col-md-10">{{pesquisa.texto}}</div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="pagination-wrapper text-center">
-                    <ngb-pagination id="paginator-pesquisa" [collectionSize]="resultadoPesquisa.length" [maxSize]="7" [boundaryLinks]="true" [rotate]="true" (pageChange)="p = $event"></ngb-pagination>
+                <div class="row justify-content-md-center" *ngIf="resultadoPesquisa.length > 0 && exibirResultado">
+                    <div class="col col-md-8 pt-4 pb-4">
+                        <table class="table table-striped">
+
+                            <tbody>
+                                <tr *ngFor="let pesquisa of resultadoPesquisa | paginate: { id:'paginator-pesquisa', itemsPerPage: 10, currentPage: p, totalItems: resultadoPesquisa.length}">
+                                    <td scope="row">
+                                        <a pageScroll [pageScrollOffset]="0" [pageScrollDuration]="700" [pageScrollInterruptible]="false" href="#leitura" (pageScrollFinish)="abrirLivro(pesquisa.capitulo, pesquisa.versiculo);">
+                                            {{pesquisa.nome}} {{pesquisa.capitulo}}:{{pesquisa.versiculo}}
+                                        </a>
+                                    </td>
+                                    <td scope="row" style="text-align: left;">{{pesquisa.texto}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row justify-content-md-center" *ngIf="resultadoPesquisa.length > 0 && exibirResultado">
+                    <div class="col col-md-8 pb-4">
+                        <div class="pagination-wrapper text-center">
+                            <ngb-pagination id="paginator-pesquisa" [collectionSize]="resultadoPesquisa.length" [maxSize]="7" [boundaryLinks]="true" [rotate]="true" (pageChange)="p = $event"></ngb-pagination>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<div id="indice" class="section">
+<div id="indice" class="section height-100">
     <div class="container">
         <div class="tim-title">
             <h2>Índice de Livros</h2>
@@ -64,12 +79,11 @@
                                             <div (click)="onTabSelect(1)">Velho Testamento</div>
                                         </ng-template>
                                         <ng-template ngbTabContent>
-                                            <div ngbDropdown display="static" class="col-md-12">
-                                                <button class="btn btn-outline-primary dropdown-btn" id="dropdownBasic1" ngbDropdownToggle>{{(selecaoVelhoTestamento.nome)
-                          ? selecaoVelhoTestamento.nome : 'selecione'}}</button>
-                                                <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dropdown-books">
-                                                    <button ngbDropdownItem *ngFor="let livro of velhoTestamento" (click)="onSelectChange(livro, 1)">{{livro.nome}}</button>
-                                                </div>
+                                            <div class="col-md-12">
+                                                <select class="custom-select" [(ngModel)]="livro" (change)="onSelectChange()">
+                                                    <option value="0">Selecione</option>
+                                                    <option *ngFor="let livroVT of velhoTestamento" value="{{livroVT.id}}" >{{livroVT.abreviacao}} - {{livroVT.nome}}</option>
+                                                </select>
                                             </div>
                                         </ng-template>
                                     </ngb-tab>
@@ -78,12 +92,11 @@
                                             <div (click)="onTabSelect(2)">Novo Testamento</div>
                                         </ng-template>
                                         <ng-template ngbTabContent>
-                                            <div ngbDropdown display="static" class="col-md-12">
-                                                <button class="btn btn-outline-success dropdown-btn" id="dropdownBasic1" ngbDropdownToggle>{{(selecaoNovoTestamento.nome)
-                          ? selecaoNovoTestamento.nome : 'selecione'}}</button>
-                                                <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dropdown-books">
-                                                    <button ngbDropdownItem *ngFor="let livro of novoTestamento" (click)="onSelectChange(livro, 2)">{{livro.nome}}</button>
-                                                </div>
+                                            <div class="col-md-12">
+                                                <select class="custom-select" [(ngModel)]="livro" (change)="onSelectChange()">
+                                                    <option value="0">Selecione</option>
+                                                    <option *ngFor="let livroNT of novoTestamento" value="{{livroNT.id}}" >{{livroNT.abreviacao}} - {{livroNT.nome}}</option>
+                                                </select>
                                             </div>
                                         </ng-template>
                                     </ngb-tab>
@@ -143,11 +156,9 @@
                         </div>
                         <div class="row">
                             <div ngbDropdown display="static" class="mt-4 col-md-12">
-                                <button class="btn btn-outline-success dropdown-btn" id="dropdownBasic1" ngbDropdownToggle>{{(selecaoVersao.nome)
-                                        ? 'Versão ' + selecaoVersao.nome + ' (' + selecaoVersao.sigla + ')' : 'Versão'}}</button>
-                                <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dropdown-books">
-                                    <button ngbDropdownItem *ngFor="let versao of versoes" (click)="onChangeVersao(versao)">Versão {{versao.nome}} ({{versao.sigla}})</button>
-                                </div>
+                                <select class="custom-select" [(ngModel)]="versao" (change)="onChangeVersao()">
+                                    <option *ngFor="let versao_ of versoes" value="{{versao_.id}}" >Versão {{versao_.nome}} ({{versao_.sigla}})</option>
+                                </select>
                             </div>
                         </div>
                     </div>

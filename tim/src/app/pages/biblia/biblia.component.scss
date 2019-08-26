@@ -20,8 +20,7 @@ img {
     margin: 25px 0 0 15px;
 }
 
-.search-header {
-    min-height: 465px;
+.search {
     background-image: url(../../../assets/img/search.jpg);
     background-position: top center;
     background-size: cover;
@@ -45,7 +44,7 @@ img {
 }
 
 .search-result {
-    margin-top: -70px;
+    background-color: rgba(234, 234, 234, 0.9);
 }
 
 .item {

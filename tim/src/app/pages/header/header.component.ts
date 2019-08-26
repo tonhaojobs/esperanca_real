@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
+  private verso: string = "Lâmpada para os meus pés é a Tua palavra, e luz para os meus caminhos. Salmos 119:105";
+
   constructor() { }
 
   ngOnInit() {

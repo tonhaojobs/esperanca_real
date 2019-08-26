@@ -84,14 +84,18 @@ export class BibliaComponent implements OnInit {
   }
 
   public pesquisar() {
-      
-    this.livroService.search(this.palavraChave, 1).subscribe(result => {
-      this.resultadoPesquisa = new Array<Pesquisa>();
-      this.resultadoPesquisa.push(...result);
-      
-      this.countResultadoBusca = this.resultadoPesquisa.length;
-      this.exibirResultado = true;
-    });
+
+    if(this.palavraChave && this.palavraChave.trim().length > 0) {
+      this.livroService.search(this.palavraChave, 1).subscribe(result => {
+        this.resultadoPesquisa = new Array<Pesquisa>();
+        this.resultadoPesquisa.push(...result);
+        
+        this.countResultadoBusca = this.resultadoPesquisa.length;
+        this.exibirResultado = true;
+      });
+    } else {
+      this.toastr.warning('Para realizar uma pesquisa informe uma palavra-chave.');
+    }
   }
 
   private abrirLivro(livro: number, capitulo: number, versao: number) {
@@ -120,18 +124,21 @@ export class BibliaComponent implements OnInit {
 
     if(usuario) {
       this.livroService.historicoByLivro(usuario, livro).subscribe(retorno => {
-        this.porcentagem = retorno[0]['porcentagem'];
-        this.numeroCapitulosLidos = retorno[0]['capitulos_lidos'];
-  
-        if(this.porcentagem < 25) {
-          this.tipoProgressBar = 'danger';
-        } else if (this.porcentagem >= 25 && this.porcentagem < 50) {
-          this.tipoProgressBar = 'warning';
-        } else if (this.porcentagem >= 50 && this.porcentagem < 75) {
-          this.tipoProgressBar = 'info';
-        } else {
-          this.tipoProgressBar = 'success';
+        if(retorno && retorno.length > 0) {
+          this.porcentagem = retorno[0]['porcentagem'];
+          this.numeroCapitulosLidos = retorno[0]['capitulos_lidos'];
+    
+          if(this.porcentagem < 25) {
+            this.tipoProgressBar = 'danger';
+          } else if (this.porcentagem >= 25 && this.porcentagem < 50) {
+            this.tipoProgressBar = 'warning';
+          } else if (this.porcentagem >= 50 && this.porcentagem < 75) {
+            this.tipoProgressBar = 'info';
+          } else {
+            this.tipoProgressBar = 'success';
+          }
         }
+        
       });
 
       this.livroService.historicoByLivroCapitulo(usuario, livro, this.capitulo).subscribe(retorno => {
@@ -149,7 +156,8 @@ export class BibliaComponent implements OnInit {
       this.livroPesquisa = 0;
       this.capituloPesquisa = 0;
       this.versiculoPesquisa = 0;
-      this.abrirLivro(this.livro, 1, this.selecaoVersao.id);
+      this.capitulo = 1;
+      this.abrirLivro(this.livro, this.capitulo, this.selecaoVersao.id);
     }
   }
 
@@ -215,7 +223,6 @@ export class BibliaComponent implements OnInit {
       this.labelBotaoCapituloLido = 'Leitura do capítulo concluída';
       this.abrirLivro(this.livro, this.capitulo, this.versao);
     });
-
   }
 
   public onChangeSwitchState(event): void {
@@ -228,6 +235,12 @@ export class BibliaComponent implements OnInit {
     }
   }
 
+  public limpar(): void {
+    this.resultadoPesquisa = new Array<Pesquisa>();
+    this.exibirResultado = false;
+    this.palavraChave = '';
+  }
+
   nextPage($event: any) {
     this.capitulo = $event;
     this.abrirLivro(this.livro, this.capitulo, this.versao);
@@ -237,26 +250,24 @@ export class BibliaComponent implements OnInit {
     this.fontSize = updatedRange;
   }
 
-  onChangeVersao(key: Versao) {
-    this.selecaoVersao = key;
-    this.abrirLivro(this.livro, this.capitulo, key.id);
+  onChangeVersao() {
+
+    this.livroService.findVersaoById(this.versao).subscribe( versao => {
+      this.selecaoVersao = this.setVersao(versao[0]);
+      this.abrirLivro(this.livro, this.capitulo, this.selecaoVersao.id);
+    });
   }
 
-  onSelectChange(key: Livro, testamento: number) {
+  onSelectChange() {
 
-    this.livro = key.id;
-    this.podeAbrirLivro = true;
-
-    if(testamento === this.ID_VELHO_TESTAMENTO) {
-      this.selecaoVelhoTestamento = key;
-    } else {
-      this.selecaoNovoTestamento = key;
+    if(this.livro !== 0) {
+      this.podeAbrirLivro = true;
     }
   }
 
   onTabSelect(tab: number) {
-    this.selecaoVelhoTestamento = new Livro();
-    this.selecaoNovoTestamento = new Livro();
+    this.livro = 0;
     this.podeAbrirLivro = false;  
   }
+  
 }
