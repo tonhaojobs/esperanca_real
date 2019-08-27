@@ -1,4 +1,4 @@
-<div class="section section-dark" id="login">
+<div class="section section-dark" id="login" style="margin-top: -70px;">
     <div class="page-header" style="background-image: url('./assets/img/login-image.jpg');">
         <div class="filter"></div>
 
@@ -63,7 +63,7 @@
 
                             <button *ngIf="!esqueciSenha && possuiCadastro" class="btn btn-success btn-block btn-round" (click)="logon()">Entrar</button>
 
-                            <button *ngIf="!esqueciSenha && possuiCadastro" class="btn btn-primary btn-block btn-round" (click)="toggleEsqueciSenha()">Esqueci a senha</button>
+                            <!--button *ngIf="!esqueciSenha && possuiCadastro" class="btn btn-primary btn-block btn-round" (click)="toggleEsqueciSenha()">Esqueci a senha</button-->
                             <button *ngIf="!esqueciSenha && possuiCadastro" class="btn btn-danger btn-block btn-round" (click)="togglePossuiCadastro()">Não possui login? Cadastre-se!</button>
 
                             <button *ngIf="esqueciSenha && possuiCadastro" class="btn btn-success btn-block btn-round" (click)="redefinirSenha()">Redefinir senha</button>

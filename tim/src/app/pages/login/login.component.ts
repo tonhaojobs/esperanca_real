@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from 'app/_services/authentication.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
 
 @Component({
   selector: 'app-login',
@@ -31,6 +32,7 @@ export class LoginComponent implements OnInit {
   campoObrigatorio: string = '';
 
   errorEmail: boolean = false;
+  @BlockUI() blockUI: NgBlockUI;
   
   constructor(private authenticationService: AuthenticationService, public router: Router, private toastr: ToastrService) { }
 
@@ -39,20 +41,22 @@ export class LoginComponent implements OnInit {
   }
 
   logon(): void {
-
-    // https://www.npmjs.com/package/ngx-toastr
+    
+    this.blockUI.start();
 
     if(this.validarFormulario(this.ID_FORMULARIO_LOGON)) {
 
       this.authenticationService.authenticate(this.email, this.senha).subscribe(
         result => {
           this.router.navigate(["private"]);
+          this.blockUI.stop();
         }, error => {
           if(error['status'] === 403) {
             this.toastr.error('E-mail e/ou Senha Inválido(s)');
           }
           
           this.router.navigate(["public"]);
+          this.blockUI.stop();
         }
       );
     } 

@@ -38,6 +38,7 @@
     "hammerjs": "^2.0.8",
     "jquery": "3.2.1",
     "jw-bootstrap-switch-ng2": "^2.0.1",
+    "ng-block-ui": "^2.1.7",
     "ng-circle-progress": "^1.5.0",
     "ng2-nouislider": "1.7.12",
     "ngx-page-scroll": "^6.0.2",
