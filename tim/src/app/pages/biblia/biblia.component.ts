@@ -7,6 +7,7 @@ import { Versao } from 'app/model/versao';
 import { IdentityStorage } from 'app/_models/identity-storage';
 import { ToastrService } from 'ngx-toastr';
 import { NgBlockUI, BlockUI } from 'ng-block-ui';
+import { DashboardComponent } from '../dashboard/dashboard.component';
 
 @Component({
   selector: 'app-biblia',
@@ -55,7 +56,7 @@ export class BibliaComponent implements OnInit {
   private tipoProgressBar: string;
   @BlockUI() blockUI: NgBlockUI;
 
-  constructor(private livroService: LivroService, private idStorage: IdentityStorage, private toastr: ToastrService) { }
+  constructor(private livroService: LivroService, private idStorage: IdentityStorage, private toastr: ToastrService, public dashboard: DashboardComponent) { }
 
   ngOnInit() {
     this.iniciarVariaveis();
@@ -133,6 +134,7 @@ export class BibliaComponent implements OnInit {
     let usuario = this.idStorage.getIdentityPromise()['id'];
 
     if(usuario) {
+      this.dashboard.carregaHistoricoGeral();
       this.livroService.historicoByLivro(usuario, livro).subscribe(retorno => {
         if(retorno && retorno.length > 0) {
           this.porcentagem = retorno[0]['porcentagem'];

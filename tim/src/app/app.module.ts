@@ -82,7 +82,8 @@ import { BlockUIModule } from 'ng-block-ui';
     IdentityStorage, 
     AuthGuard,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-    { provide: MAT_DATE_LOCALE, useValue: "pt-BR" } 
+    { provide: MAT_DATE_LOCALE, useValue: "pt-BR" },
+    DashboardComponent
   ],
   bootstrap: [AppComponent]
 })
