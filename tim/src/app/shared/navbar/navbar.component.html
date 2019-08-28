@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg fixed-top navbar-transparent" color-on-scroll="500">
     <div class="container">
         <div class="navbar-translate">
-            <a pageScroll [pageScrollOffset]="70" [pageScrollDuration]="700" [pageScrollInterruptible]="false" href="#home"><img src="../../../assets/img/er_logo_prod.pn"></a>
+            <a pageScroll [pageScrollOffset]="70" [pageScrollDuration]="700" [pageScrollInterruptible]="false" href="#home"><img src="../../../assets/img/er-logo.svg"></a>
             <button class="navbar-toggler navbar-burger" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation" (click)="sidebarToggle()">
                 <span class="navbar-toggler-bar"></span>
                 <span class="navbar-toggler-bar"></span>
@@ -14,7 +14,7 @@
                     <a class="nav-link" pageScroll [pageScrollOffset]="70" [pageScrollDuration]="700" [pageScrollInterruptible]="false" href="#home">home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" pageScroll [pageScrollOffset]="70" [pageScrollDuration]="700" [pageScrollInterruptible]="false" href="#apresentacao" *ngIf="!isLogged()">Apresentação</a>
+                    <a class="nav-link" pageScroll [pageScrollOffset]="65" [pageScrollDuration]="700" [pageScrollInterruptible]="false" href="#apresentacao" *ngIf="!isLogged()">Bem Vindo</a>
                     <a class="nav-link" pageScroll [pageScrollOffset]="70" [pageScrollDuration]="700" [pageScrollInterruptible]="false" href="#dashboard" *ngIf="isLogged()">Dashboard</a>
                 </li>
                 <li class="nav-item">
