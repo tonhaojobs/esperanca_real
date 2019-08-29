@@ -73,51 +73,41 @@
             <div class="col-md-9">
                 <div class="nav-tabs-navigation">
                     <div class="nav-tabs-wrapper">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <ngb-tabset [justify]="'center'">
-                                    <ngb-tab>
-                                        <ng-template ngbTabTitle>
-                                            <div (click)="onTabSelect(1)">Velho Testamento</div>
-                                        </ng-template>
-                                        <ng-template ngbTabContent>
-                                            <div class="col-md-12">
-                                                <select class="custom-select" [(ngModel)]="livro" (change)="onSelectChange()">
-                                                    <option value="0">Selecione</option>
-                                                    <option *ngFor="let livroVT of velhoTestamento" value="{{livroVT.id}}" >{{livroVT.abreviacao}} - {{livroVT.nome}}</option>
-                                                </select>
-                                            </div>
-                                        </ng-template>
-                                    </ngb-tab>
-                                    <ngb-tab>
-                                        <ng-template ngbTabTitle>
-                                            <div (click)="onTabSelect(2)">Novo Testamento</div>
-                                        </ng-template>
-                                        <ng-template ngbTabContent>
-                                            <div class="col-md-12">
-                                                <select class="custom-select" [(ngModel)]="livro" (change)="onSelectChange()">
+                        <ngb-tabset [justify]="'center'">
+                            <ngb-tab>
+                                <ng-template ngbTabTitle>
+                                    <div (click)="onTabSelect(1)">Velho Testamento</div>
+                                </ng-template>
+                                <ng-template ngbTabContent>
+                                    <div class="col-md-12">
+                                        <select class="custom-select" [(ngModel)]="livro" (change)="onSelectChange()">
+                                            <option value="0">Selecione</option>
+                                            <option *ngFor="let livroVT of velhoTestamento" value="{{livroVT.id}}" >{{livroVT.abreviacao}} - {{livroVT.nome}}</option>
+                                        </select>
+                                    </div>
+                                </ng-template>
+                            </ngb-tab>
+                            <ngb-tab>
+                                <ng-template ngbTabTitle>
+                                    <div (click)="onTabSelect(2)">Novo Testamento</div>
+                                </ng-template>
+                                <ng-template ngbTabContent>
+                                    <div class="col-md-12">
+                                        <select class="custom-select" [(ngModel)]="livro" (change)="onSelectChange()">
                                                     <option value="0">Selecione</option>
                                                     <option *ngFor="let livroNT of novoTestamento" value="{{livroNT.id}}" >{{livroNT.abreviacao}} - {{livroNT.nome}}</option>
                                                 </select>
-                                            </div>
-                                        </ng-template>
-                                    </ngb-tab>
-                                </ngb-tabset>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div *ngIf="podeAbrirLivro; then abrirLivro else abrirMensagemValidacao"></div>
-                                <ng-template #abrirLivro>
-                                    <!--button type="button" class="btn btn-default float-left dropdown-btn-action"><i class="fa fa-info"></i>Informações</button-->
-                                    <button type="button" class="btn btn-success float-left dropdown-btn-action" pageScroll [pageScrollOffset]="0" [pageScrollDuration]="700" [pageScrollInterruptible]="false" href="#leitura" (pageScrollFinish)="abrirLivroIndice()"><i class="fa fa-book"></i>Abrir Livro</button>
+                                    </div>
                                 </ng-template>
-                                <ng-template #abrirMensagemValidacao>
-                                    <!--button type="button" class="btn btn-default float-left dropdown-btn-action" placement="bottom" ngbPopover="É necessário selecionar um livro acima." popoverTitle="Alerta"><i class="fa fa-info"></i>Informações</button-->
-                                    <button type="button" class="btn btn-success float-left dropdown-btn-action" placement="bottom" ngbPopover="É necessário selecionar um livro acima." popoverTitle="Alerta"><i class="fa fa-book-open"></i>Abrir Livro</button>
-                                </ng-template>
-                            </div>
-                        </div>
+                            </ngb-tab>
+                        </ngb-tabset>
+                        <div *ngIf="podeAbrirLivro; then abrirLivro else abrirMensagemValidacao"></div>
+                        <ng-template #abrirLivro>
+                            <button type="button" class="btn btn-success float-left dropdown-btn-action" pageScroll [pageScrollOffset]="0" [pageScrollDuration]="700" [pageScrollInterruptible]="false" href="#leitura" (pageScrollFinish)="abrirLivroIndice()"><i class="fa fa-book"></i>Abrir Livro</button>
+                        </ng-template>
+                        <ng-template #abrirMensagemValidacao>
+                            <button type="button" class="btn btn-success float-left dropdown-btn-action" placement="bottom" ngbPopover="É necessário selecionar um livro acima." popoverTitle="Alerta"><i class="fa fa-book-open"></i>Abrir Livro</button>
+                        </ng-template>
                     </div>
                 </div>
             </div>

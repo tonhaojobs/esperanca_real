@@ -9,8 +9,6 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { FooterComponent } from './shared/footer/footer.component';
 
-import { ComponentsModule } from './components/components.module';
-import { ExamplesModule } from './examples/examples.module';
 import { IndiceComponent } from './pages/indice/indice.component';
 import { PublicComponent } from './pages/public/public.component';
 import { HeaderComponent } from './pages/header/header.component';
@@ -60,8 +58,6 @@ import { BlockUIModule } from 'ng-block-ui';
     ToastrModule.forRoot(),
     FormsModule,
     RouterModule,
-    ComponentsModule,
-    ExamplesModule,
     AppRoutingModule,
     HttpClientModule,
     NgxPageScrollModule,
