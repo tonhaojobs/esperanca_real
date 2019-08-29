@@ -54,6 +54,8 @@ export class BibliaComponent implements OnInit {
   private porcentagem: number;
   private numeroCapitulosLidos: number;
   private tipoProgressBar: string;
+  private page: number;
+
   @BlockUI() blockUI: NgBlockUI;
 
   constructor(private livroService: LivroService, private idStorage: IdentityStorage, private toastr: ToastrService, public dashboard: DashboardComponent) { }
@@ -91,6 +93,8 @@ export class BibliaComponent implements OnInit {
   }
 
   public pesquisar() {
+
+    this.page = 1;
 
     if(this.palavraChave && this.palavraChave.trim().length > 0) {
       this.blockUI.start();
@@ -216,6 +220,7 @@ export class BibliaComponent implements OnInit {
 
   private iniciarVariaveis(): void {
 
+    this.page = 1;
     this.resultadoPesquisa = new Array<Pesquisa>();
     this.backgroundClass = 'white';
     this.livroDTO = new Livro();
@@ -251,6 +256,13 @@ export class BibliaComponent implements OnInit {
     this.resultadoPesquisa = new Array<Pesquisa>();
     this.exibirResultado = false;
     this.palavraChave = '';
+    this.page = 1;
+  }
+
+  onChangePage($event: any) {
+    this.blockUI.start();
+    this.page = $event;
+    this.blockUI.stop();
   }
 
   nextPage($event: any) {

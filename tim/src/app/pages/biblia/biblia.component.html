@@ -182,7 +182,7 @@
             <div class="row justify-content-md-center">
                 <div class="col col-md-12">
                     <div class="pagination-wrapper text-center">
-                        <ngb-pagination id="paginator-leitura" [collectionSize]="totalItems * 10" [maxSize]="7" [rotate]="true" [boundaryLinks]="true" (pageChange)="nextPage($event)"></ngb-pagination>
+                        <ngb-pagination id="paginator-leitura" [collectionSize]="totalItems * 10" [maxSize]="7" [rotate]="true" [boundaryLinks]="true" [(page)]="capitulo" (pageChange)="nextPage($event)"></ngb-pagination>
                     </div>
                 </div>
             </div>
