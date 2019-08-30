@@ -7,10 +7,10 @@
                 </div>
             </div>
             <div class="row justify-content-md-center">
-                <div class="col col-md-6">
+                <div class="mb-3 col-md-6 col-sm-12 col-xs-12">
                     <input type="text" [(ngModel)]="palavraChave" class="form-control form-control-success" placeholder="Palavra-chave" aria-describedby="basic-addon1" (focus)="focus=true" (blur)="focus=false">
                 </div>
-                <div class="col col-sm-2 col-md-2">
+                <div class="mb-3 col-md-2 col-sm-12 col-xs-12">
                     <button type="button" class="btn btn-danger" (click)="pesquisar()"><i class="fa fa-search"></i> Pesquisar</button>
                 </div>
             </div>
@@ -18,21 +18,21 @@
                 <div class="row justify-content-md-center">
                     <div *ngIf="resultadoPesquisa.length > 0; then pesquisaComResultado else pesquisaSemResultado"></div>
                     <ng-template #pesquisaComResultado>
-                        <div class="col col-md-7 pt-4 pb-3">
+                        <div class="pl-4 pr-4 pt-4 pb-3 col-md-7 col-sm-12 col-xs-12">
                             <h3>Sua pesquisa retornou {{resultadoPesquisa.length}} resultado(s).</h3>
                         </div>
-                        <div class="col col-md-1 pt-4 pb-3">
+                        <div class="pl-4 pr-4 pt-4 pb-3 col-md-1 col-sm-12 col-xs-12">
                             <button type="button" class="btn btn-default float-right mt-4" (click)="limpar()"><i class="fa fa-exit"></i>Limpar Pesquisa</button>
                         </div>
                     </ng-template>
                     <ng-template #pesquisaSemResultado>
-                        <div class="col col-md-8 pt-4 pb-3">
+                        <div class="pl-4 pr-4 pt-4 pb-3 col-md-8">
                             <h3>Sua pesquisa não retornou resultados.</h3>
                         </div>
                     </ng-template>
                 </div>
                 <div class="row justify-content-md-center" *ngIf="resultadoPesquisa.length > 0 && exibirResultado">
-                    <div class="col col-md-8 pt-4 pb-4">
+                    <div class="pl-4 pr-4 pt-4 pb-3 col-md-8">
                         <table class="table table-striped">
                             <tbody>
                                 <tr *ngFor="let pesquisa of resultadoPesquisa | paginate: { id:'paginator-pesquisa', itemsPerPage: 10, currentPage: p, totalItems: resultadoPesquisa.length}">
@@ -106,7 +106,7 @@
                             <button type="button" class="btn btn-success float-left dropdown-btn-action" pageScroll [pageScrollOffset]="0" [pageScrollDuration]="700" [pageScrollInterruptible]="false" href="#leitura" (pageScrollFinish)="abrirLivroIndice()"><i class="fa fa-book"></i>Abrir Livro</button>
                         </ng-template>
                         <ng-template #abrirMensagemValidacao>
-                            <button type="button" class="btn btn-success float-left dropdown-btn-action" placement="bottom" ngbPopover="É necessário selecionar um livro acima." popoverTitle="Alerta"><i class="fa fa-book-open"></i>Abrir Livro</button>
+                            <button type="button" class="btn btn-success float-left dropdown-btn-action" (click)="abrirLivroIndice()" placement="bottom"><i class="fa fa-book-open"></i>Abrir Livro</button>
                         </ng-template>
                     </div>
                 </div>
@@ -175,14 +175,14 @@
                 </div>
             </div>
             <div class="row justify-content-md-center" *ngIf="usuarioLogado">
-                <div class="col col-md-4 mt-4">
+                <div class="mt-4 col col-md-4 col-sm-12 col-xs-12 text-center">
                     <button type="button" class="btn" [ngClass]="(capituloLido) ? 'btn-success' : 'btn-primary'" [disabled]="capituloLido" (click)="marcarCapituloLido()"><i class="fa fa-check"></i> {{labelBotaoCapituloLido}}</button>
                 </div>
             </div>
-            <div class="row justify-content-md-center">
+            <div class="row justify-content-md-center"> 
                 <div class="col col-md-12">
                     <div class="pagination-wrapper text-center">
-                        <ngb-pagination id="paginator-leitura" [collectionSize]="totalItems * 10" [maxSize]="7" [rotate]="true" [boundaryLinks]="true" [(page)]="capitulo" (pageChange)="nextPage($event)"></ngb-pagination>
+                        <ngb-pagination id="paginator-leitura" [collectionSize]="totalItems * 10" [maxSize]="7" [rotate]="true" [boundaryLinks]="true" [(page)]="page" (pageChange)="nextPage($event)"></ngb-pagination>
                     </div>
                 </div>
             </div>

@@ -20,24 +20,24 @@
                         <ng-template ngbTabContent>
                             <div class="container-fluid">
                                 <div class="row justify-content-md-center mt-4">
-                                    <div class="col col-md-3">
+                                    <div class="col-md-3 col-sm-4 col-xs-12">
                                         <circle-progress [percent]="statusPorcentagem" [radius]="30" [outerStrokeWidth]="1" [innerStrokeWidth]="2" [outerStrokeColor]="'#922e3f'" [innerStrokeColor]="'#191B1C'" [animation]="true" [animationDuration]="1000" [responsive]="true" [titleColor]="'#D8D8DA'"
                                             [unitsColor]="'#D8D8DA'" [subtitleColor]="'#D8D8DA'" [showSubtitle]="false">
                                         </circle-progress>
                                     </div>
-                                    <div *ngIf="!exibirGridHistorico" class="col col-md-9 pt-4">
+                                    <div *ngIf="!exibirGridHistorico" class="pt-4 col-md-9 col-sm-8 col-xs-12">
                                         <h4 class="mt-4">
                                             Você ainda não possui histórico para exibir. Conclua os capítulos e clique no botão "Marcar capítulo como lido".
                                         </h4>
                                     </div>
-                                    <div *ngIf="exibirGridHistorico" class="col col-md-9">
+                                    <div *ngIf="exibirGridHistorico" class="col-md-9 col-sm-8 col-xs-12">
                                         <div class="row">
-                                            <div class="col col-md-10 mt-4">
+                                            <div class="mt-4 col-lg-9 col-md-9 col-sm-12 col-xs-12">
                                                 <span class="float-left text-white">
                                                     SEU PROGRESSO: Até o momento você leu {{statusCapitulo}} capítulos dos 1.189 que compõem a Bíblia Sagrada.
                                                 </span>
                                             </div>
-                                            <div class="col col-md-2">
+                                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                                                 <div class="float-right mb-3 mt-3">
                                                     <select class="custom-select" style="width: auto" [(ngModel)]="pageSize">
                                                         <option [ngValue]="5">5 itens por página</option>

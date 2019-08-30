@@ -54,7 +54,8 @@ export class BibliaComponent implements OnInit {
   private porcentagem: number;
   private numeroCapitulosLidos: number;
   private tipoProgressBar: string;
-  private page: number;
+  private page: number = 1;
+  teste: boolean = true;
 
   @BlockUI() blockUI: NgBlockUI;
 
@@ -94,8 +95,6 @@ export class BibliaComponent implements OnInit {
 
   public pesquisar() {
 
-    this.page = 1;
-
     if(this.palavraChave && this.palavraChave.trim().length > 0) {
       this.blockUI.start();
       this.livroService.search(this.palavraChave, 1).subscribe(result => {
@@ -112,7 +111,7 @@ export class BibliaComponent implements OnInit {
   }
 
   private abrirLivro(livro: number, capitulo: number, versao: number) {
-  
+
     this.blockUI.start();
     this.versos = new Array();
     this.livro = livro;
@@ -164,6 +163,7 @@ export class BibliaComponent implements OnInit {
         }
       });
     }
+    this.teste = true;
   }
 
   private abrirLivroIndice() {
@@ -173,7 +173,11 @@ export class BibliaComponent implements OnInit {
       this.capituloPesquisa = 0;
       this.versiculoPesquisa = 0;
       this.capitulo = 1;
+      this.teste = false;
+      this.page = 1;
       this.abrirLivro(this.livro, this.capitulo, this.selecaoVersao.id);
+    } else {
+      this.toastr.error('É necessário selecionar um livro.');
     }
   }
 
@@ -181,6 +185,9 @@ export class BibliaComponent implements OnInit {
 
     this.livroPesquisa = livro;
     this.capituloPesquisa = capitulo;
+    this.page = capitulo;
+    this.teste = false;
+
     this.versiculoPesquisa = versiculo;
     this.abrirLivro(livro, capitulo, 1);
   }
@@ -220,7 +227,6 @@ export class BibliaComponent implements OnInit {
 
   private iniciarVariaveis(): void {
 
-    this.page = 1;
     this.resultadoPesquisa = new Array<Pesquisa>();
     this.backgroundClass = 'white';
     this.livroDTO = new Livro();
@@ -256,18 +262,15 @@ export class BibliaComponent implements OnInit {
     this.resultadoPesquisa = new Array<Pesquisa>();
     this.exibirResultado = false;
     this.palavraChave = '';
-    this.page = 1;
-  }
-
-  onChangePage($event: any) {
-    this.blockUI.start();
-    this.page = $event;
-    this.blockUI.stop();
   }
 
   nextPage($event: any) {
-    this.capitulo = $event;
-    this.abrirLivro(this.livro, this.capitulo, this.versao);
+    if(this.teste) {
+      this.capitulo = $event;
+      this.abrirLivro(this.livro, this.capitulo, this.versao);
+    }
+
+    this.teste = true;
   }
 
   rangeChanged(updatedRange): void {
