@@ -42,7 +42,7 @@ class BibliaDAO {
 		$sql  = " SELECT ";
 		$sql .= " l.id_livro AS id, l.posicao AS posicao, l.nome AS nome, l.abreviacao AS abreviacao, l.num_capitulos AS numeroCapitulos, c.nome as categoria ";
 		$sql .= " FROM sdkyfpcr_biblia.livro l ";
-		$sql .= " INNER JOIN biblia.livro_categoria c ";
+		$sql .= " INNER JOIN sdkyfpcr_biblia.livro_categoria c ";
 		$sql .= " ON l.id_categoria = c.id_livro_categoria ";
 		$sql .= " AND id_testamento = :id ";
 		
@@ -74,7 +74,7 @@ class BibliaDAO {
 		$sql  = " SELECT ";
 		$sql .= " l.id_livro AS id, l.posicao AS posicao, l.nome AS nome, l.abreviacao AS abreviacao, l.num_capitulos AS numeroCapitulos, c.nome as categoria ";
 		$sql .= " FROM sdkyfpcr_biblia.livro l ";
-		$sql .= " INNER JOIN biblia.livro_categoria c ";
+		$sql .= " INNER JOIN sdkyfpcr_biblia.livro_categoria c ";
 		$sql .= " ON l.id_categoria = c.id_livro_categoria ";
 		$sql .= " AND id_livro = :id ";
 		
@@ -106,7 +106,7 @@ class BibliaDAO {
 		$sql  = " SELECT ";
 		$sql .= " bv.num_versiculo AS versiculo, bv.texto AS texto ";
 		$sql .= " FROM sdkyfpcr_biblia.versiculo bv ";
-		$sql .= " INNER JOIN biblia.livro l ";
+		$sql .= " INNER JOIN sdkyfpcr_biblia.livro l ";
 		$sql .= " ON l.id_livro = bv.id_livro ";
 		$sql .= " WHERE l.id_livro = :livro ";
 		$sql .= " AND bv.num_capitulo = :capitulo ";
@@ -130,7 +130,7 @@ class BibliaDAO {
 		$sql  = " SELECT ";
 		$sql .= " bv.id_versiculo, l.id_livro AS livro, l.nome, bv.num_capitulo AS capitulo, bv.num_versiculo AS versiculo, bv.texto AS texto ";
 		$sql .= " FROM sdkyfpcr_biblia.versiculo bv ";
-		$sql .= " INNER JOIN biblia.livro l ";
+		$sql .= " INNER JOIN sdkyfpcr_biblia.livro l ";
 		$sql .= " ON l.id_livro = bv.id_livro ";
 		$sql .= " WHERE UPPER(bv.texto) LIKE UPPER(:palavraChave) ";
 		$sql .= " AND bv.id_versao = :versao ";
@@ -209,7 +209,7 @@ class BibliaDAO {
 		
 		$sql  = " SELECT h.id_livro, l.nome AS nome, l.abreviacao AS abreviacao, h.num_capitulo, DATE_FORMAT(h.dt_historico, '%d/%m/%Y') dt_historico ";
 		$sql .= " FROM sdkyfpcr_biblia.usuario_historico h ";
-		$sql .= " INNER JOIN biblia.livro l ";
+		$sql .= " INNER JOIN sdkyfpcr_biblia.livro l ";
 		$sql .= " ON l.id_livro = h.id_livro ";
 		$sql .= " WHERE h.id_usuario = :usuario ";
 		$sql .= " GROUP BY h.id_livro, h.num_capitulo ";
@@ -239,7 +239,7 @@ class BibliaDAO {
 		$sql .=	" 		AND id_usuario = :usuario ";
 		$sql .= " 		AND id_livro = :livro) * 100 / l.num_capitulos, 1) porcentagem ";
 		$sql .= " FROM sdkyfpcr_biblia.usuario_historico h ";
-		$sql .= " INNER JOIN biblia.livro l ";
+		$sql .= " INNER JOIN sdkyfpcr_biblia.livro l ";
 		$sql .= " ON l.id_livro = h.id_livro ";
 		$sql .= " WHERE h.id_usuario = :usuario ";
 		$sql .= " 	AND h.id_livro = :livro ";
@@ -263,7 +263,7 @@ class BibliaDAO {
 		$sql .= " GROUP_CONCAT(CONCAT('  ', l.nome, ' ', hl.num_capitulo)) textos, ";
 		$sql .= " COUNT(hl.num_capitulo) quantidade ";
 		$sql .= " FROM sdkyfpcr_biblia.usuario_historico hl ";
-		$sql .= " INNER JOIN biblia.livro l ON l.id_livro = hl.id_livro ";
+		$sql .= " INNER JOIN sdkyfpcr_biblia.livro l ON l.id_livro = hl.id_livro ";
 		$sql .= " WHERE id_usuario = :usuario ";
 		$sql .= " GROUP BY DATE_FORMAT(dt_historico, '%d/%m/%Y') ";
 		$sql .= " ORDER BY DATE_FORMAT(dt_historico, '%Y/%m/%d') DESC ";

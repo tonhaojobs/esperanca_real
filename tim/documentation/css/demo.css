@@ -270,7 +270,7 @@
 }
 
 .demo-header-image {
-    background-image: url('../img/city.jpg');
+    background-image: url('assets/img/city.jpg');
 }
 
 .demo-header .motto {
