@@ -12,44 +12,42 @@ import { tap } from 'rxjs/operators';
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
     
-    constructor(private authService: AuthenticationService, private router: Router, private toastr: ToastrService) { }
+  constructor(private authService: AuthenticationService, private router: Router, private toastr: ToastrService) { }
 
-    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-        if(req.url.search("/login") === -1) {
+    if(req.url.search("/login") === -1) {
 
-            if(this.authService.isAuthenticated()) {
-                req = req.clone({
-                    setHeaders: { 
-                        Authorization: `Bearer ${this.authService.getIdentity().token}`
-                    }
-                });                
-            }
-        } else {
-
-            if(this.authService.isAuthenticated()) {
-
-                this.router.navigate(['public']);
-            }
-        }
-
-        const started = Date.now();
-
-        return next.handle(req).pipe(
-            tap(
-              event => {
-                if (event instanceof HttpResponse) {
-                  const elapsed = Date.now() - started;
-                  console.log(`Request for ${req.urlWithParams} took ${elapsed} ms.`);
-                }
-              }, err => {
-                if (err.status === 401) {
-                  this.router.navigate(["public"]);
-                  this.toastr.clear();
-                  this.toastr.error("Sessao expirada, faça login novamente!");
-                }
-              }
-            )
-        );
+      if(this.authService.isAuthenticated()) {
+        req = req.clone({
+          setHeaders: { 
+            Authorization: `Bearer ${this.authService.getIdentity().token}`
+          }
+        });                
+      }
+    } else {
+      if(this.authService.isAuthenticated()) {
+        this.router.navigate(['public']);
+      }
     }
+
+    const started = Date.now();
+
+    return next.handle(req).pipe(
+      tap(
+        event => {
+          if (event instanceof HttpResponse) {
+            const elapsed = Date.now() - started;
+            //console.log(`Request for ${req.urlWithParams} took ${elapsed} ms.`);
+          }
+        }, err => {
+          if (err.status === 401) {
+            this.router.navigate(["public"]);
+            this.toastr.clear();
+            this.toastr.error("Sessao expirada, faça login novamente!");
+          }
+        }
+      )
+    );
+  }
 }

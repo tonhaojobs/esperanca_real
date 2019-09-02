@@ -58,14 +58,14 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr *ngFor="let l of leituraList">
+                                                        <tr *ngFor="let l of leituraList | paginate: { id:'paginator-dashboard', itemsPerPage: pageSize, currentPage: page, totalItems: collectionSize}">
                                                             <td scope="row">{{l.dataHistorico}}</td>
                                                             <td scope="row">{{l.quantidade}}</td>
                                                             <td scope="row" style="text-align: left;">{{l.textos}}</td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
-                                                <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize"></ngb-pagination>
+                                                <ngb-pagination id="paginator-dashboard" [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize" (pageChange)="page = $event"></ngb-pagination>
                                             </div>
                                         </div>
                                     </div>

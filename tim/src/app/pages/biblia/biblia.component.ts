@@ -35,27 +35,29 @@ export class BibliaComponent implements OnInit {
   exibirResultado: boolean;
   countResultadoBusca: number;
 
-  private livroPesquisa: number;
-  private capituloPesquisa: number;
-  private versiculoPesquisa: number;
+  livroPesquisa: number;
+  capituloPesquisa: number;
+  versiculoPesquisa: number;
 
-  private livroDTO: Livro;
-  private livro: number;
-  private capitulo: number;
-  private versao: number;
-  private versos: Array<Verso>;
-  private totalItems: number;
-  private livros: Array<Livro[]>;
-  private versoes: Array<any>;
-  private backgroundClass: string; 
-  private usuarioLogado: boolean;
-  private capituloLido: boolean;
-  private labelBotaoCapituloLido: string = 'Marcar capítulo como lido';
-  private porcentagem: number;
-  private numeroCapitulosLidos: number;
-  private tipoProgressBar: string;
-  private page: number = 1;
+  livroDTO: Livro;
+  livro: number;
+  capitulo: number;
+  versao: number;
+  versos: Array<Verso>;
+  totalItems: number;
+  livros: Array<Livro[]>;
+  versoes: Array<any>;
+  backgroundClass: string; 
+  usuarioLogado: boolean;
+  capituloLido: boolean;
+  labelBotaoCapituloLido: string = 'Marcar capítulo como lido';
+  porcentagem: number;
+  numeroCapitulosLidos: number;
+  tipoProgressBar: string;
+  page: number = 1;
   teste: boolean = true;
+  telaPesquisa: boolean;
+  pagePesquisa: number;
 
   @BlockUI() blockUI: NgBlockUI;
 
@@ -67,7 +69,6 @@ export class BibliaComponent implements OnInit {
     this.getLivros(2);
     this.getVersoes();
     this.usuarioLogado = this.idStorage.authenticationPresent();
-
     this.abrirLivro(1, 1, 1);
 
     if(this.livro !== 0) {
@@ -76,7 +77,7 @@ export class BibliaComponent implements OnInit {
   }
 
   getLivros(testamento: number) {
-
+    
     if(testamento === this.ID_VELHO_TESTAMENTO) {
       this.velhoTestamento = new Array<Livro>();
 
@@ -95,6 +96,8 @@ export class BibliaComponent implements OnInit {
 
   public pesquisar() {
 
+    this.pagePesquisa = 1;
+
     if(this.palavraChave && this.palavraChave.trim().length > 0) {
       this.blockUI.start();
       this.livroService.search(this.palavraChave, 1).subscribe(result => {
@@ -111,7 +114,7 @@ export class BibliaComponent implements OnInit {
   }
 
   private abrirLivro(livro: number, capitulo: number, versao: number) {
-
+    
     this.blockUI.start();
     this.versos = new Array();
     this.livro = livro;
@@ -122,52 +125,59 @@ export class BibliaComponent implements OnInit {
     this.tipoProgressBar = 'danger';
     this.capituloLido = false;
     this.labelBotaoCapituloLido = 'Marcar capítulo como lido';
-
+    
     this.livroService.abrirLivro(livro, capitulo, versao).subscribe(result => {
       this.versos.push(...result);
+      this.livroService.findLivroById(livro).subscribe(retorno => {
+        
+        this.livroDTO = this.setLivro(retorno[0]);
+        this.totalItems = this.livroDTO.numeroCapitulos;
+        this.page = capitulo;
+      });
+  
+      let usuario = this.idStorage.getIdentityPromise()['id'];
+  
+      if(usuario) {
+        this.dashboard.carregaHistoricoGeral();
+        this.livroService.historicoByLivro(usuario, livro).subscribe(retorno => {
+          if(retorno && retorno.length > 0) {
+            this.porcentagem = retorno[0]['porcentagem'];
+            this.numeroCapitulosLidos = retorno[0]['capitulos_lidos'];
+      
+            if(this.porcentagem < 25) {
+              this.tipoProgressBar = 'danger';
+            } else if (this.porcentagem >= 25 && this.porcentagem < 50) {
+              this.tipoProgressBar = 'warning';
+            } else if (this.porcentagem >= 50 && this.porcentagem < 75) {
+              this.tipoProgressBar = 'info';
+            } else {
+              this.tipoProgressBar = 'success';
+            }
+          }
+        });
+  
+        this.livroService.historicoByLivroCapitulo(usuario, livro, this.capitulo).subscribe(retorno => {
+          if(retorno !== '0') {
+            this.capituloLido = true;
+            this.labelBotaoCapituloLido = 'Leitura do capítulo concluída';
+          }
+        });
+      } else {
+        this.usuarioLogado = false;
+      }
+
       this.blockUI.stop();
     });
 
-    this.livroService.findLivroById(livro).subscribe(retorno => {
-      
-      this.livroDTO = this.setLivro(retorno[0]);
-      this.totalItems = this.livroDTO.numeroCapitulos;
-    });
-
-    let usuario = this.idStorage.getIdentityPromise()['id'];
-
-    if(usuario) {
-      this.dashboard.carregaHistoricoGeral();
-      this.livroService.historicoByLivro(usuario, livro).subscribe(retorno => {
-        if(retorno && retorno.length > 0) {
-          this.porcentagem = retorno[0]['porcentagem'];
-          this.numeroCapitulosLidos = retorno[0]['capitulos_lidos'];
-    
-          if(this.porcentagem < 25) {
-            this.tipoProgressBar = 'danger';
-          } else if (this.porcentagem >= 25 && this.porcentagem < 50) {
-            this.tipoProgressBar = 'warning';
-          } else if (this.porcentagem >= 50 && this.porcentagem < 75) {
-            this.tipoProgressBar = 'info';
-          } else {
-            this.tipoProgressBar = 'success';
-          }
-        }
-        
-      });
-
-      this.livroService.historicoByLivroCapitulo(usuario, livro, this.capitulo).subscribe(retorno => {
-        if(retorno !== '0') {
-          this.capituloLido = true;
-          this.labelBotaoCapituloLido = 'Leitura do capítulo concluída';
-        }
-      });
+    if(!this.telaPesquisa) {
+      this.teste = true;
+    } else {
+      this.telaPesquisa = false;
     }
-    this.teste = true;
   }
 
   private abrirLivroIndice() {
-
+    
     if(this.podeAbrirLivro) {
       this.livroPesquisa = 0;
       this.capituloPesquisa = 0;
@@ -182,12 +192,12 @@ export class BibliaComponent implements OnInit {
   }
 
   private abrirLivroPesquisa(livro: number, capitulo: number, versiculo: number) {
-
+    
     this.livroPesquisa = livro;
     this.capituloPesquisa = capitulo;
     this.page = capitulo;
     this.teste = false;
-
+    this.telaPesquisa = true;
     this.versiculoPesquisa = versiculo;
     this.abrirLivro(livro, capitulo, 1);
   }
@@ -232,6 +242,7 @@ export class BibliaComponent implements OnInit {
     this.livroDTO = new Livro();
     this.livros = new Array<Livro[]>();
     this.versao = 1;
+    this.pagePesquisa = 1;
     
     this.livroService.findVersaoById(this.versao).subscribe( versao => {
       this.selecaoVersao = this.setVersao(versao[0]);
@@ -267,9 +278,11 @@ export class BibliaComponent implements OnInit {
   nextPage($event: any) {
     if(this.teste) {
       this.capitulo = $event;
+      this.page = $event;
       this.abrirLivro(this.livro, this.capitulo, this.versao);
+    } else {
+      this.page = this.capitulo;
     }
-
     this.teste = true;
   }
 

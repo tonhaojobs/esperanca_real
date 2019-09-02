@@ -7,11 +7,17 @@
             "root": "",
             "sourceRoot": "src",
             "projectType": "application",
+            "prefix": "app",
+            "schematics": {
+
+            },
             "architect": {
                 "build": {
                     "builder": "@angular-devkit/build-angular:browser",
                     "options": {
                         "outputPath": "dist",
+                        "baseHref": "/",
+                        "deployUrl": "/",
                         "index": "src/index.html",
                         "main": "src/main.ts",
                         "tsConfig": "src/tsconfig.app.json",

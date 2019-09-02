@@ -7,8 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  private verso: any;
-  private styles: any;
+  public verso: any;
+  public styles: any;
 
   private versos = [
     {id: 1, texto : 'Lâmpada para os meus pés é a Tua palavra, e luz para os meus caminhos.', referencia: 'Salmos 119:105', imagem: 'lighthouse.jpg'},

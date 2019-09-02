@@ -23,7 +23,7 @@ return function (App $app) {
 		if(!empty($retorno)) {
 			
 			$now = new DateTime();
-			$future = new DateTime("+20 minutes");
+			$future = new DateTime("+60 minutes");
 			$server = $request->getServerParams();
 			$jti = (new Base62)->encode(random_bytes(16));
 			
