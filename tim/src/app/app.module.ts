@@ -35,7 +35,6 @@ import { ToastrModule } from 'ngx-toastr';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 import { ApresentacaoComponent } from './pages/apresentacao/apresentacao.component';
 import { BlockUIModule } from 'ng-block-ui';
-import { APP_BASE_HREF, LocationStrategy, PathLocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -70,7 +69,7 @@ import { APP_BASE_HREF, LocationStrategy, PathLocationStrategy } from '@angular/
     NgCircleProgressModule.forRoot(),
     BlockUIModule.forRoot({
       message: 'Carregando...',
-      delayStop: 750
+      delayStop: 100
     })
   ],
   providers: [ 
@@ -78,11 +77,9 @@ import { APP_BASE_HREF, LocationStrategy, PathLocationStrategy } from '@angular/
     AuthenticationService, 
     IdentityStorage, 
     AuthGuard,
-    DashboardComponent,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: MAT_DATE_LOCALE, useValue: "pt-BR" },
-    { provide: APP_BASE_HREF, useValue: '/' },
-    { provide: LocationStrategy, useClass: PathLocationStrategy }
+    DashboardComponent
   ],
   bootstrap: [AppComponent]
 })
