@@ -1,6 +1,5 @@
-
 <?php
-
+	namespace Dao;
 //AMBIENTE DE PRODUÇÃO
 /*
 
@@ -403,7 +402,7 @@ class BibliaDAO {
 
 //AMBIENTE DE DESENVOLVIMENTO
 
-namespace Dao;
+
 
 class BibliaDAO {
 	

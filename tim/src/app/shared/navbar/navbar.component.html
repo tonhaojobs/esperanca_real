@@ -14,10 +14,6 @@
                     <a class="nav-link" pageScroll [pageScrollOffset]="70" [pageScrollDuration]="700" [pageScrollInterruptible]="false" href="#home">home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" pageScroll [pageScrollOffset]="65" [pageScrollDuration]="700" [pageScrollInterruptible]="false" href="#apresentacao" *ngIf="!isLogged()">Bem Vindo</a>
-                    <a class="nav-link" pageScroll [pageScrollOffset]="70" [pageScrollDuration]="700" [pageScrollInterruptible]="false" href="#dashboard" *ngIf="isLogged()">Dashboard</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" pageScroll [pageScrollOffset]="70" [pageScrollDuration]="700" [pageScrollInterruptible]="false" href="#pesquisa">pesquisa</a>
                 </li>
                 <li class="nav-item">
@@ -28,6 +24,9 @@
                 </li>
                 <li class="nav-item" *ngIf="!isLogged()">
                     <a class="nav-link" pageScroll [pageScrollOffset]="0" [pageScrollDuration]="700" [pageScrollInterruptible]="false" href="#login">login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" pageScroll [pageScrollOffset]="70" [pageScrollDuration]="700" [pageScrollInterruptible]="false" href="#dashboard" *ngIf="isLogged()">Dashboard</a>
                 </li>
             </ul>
         </div>
