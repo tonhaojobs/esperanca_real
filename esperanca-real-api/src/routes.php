@@ -272,6 +272,27 @@ return function (App $app) {
 			->write(json_encode($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));	
 	});
 	
+	$app->post("/desmarcarCapitulo",  function ($request, $response, $args) {
+
+		$data_ = $request->getParsedBody();
+	
+		$biblia = new \Service\BibliaService();
+		
+		$capitulo = $data_['capitulo']; 
+		$livro = $data_['livro']; 
+		$usuario = $data_['usuario'];
+		$versao = $data_['versao'];
+		
+		$data = $biblia->removeHistorico($usuario, $livro, $capitulo, $versao);
+		
+		return $response->withStatus(200)
+			->withHeader("Content-Type", "application/json")
+			->withHeader('Access-Control-Allow-Origin', '*')
+			->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
+			->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS')
+			->write(json_encode($data, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT));	
+	});
+	
 	$app->post("/usuarioSenha",  function ($request, $response, $args) {
 
 		$biblia = new \Service\BibliaService();

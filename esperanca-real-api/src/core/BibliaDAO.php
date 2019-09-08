@@ -2,9 +2,6 @@
 	namespace Dao;
 //AMBIENTE DE PRODUÇÃO
 /*
-
-namespace Dao;
-
 class BibliaDAO {
 	
 	protected $PDO;
@@ -173,6 +170,28 @@ class BibliaDAO {
 		try{
 			$sql  = " INSERT INTO sdkyfpcr_biblia.usuario_historico (id_usuario, id_livro, id_versao, num_capitulo, dt_historico) ";
 			$sql .= " VALUES (:usuario, :livro, :versao, :capitulo, NOW()) ";
+
+			$this->resultSet = $this->PDO->prepare($sql);
+			
+			$this->resultSet->bindValue(':usuario', $usuario);
+			$this->resultSet->bindValue(':livro', $livro);
+			$this->resultSet->bindValue(':capitulo', $capitulo);
+			$this->resultSet->bindValue(':versao', $versao);
+
+			$result = $this->resultSet->execute();
+		
+			return $result;	
+			
+		} catch (PDOException $ex) {
+			return $ex->getCode();
+		}
+	}
+	
+		public function removeHistorico($usuario, $livro, $capitulo, $versao) {
+		
+		try{
+			$sql  = " DELETE FROM dkyfpcr_biblia.usuario_historico ";
+			$sql .= " WHERE id_usuario = :usuario AND id_livro = :livro AND id_versao = :versao AND num_capitulo = :capitulo ";
 
 			$this->resultSet = $this->PDO->prepare($sql);
 			
@@ -395,11 +414,6 @@ class BibliaDAO {
 	}
 }
 */
-
-
-
-
-
 //AMBIENTE DE DESENVOLVIMENTO
 
 
@@ -587,6 +601,28 @@ class BibliaDAO {
 		} catch (PDOException $ex) {
 			return $ex->getCode();
 		}
+	}	
+	
+	public function removeHistorico($usuario, $livro, $capitulo, $versao) {
+		
+		try{
+			$sql  = " DELETE FROM biblia.usuario_historico ";
+			$sql .= " WHERE id_usuario = :usuario AND id_livro = :livro AND id_versao = :versao AND num_capitulo = :capitulo ";
+
+			$this->resultSet = $this->PDO->prepare($sql);
+			
+			$this->resultSet->bindValue(':usuario', $usuario);
+			$this->resultSet->bindValue(':livro', $livro);
+			$this->resultSet->bindValue(':capitulo', $capitulo);
+			$this->resultSet->bindValue(':versao', $versao);
+
+			$result = $this->resultSet->execute();
+		
+			return $result;	
+			
+		} catch (PDOException $ex) {
+			return $ex->getCode();
+		}
 	}
 	
 	public function countHistorico($usuario, $livro, $versao, $capitulo) {
@@ -668,6 +704,7 @@ class BibliaDAO {
 		$sql .= " INNER JOIN biblia.livro l ON l.id_livro = hl.id_livro ";
 		$sql .= " WHERE id_usuario = :usuario ";
 		$sql .= " GROUP BY DATE_FORMAT(dt_historico, '%d/%m/%Y') ";
+		$sql .= " ORDER BY DATE_FORMAT(dt_historico, '%Y/%m/%d') DESC ";
 
 		$this->resultSet = $this->PDO->prepare($sql);
 		

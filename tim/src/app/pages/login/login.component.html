@@ -1,13 +1,12 @@
-<div class="section section-dark" id="login" style="margin-top: -70px; padding: 0px;">
+<div class="section section-dark" id="login" style="margin-top: 0px; padding: 0px;">
     <div class="page-header" style="background-image: url('assets/img/login-image.jpg');">
         <div class="filter"></div>
 
         <div class="container">
             <div class="row">
-                <div class="col-lg-4 col-sm-6 mr-auto ml-auto">
+                <div class="col-lg-4 col-sm-8 mr-auto ml-auto">
                     <div class="card card-register">
                         <h3 class="title">{{tituloLogin}}</h3>
-
                         <form class="register-form">
                             <label *ngIf="!esqueciSenha && !possuiCadastro">Primeiro Nome</label>
                             <div class="input-group form-group-no-border" *ngIf="!esqueciSenha && !possuiCadastro">
@@ -18,7 +17,6 @@
                                 </div>
                                 <input type="text" class="form-control" name="primeiroNome" [(ngModel)]="primeiroNome">
                             </div>
-
                             <label *ngIf="!esqueciSenha && !possuiCadastro">Último Nome</label>
                             <div class="input-group form-group-no-border" *ngIf="!esqueciSenha && !possuiCadastro">
                                 <div class="input-group-prepend">
@@ -28,7 +26,6 @@
                                 </div>
                                 <input type="text" class="form-control" name="ultimoNome" [(ngModel)]="ultimoNome">
                             </div>
-
                             <label>Email</label>
                             <div class="input-group form-group-no-border">
                                 <div class="input-group-prepend">
@@ -39,7 +36,6 @@
 
                                 <input type="text" name="email" class="form-control" [(ngModel)]="email">
                             </div>
-
                             <label *ngIf="!esqueciSenha">Senha</label>
                             <div class="input-group form-group-no-border" *ngIf="!esqueciSenha">
                                 <div class="input-group-prepend">
@@ -49,7 +45,6 @@
                                 </div>
                                 <input type="password" name="senha" class="form-control" [(ngModel)]="senha">
                             </div>
-
                             <label *ngIf="!esqueciSenha && !possuiCadastro">Repetir Senha</label>
                             <div class="input-group form-group-no-border" *ngIf="!esqueciSenha && !possuiCadastro">
                                 <div class="input-group-prepend">
@@ -59,16 +54,11 @@
                                 </div>
                                 <input type="password" name="senhaConfirmacao" class="form-control" [(ngModel)]="senhaConfirmacao">
                             </div>
-
-
-                            <button *ngIf="!esqueciSenha && possuiCadastro" class="btn btn-success btn-block btn-round" (click)="logon()">Entrar</button>
-
+                            <button *ngIf="!esqueciSenha && possuiCadastro" class="btn btn-success btn-block btn-round" pageScroll [pageScrollOffset]="70" [pageScrollDuration]="700" [pageScrollInterruptible]="false" (pageScrollFinish)="logon()" href="#home">Entrar</button>
                             <!--button *ngIf="!esqueciSenha && possuiCadastro" class="btn btn-primary btn-block btn-round" (click)="toggleEsqueciSenha()">Esqueci a senha</button-->
                             <button *ngIf="!esqueciSenha && possuiCadastro" class="btn btn-danger btn-block btn-round" (click)="togglePossuiCadastro()">Não possui login? Cadastre-se!</button>
-
                             <button *ngIf="esqueciSenha && possuiCadastro" class="btn btn-success btn-block btn-round" (click)="redefinirSenha()">Redefinir senha</button>
                             <button *ngIf="esqueciSenha && possuiCadastro" class="btn btn-primary btn-block btn-round" (click)="voltar('redefinirSenha')">Voltar</button>
-
                             <button *ngIf="!esqueciSenha && !possuiCadastro" class="btn btn-success btn-block btn-round" (click)="cadastrar()">Cadastrar</button>
                             <button *ngIf="!esqueciSenha && !possuiCadastro" class="btn btn-primary btn-block btn-round" (click)="voltar('cadastro')">Voltar</button>
                         </form>
