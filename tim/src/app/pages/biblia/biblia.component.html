@@ -1,4 +1,4 @@
-<div id="pesquisa" class="section search height-100" style="background-image: url(assets/img/search.jpg);">
+<div id="pesquisa" class="section search">
     <div class="search-header">
         <div class="container-fluid">
             <div class="row justify-content-md-center">
@@ -58,19 +58,15 @@
         </div>
     </div>
 </div>
-<div id="indice" class="section height-100">
-    <div class="container">
-        <div class="tim-title">
-            <h2>Índice de Livros</h2>
-            <p>
-                Selecione um livro para leitura
-            </p>
-        </div>
-        <div class="row">
-            <div class="col-md-3">
-                <img src="assets/img/biblia-capa.jpg">
+<div id="indice" class="section">
+    <div class="container-fluid">
+        <div class="row justify-content-md-center">
+            <div class="col col-md-8">
+                <h2 class="title">Selecione um livro para leitura</h2>
             </div>
-            <div class="col-md-9">
+        </div>
+        <div class="row justify-content-md-center">
+            <div class="mb-3 col-md-6 col-sm-12 col-xs-12">
                 <div class="nav-tabs-navigation">
                     <div class="nav-tabs-wrapper">
                         <ngb-tabset [justify]="'center'">
@@ -79,7 +75,7 @@
                                     <div (click)="onTabSelect(1)">Velho Testamento</div>
                                 </ng-template>
                                 <ng-template ngbTabContent>
-                                    <div class="col-md-12">
+                                    <div class="pr-0 pl-0 col-md-12">
                                         <select class="custom-select" [(ngModel)]="livro" (change)="onSelectChange()">
                                             <option value="0">Selecione</option>
                                             <option *ngFor="let livroVT of velhoTestamento" value="{{livroVT.id}}" >{{livroVT.abreviacao}} - {{livroVT.nome}}</option>
@@ -92,7 +88,7 @@
                                     <div (click)="onTabSelect(2)">Novo Testamento</div>
                                 </ng-template>
                                 <ng-template ngbTabContent>
-                                    <div class="col-md-12">
+                                    <div class="pr-0 pl-0 col-md-12">
                                         <select class="custom-select" [(ngModel)]="livro" (change)="onSelectChange()">
                                             <option value="0">Selecione</option>
                                             <option *ngFor="let livroNT of novoTestamento" value="{{livroNT.id}}" >{{livroNT.abreviacao}} - {{livroNT.nome}}</option>
@@ -101,15 +97,17 @@
                                 </ng-template>
                             </ngb-tab>
                         </ngb-tabset>
-                        <div *ngIf="podeAbrirLivro; then abrirLivro else abrirMensagemValidacao"></div>
-                        <ng-template #abrirLivro>
-                            <button type="button" class="btn btn-success float-left dropdown-btn-action" pageScroll [pageScrollOffset]="0" [pageScrollDuration]="700" [pageScrollInterruptible]="false" href="#leitura" (pageScrollFinish)="abrirLivroIndice()"><i class="fa fa-book"></i>Abrir Livro</button>
-                        </ng-template>
-                        <ng-template #abrirMensagemValidacao>
-                            <button type="button" class="btn btn-success float-left dropdown-btn-action" (click)="abrirLivroIndice()" placement="bottom"><i class="fa fa-book"></i>Abrir Livro</button>
-                        </ng-template>
                     </div>
                 </div>
+            </div>
+            <div class="mt-4 mb-3 col-md-2 col-sm-12 col-xs-12">
+                <div *ngIf="podeAbrirLivro; then abrirLivro else abrirMensagemValidacao"></div>
+                <ng-template #abrirLivro>
+                    <button type="button" class="btn btn-success float-left dropdown-btn-action" pageScroll [pageScrollOffset]="0" [pageScrollDuration]="700" [pageScrollInterruptible]="false" href="#leitura" (pageScrollFinish)="abrirLivroIndice()"><i class="fa fa-book"></i>Abrir Livro</button>
+                </ng-template>
+                <ng-template #abrirMensagemValidacao>
+                    <button type="button" class="btn btn-success float-left dropdown-btn-action" (click)="abrirLivroIndice()" placement="bottom"><i class="fa fa-book"></i>Abrir Livro</button>
+                </ng-template>
             </div>
         </div>
     </div>
@@ -182,7 +180,7 @@
             <div class="row justify-content-md-center">
                 <div class="col col-md-12">
                     <div class="pagination-wrapper text-center">
-                        <ngb-pagination id="paginator-leitura" [collectionSize]="totalItems * 10" [maxSize]="7" [rotate]="true" [boundaryLinks]="true" [(page)]="page" (pageChange)="nextPage($event)"></ngb-pagination>
+                        <ngb-pagination id="paginator-leitura" [collectionSize]="totalItems * 10" [maxSize]="7" [rotate]="true" [boundaryLinks]="true" [(page)]="page" pageScroll [pageScrollOffset]="0" [pageScrollDuration]="700" [pageScrollInterruptible]="false" href="#leitura" (pageScrollFinish)="nextPage($event)"></ngb-pagination>
                     </div>
                 </div>
             </div>

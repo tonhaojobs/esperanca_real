@@ -12,7 +12,7 @@ import { AuthenticationResult } from '../_models/authentication.result';
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
 
-  private url: string = 'api/';
+  private url: string = 'http://localhost/biblia-esperanca-real/esperanca-real-api/';
   identityStorage: IdentityStorage;
   private messageSource = new BehaviorSubject(false);
   public message = this.messageSource.asObservable();

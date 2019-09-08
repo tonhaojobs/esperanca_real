@@ -9,7 +9,7 @@ import { Versao } from 'app/model/versao';
 })
 export class LivroService {
 
-  private url: string = 'api/';
+  private url: string = 'http://localhost/biblia-esperanca-real/esperanca-real-api/';
   public http: HttpClient;
 
   constructor(http: HttpClient) {
