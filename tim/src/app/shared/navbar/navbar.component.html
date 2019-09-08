@@ -11,22 +11,25 @@
         <div class="navbar-collapse" id="navbarToggler">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" pageScroll [pageScrollOffset]="70" [pageScrollDuration]="700" [pageScrollInterruptible]="false" href="#home">home</a>
+                    <a class="nav-link" pageScroll [pageScrollOffset]="70" [pageScrollDuration]="700" [pageScrollInterruptible]="false" (click)="sidebarClose()" href="#home">home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" pageScroll [pageScrollOffset]="70" [pageScrollDuration]="700" [pageScrollInterruptible]="false" href="#pesquisa">pesquisa</a>
+                    <a class="nav-link" pageScroll [pageScrollOffset]="70" [pageScrollDuration]="700" [pageScrollInterruptible]="false" (click)="sidebarClose()" href="#pesquisa">pesquisa</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" pageScroll [pageScrollOffset]="70" [pageScrollDuration]="700" [pageScrollInterruptible]="false" href="#indice">índice</a>
+                    <a class="nav-link" pageScroll [pageScrollOffset]="70" [pageScrollDuration]="700" [pageScrollInterruptible]="false" (click)="sidebarClose()" href="#indice">índice</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" pageScroll [pageScrollOffset]="0" [pageScrollDuration]="700" [pageScrollInterruptible]="false" href="#leitura">bíblia</a>
+                    <a class="nav-link" pageScroll [pageScrollOffset]="0" [pageScrollDuration]="700" [pageScrollInterruptible]="false" (click)="sidebarClose()" href="#leitura">bíblia</a>
                 </li>
                 <li class="nav-item" *ngIf="!isLogged()">
-                    <a class="nav-link" pageScroll [pageScrollOffset]="0" [pageScrollDuration]="700" [pageScrollInterruptible]="false" href="#login">login</a>
+                    <a class="nav-link" pageScroll [pageScrollOffset]="70" [pageScrollDuration]="700" [pageScrollInterruptible]="false" (click)="sidebarClose()" href="#login">plano de leitura</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" pageScroll [pageScrollOffset]="70" [pageScrollDuration]="700" [pageScrollInterruptible]="false" href="#dashboard" *ngIf="isLogged()">Dashboard</a>
+                    <a class="nav-link" pageScroll [pageScrollOffset]="70" [pageScrollDuration]="700" [pageScrollInterruptible]="false" (click)="sidebarClose()" href="#dashboard" *ngIf="isLogged()">plano de leitura</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" pageScroll [pageScrollOffset]="0" [pageScrollDuration]="700" [pageScrollInterruptible]="false" (click)="sidebarClose()" href="#leitura">ajuda</a>
                 </li>
             </ul>
         </div>

@@ -59,7 +59,6 @@
     </div>
 </div>
 <div id="indice" class="section">
-
     <div class="container-fluid">
         <div class="row justify-content-md-center">
             <div class="col col-md-8">
@@ -76,7 +75,7 @@
                                     <div (click)="onTabSelect(1)">Velho Testamento</div>
                                 </ng-template>
                                 <ng-template ngbTabContent>
-                                    <div class="col-md-12">
+                                    <div class="pr-0 pl-0 col-md-12">
                                         <select class="custom-select" [(ngModel)]="livro" (change)="onSelectChange()">
                                             <option value="0">Selecione</option>
                                             <option *ngFor="let livroVT of velhoTestamento" value="{{livroVT.id}}" >{{livroVT.abreviacao}} - {{livroVT.nome}}</option>
@@ -89,7 +88,7 @@
                                     <div (click)="onTabSelect(2)">Novo Testamento</div>
                                 </ng-template>
                                 <ng-template ngbTabContent>
-                                    <div class="col-md-12">
+                                    <div class="pr-0 pl-0 col-md-12">
                                         <select class="custom-select" [(ngModel)]="livro" (change)="onSelectChange()">
                                             <option value="0">Selecione</option>
                                             <option *ngFor="let livroNT of novoTestamento" value="{{livroNT.id}}" >{{livroNT.abreviacao}} - {{livroNT.nome}}</option>
@@ -98,15 +97,17 @@
                                 </ng-template>
                             </ngb-tab>
                         </ngb-tabset>
-                        <div *ngIf="podeAbrirLivro; then abrirLivro else abrirMensagemValidacao"></div>
-                        <ng-template #abrirLivro>
-                            <button type="button" class="btn btn-success float-left dropdown-btn-action" pageScroll [pageScrollOffset]="0" [pageScrollDuration]="700" [pageScrollInterruptible]="false" href="#leitura" (pageScrollFinish)="abrirLivroIndice()"><i class="fa fa-book"></i>Abrir Livro</button>
-                        </ng-template>
-                        <ng-template #abrirMensagemValidacao>
-                            <button type="button" class="btn btn-success float-left dropdown-btn-action" (click)="abrirLivroIndice()" placement="bottom"><i class="fa fa-book"></i>Abrir Livro</button>
-                        </ng-template>
                     </div>
                 </div>
+            </div>
+            <div class="mt-4 mb-3 col-md-2 col-sm-12 col-xs-12">
+                <div *ngIf="podeAbrirLivro; then abrirLivro else abrirMensagemValidacao"></div>
+                <ng-template #abrirLivro>
+                    <button type="button" class="btn btn-success float-left dropdown-btn-action" pageScroll [pageScrollOffset]="0" [pageScrollDuration]="700" [pageScrollInterruptible]="false" href="#leitura" (pageScrollFinish)="abrirLivroIndice()"><i class="fa fa-book"></i>Abrir Livro</button>
+                </ng-template>
+                <ng-template #abrirMensagemValidacao>
+                    <button type="button" class="btn btn-success float-left dropdown-btn-action" (click)="abrirLivroIndice()" placement="bottom"><i class="fa fa-book"></i>Abrir Livro</button>
+                </ng-template>
             </div>
         </div>
     </div>

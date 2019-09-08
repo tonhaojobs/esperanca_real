@@ -16,15 +16,12 @@ img {
     text-align: left
 }
 
-.dropdown-btn-action {
-    margin: 25px 0 0 15px;
-}
-
 .search {
     background-position: top center;
     background-size: cover;
     background-attachment: fixed;
-    padding: 0 0 30px 0;
+    padding: 0;
+    margin-top: -40px;
 }
 
 .leitura-header {
@@ -50,7 +47,8 @@ img {
 }
 
 .pagination-wrapper {
-    margin: 30px 0 0 0;
+    display: block;
+    margin: 30px 0 80px 0;
 }
 
 .wrapper-count {
@@ -62,14 +60,45 @@ img {
     color: #000;
 }
 
-.search-count-result {
-    /* margin: 15px;*/
-}
-
 .opcoes-leitura {
     padding: 10px 0 50px 0;
 }
 
 .align {
     margin-top: 17px;
+}
+
+// Extra small devices (portrait phones, less than 576px)
+@media (max-width: 575.98px) { 
+    .dropdown-btn-action {
+        margin: -15px 0 0 7px;
+    }
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) and (max-width: 767.98px) { 
+    .dropdown-btn-action {
+        margin: -15px 0 0 7px;
+    }
+}
+
+// Medium devices (tablets, 768px and up)
+@media (min-width: 768px) and (max-width: 991.98px) { 
+    .dropdown-btn-action {
+        margin: 57px 0 0 0;
+    }
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) and (max-width: 1199.98px) { 
+    .dropdown-btn-action {
+        margin: 57px 0 0 0;
+    }
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) { 
+    .dropdown-btn-action {
+        margin: 57px 0 0 0;
+    }
 }
