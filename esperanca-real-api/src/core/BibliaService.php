@@ -58,6 +58,15 @@ class BibliaService {
 		}
 	}
 	
+	public function removeHistorico($usuario, $livro, $capitulo, $versao) {
+		
+		$count = $this->bibliaDAO->countHistorico($usuario, $livro, $versao, $capitulo);
+		
+		if($count > 0) {
+			return $this->bibliaDAO->removeHistorico($usuario, $livro, $capitulo, $versao);
+		}
+	}
+	
 	private function getSenhaCriptografada($senha) {
 		
 		$salt = md5("33sp33r44nc44_Ree44L");

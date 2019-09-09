@@ -10,6 +10,7 @@ import { Versao } from 'app/model/versao';
 export class LivroService {
 
   private url: string = 'http://localhost/biblia-esperanca-real/esperanca-real-api/';
+ // private url: string = 'api/';
   public http: HttpClient;
 
   constructor(http: HttpClient) {
@@ -65,6 +66,17 @@ export class LivroService {
     formData.append('versao', versao); 
 
     return this.http.post(this.url + 'marcarCapitulo', formData);
+  }
+
+  desmarcarCapitulo(usuario: any, livro: any, capitulo: any, versao: any): Observable<any> {   
+
+    let formData: FormData = new FormData(); 
+    formData.append('capitulo', capitulo); 
+    formData.append('livro', livro); 
+    formData.append('usuario', usuario); 
+    formData.append('versao', versao); 
+
+    return this.http.post(this.url + 'desmarcarCapitulo', formData);
   }
   
   private getMethod<T>(relativePath: string = '', params: any = null) {

@@ -24,8 +24,7 @@ export class LoginComponent implements OnInit {
   primeiroNome: string;
   ultimoNome: string;
 
-
-  tituloLogin: string = 'Entrar';
+  tituloLogin: string = 'Plano de Leitura. Entrar';
 
   esqueciSenha: boolean = false;
   possuiCadastro: boolean = true;
@@ -93,12 +92,12 @@ export class LoginComponent implements OnInit {
 
   togglePossuiCadastro(): void {
     this.possuiCadastro = !this.possuiCadastro;
-    this.tituloLogin = 'Cadastro';
+    this.tituloLogin = 'Plano de Leitura. Cadastro';
   }
 
   voltar(origem: any) : void {
 
-    this.tituloLogin = 'Entrar';
+    this.tituloLogin = 'Plano de Leitura. Entrar';
 
     if(origem === 'redefinirSenha') {
       this.esqueciSenha = false;

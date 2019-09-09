@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Livro } from 'app/model/livro';
 import { LivroService } from 'app/services/livro.service';
 import { Pesquisa } from 'app/model/pesquisa';
@@ -7,6 +7,7 @@ import { Versao } from 'app/model/versao';
 import { IdentityStorage } from 'app/_models/identity-storage';
 import { ToastrService } from 'ngx-toastr';
 import { NgBlockUI, BlockUI } from 'ng-block-ui';
+import { Router } from '@angular/router';
 import { DashboardComponent } from '../dashboard/dashboard.component';
 
 @Component({
@@ -50,7 +51,6 @@ export class BibliaComponent implements OnInit {
   backgroundClass: string; 
   usuarioLogado: boolean;
   capituloLido: boolean;
-  labelBotaoCapituloLido: string = 'Marcar capítulo como lido';
   porcentagem: number;
   numeroCapitulosLidos: number;
   tipoProgressBar: string;
@@ -60,8 +60,9 @@ export class BibliaComponent implements OnInit {
   pagePesquisa: number;
 
   @BlockUI() blockUI: NgBlockUI;
+  @ViewChild(DashboardComponent) dashboard;
 
-  constructor(private livroService: LivroService, private idStorage: IdentityStorage, private toastr: ToastrService, public dashboard: DashboardComponent) { }
+  constructor(private livroService: LivroService, private idStorage: IdentityStorage, private toastr: ToastrService, public router: Router) { }
 
   ngOnInit() {
     this.iniciarVariaveis();
@@ -124,7 +125,6 @@ export class BibliaComponent implements OnInit {
     this.numeroCapitulosLidos = 0;
     this.tipoProgressBar = 'danger';
     this.capituloLido = false;
-    this.labelBotaoCapituloLido = 'Marcar capítulo como lido';
     
     this.livroService.abrirLivro(livro, capitulo, versao).subscribe(result => {
       this.versos.push(...result);
@@ -138,7 +138,6 @@ export class BibliaComponent implements OnInit {
       let usuario = this.idStorage.getIdentityPromise()['id'];
   
       if(usuario) {
-        this.dashboard.carregaHistoricoGeral();
         this.livroService.historicoByLivro(usuario, livro).subscribe(retorno => {
           if(retorno && retorno.length > 0) {
             this.porcentagem = retorno[0]['porcentagem'];
@@ -159,7 +158,8 @@ export class BibliaComponent implements OnInit {
         this.livroService.historicoByLivroCapitulo(usuario, livro, this.capitulo).subscribe(retorno => {
           if(retorno !== '0') {
             this.capituloLido = true;
-            this.labelBotaoCapituloLido = 'Leitura do capítulo concluída';
+          } else {
+            this.capituloLido = false;
           }
         });
       } else {
@@ -254,7 +254,19 @@ export class BibliaComponent implements OnInit {
     this.livroService.marcarCapitulo(this.idStorage.getIdentityPromise()['id'], this.livro, this.capitulo, this.versao).subscribe(retorno => {
       this.toastr.success('Leitura do capítulo ' + this.capitulo + ' do livro de ' + this.livroDTO.nome + ' concluída');
       this.capituloLido = true;
-      this.labelBotaoCapituloLido = 'Leitura do capítulo concluída';
+      this.dashboard.carregaHistoricoGeral();
+      this.dashboard.carregaHistoricoLeitura();
+      this.abrirLivro(this.livro, this.capitulo, this.versao);
+    });
+  }
+
+  public desmarcarCapituloLido(): void {
+
+    this.livroService.desmarcarCapitulo(this.idStorage.getIdentityPromise()['id'], this.livro, this.capitulo, this.versao).subscribe(retorno => {
+      this.toastr.warning('Capítulo ' + this.capitulo + ' do livro de ' + this.livroDTO.nome + ' desmarcado');
+      this.capituloLido = false;
+      this.dashboard.carregaHistoricoGeral();
+      this.dashboard.carregaHistoricoLeitura();
       this.abrirLivro(this.livro, this.capitulo, this.versao);
     });
   }
