@@ -20,7 +20,7 @@ img {
     background-position: top center;
     background-size: cover;
     background-attachment: fixed;
-    padding: 0;
+    padding: 10px 0 0 0;
     margin-top: -40px;
 }
 
@@ -75,6 +75,10 @@ img {
 
 .tab-select {
     font-weight: bold;
+}
+
+placeholder {
+    font-weight: 500;
 }
 
 // Extra small devices (portrait phones, less than 576px)
