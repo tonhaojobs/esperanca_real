@@ -6,7 +6,9 @@
             <div class="row">
                 <div class="col-lg-4 col-sm-8 mr-auto ml-auto">
                     <div class="card card-register">
-                        <h3 class="title">{{tituloLogin}}</h3>
+                        <h3 class="title">
+                            <span style="font-weight: bold">Plano de Leitura</span> <br>{{tituloLogin}}
+                        </h3>
                         <form class="register-form">
                             <label *ngIf="!esqueciSenha && !possuiCadastro">Primeiro Nome</label>
                             <div class="input-group form-group-no-border" *ngIf="!esqueciSenha && !possuiCadastro">

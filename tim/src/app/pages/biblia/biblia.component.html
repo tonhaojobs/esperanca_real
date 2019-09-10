@@ -45,7 +45,7 @@
                 <div class="row justify-content-md-center" *ngIf="resultadoPesquisa.length > 0 && exibirResultado">
                     <div class="col col-md-8">
                         <div class="pagination-wrapper text-center">
-                            <ngb-pagination id="paginator-pesquisa" [collectionSize]="resultadoPesquisa.length" [maxSize]="7" [boundaryLinks]="true" [rotate]="true" (pageChange)="pagePesquisa = $event"></ngb-pagination>
+                            <ngb-pagination id="paginator-pesquisa" [collectionSize]="resultadoPesquisa.length" [maxSize]="resultadoPesquisa.length" [rotate]="true" (pageChange)="pagePesquisa = $event"></ngb-pagination>
                         </div>
                     </div>
                 </div>
@@ -171,7 +171,7 @@
             <div class="row justify-content-md-center">
                 <div class="col col-md-12">
                     <div class="pagination-wrapper text-center">
-                        <ngb-pagination id="paginator-leitura" [collectionSize]="totalItems * 10" [maxSize]="7" [rotate]="true" [boundaryLinks]="true" [(page)]="page" (pageChange)="nextPage($event)"></ngb-pagination>
+                        <ngb-pagination id="paginator-leitura" [collectionSize]="totalItems * 10" [maxSize]="totalItems" [rotate]="true" [(page)]="page" (pageChange)="nextPage($event)"></ngb-pagination>
                     </div>
                 </div>
             </div>
